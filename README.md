@@ -1,10 +1,14 @@
 # Python 数据分析（8 天基础强化版）
-面向对象：大一年级（零/低基础），目标是在 8 天（共 24 学时）内完成“数据分析最小闭环”：获取数据 → 清洗整理 → 探索分析 → 可视化表达 → 简单模型 → 报告呈现。
+
+## 周贤中 zhouxzh@gdut.edu.cn
+
+
+面向对象：低基础，目标是在 8 天（共 24 学时）内完成“数据分析最小闭环”：获取数据 → 清洗整理 → 探索分析 → 可视化表达 → 简单模型 → 报告呈现。
 
 ## 总体设计
 核心理念：少而精、练中学、案例驱动、逐步抽象。
 教学分层：必学（≥80% 时间）+ 拓展（≤20% 激发兴趣）。
-工具栈：Anaconda / Jupyter Notebook、pandas、matplotlib（+ seaborn 可选）、scikit-learn（仅用最简单模型）。
+工具栈：Anaconda / Jupyter Notebook、numpy、pandas、matplotlib（+ seaborn 可选）、scikit-learn（仅用最简单模型）。
 
 学习路径 6+1+1：
 1. 认知与环境
