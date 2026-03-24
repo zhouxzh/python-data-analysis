@@ -1,0 +1,10 @@
+{
+  "sample_count": 511,
+  "survival_rate": 38.75,
+  "female_survival_rate": 74.21,
+  "male_survival_rate": 17.76,
+  "first_class_survival_rate": 57.14,
+  "third_class_survival_rate": 27.97,
+  "young_adult_survival_rate": 38.16,
+  "adult_survival_rate": 35.09
+}
