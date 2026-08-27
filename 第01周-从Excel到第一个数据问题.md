@@ -10,34 +10,101 @@
 
 第一节课先把环境装好。本课程需要三样东西：**Anaconda（Python 环境）**、**Node.js（DSH 的运行环境）**、**DeepSeek Harness（DSH）**。
 
-### 1.1 下载并安装 Anaconda
+### 1.1 从 TUNA 镜像下载 Anaconda
 
-打开 Anaconda 官方下载页：
+Anaconda 不要从官网下载，国内网络直接使用清华 TUNA 镜像更快、更稳定。
 
-<https://www.anaconda.com/download>
+TUNA 的 Anaconda 镜像帮助页：
 
-页面会显示当前版本的 Python，点击下载 64-Bit Graphical Installer：
+<https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/>
 
-![Anaconda 官方下载页](./images/week01/anaconda-download.png)
+![TUNA Anaconda 镜像帮助页](./images/week01/tuna-anaconda-help.png)
 
-> 官方页面会随版本更新，按钮位置可能略有变化，认准 “Anaconda” 官方网址即可。
+下载目录：
 
-安装步骤：
+<https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/>
 
-1. 双击下载好的安装包。
-2. Windows 一路点 `Next`，到许可协议时点 `I Agree`。
+在目录里选择最新版本，按系统下载对应文件：
+
+| 系统 | 文件名 |
+|---|---|
+| Windows 64 位 | `Anaconda3-版本号-1-Windows-x86_64.exe` |
+| macOS Intel 芯片 | `Anaconda3-版本号-1-MacOSX-x86_64.pkg` |
+| macOS Apple 芯片 | `Anaconda3-版本号-1-MacOSX-arm64.pkg` |
+| Linux 64 位 | `Anaconda3-版本号-1-Linux-x86_64.sh` |
+
+> 版本号会不断更新，选择目录里最新日期对应的文件即可，不要死记文件名。
+
+### 1.2 安装 Anaconda 并配置 TUNA 镜像
+
+#### Windows
+
+1. 双击下载好的 `.exe` 安装包。
+2. 一路 `Next`，到许可协议时点 `I Agree`。
 3. 选择 `Just Me`，安装到默认路径。
 4. 到 `Advanced Installation Options` 时，勾选 `Add Anaconda3 to my PATH environment variable`。
 5. 等待安装完成，不要提前关闭窗口。
-
-安装完成后打开命令行（Windows 可以用 `cmd`、PowerShell 或 Anaconda Prompt），输入：
+6. 打开 `cmd`、PowerShell 或 Anaconda Prompt，运行：
 
 ```bash
 python --version
 conda --version
 ```
 
-能看到类似输出，说明 Python 环境已经装好：
+#### macOS
+
+1. 双击下载好的 `.pkg` 安装包，按提示安装。
+2. 打开“终端”，运行 `conda init` 让 Anaconda 生效：
+
+```bash
+conda init zsh
+```
+
+如果默认 shell 是 bash，运行：
+
+```bash
+conda init bash
+```
+
+3. 关闭终端再重新打开。
+4. 验证：
+
+```bash
+python --version
+conda --version
+```
+
+#### Linux
+
+1. 打开终端，进入下载目录：
+
+```bash
+cd ~/Downloads
+```
+
+2. 运行安装脚本：
+
+```bash
+bash Anaconda3-版本号-1-Linux-x86_64.sh
+```
+
+3. 按 `Enter` 阅读协议，输入 `yes` 同意。
+4. 安装位置保持默认。
+5. 提示是否初始化 conda 时输入 `yes`。
+6. 让配置生效：
+
+```bash
+source ~/.bashrc
+```
+
+7. 验证：
+
+```bash
+python --version
+conda --version
+```
+
+三个系统只要能输出版本号即可：
 
 ```text
 Python 3.12.8
@@ -46,44 +113,120 @@ conda 24.11.3
 
 版本号不一样也没关系，只要两个命令都能打印版本就行。
 
-### 1.2 打开 Documents，创建专用目录，测试 Python
+#### 配置 TUNA 镜像
 
-安装完 Python 后，不要急着写数据分析代码，先建一个自己的练习目录，避免文件散落在桌面或下载文件夹里。
+先让 conda 生成配置文件：
 
-Windows 打开“文件资源管理器”，进入 Documents：
+```bash
+conda config --set show_channel_urls yes
+```
+
+Windows 配置文件在：
+
+```text
+C:\Users\<你的用户名>\.condarc
+```
+
+macOS / Linux 配置文件在：
+
+```text
+~/.condarc
+```
+
+把 `.condarc` 改成 TUNA 镜像：
+
+```yaml
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+```
+
+再把 pip 也改成 TUNA 镜像：
+
+```bash
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+```
+
+以后 `conda install` 和 `pip install` 都会自动走 TUNA 镜像。
+
+### 1.3 创建专用目录并测试 Python（Windows）
+
+安装完 Python 后，不要急着写数据分析代码，先建一个自己的练习目录。
+
+1. 打开“文件资源管理器”，进入 Documents：
 
 ```text
 C:\Users\<你的用户名>\Documents
 ```
 
-macOS 打开访达，进入：
+2. 新建目录 `python-course`。
+3. 打开 `cmd` 或 PowerShell，进入这个目录：
 
-```text
-~/Documents
-```
-
-在 Documents 里新建一个专用目录，例如：
-
-```text
-python-course
-```
-
-然后打开命令行，进入这个目录：
-
-```bash
-cd Documents
+```bat
+cd %USERPROFILE%\Documents
 mkdir python-course
 cd python-course
 ```
 
-在目录里新建一个 `hello.py` 文件，写入：
+4. 在目录里新建 `hello.py`，用记事本打开：
+
+```bat
+notepad hello.py
+```
+
+写入：
 
 ```python
 print("Hello, Python!")
 print(1 + 2)
 ```
 
-保存后回到命令行运行：
+5. 保存后运行：
+
+```bat
+python hello.py
+```
+
+预期输出：
+
+```text
+Hello, Python!
+3
+```
+
+### 1.4 创建专用目录并测试 Python（macOS）
+
+1. 打开“访达”，进入 `~/Documents`。
+2. 新建目录 `python-course`。
+3. 打开“终端”，进入这个目录：
+
+```bash
+cd ~/Documents
+mkdir -p python-course
+cd python-course
+```
+
+4. 新建 `hello.py` 并编辑：
+
+```bash
+nano hello.py
+```
+
+写入：
+
+```python
+print("Hello, Python!")
+print(1 + 2)
+```
+
+5. 按 `Control + O` 保存，按 `Control + X` 退出，然后运行：
 
 ```bash
 python hello.py
@@ -96,9 +239,45 @@ Hello, Python!
 3
 ```
 
-能输出 `Hello, Python!`，说明 Python 安装、目录创建、文件保存和命令行运行都正常。
+### 1.5 创建专用目录并测试 Python（Linux）
 
-### 1.3 安装课程依赖
+1. 打开终端，进入 `~/Documents`：
+
+```bash
+cd ~/Documents
+mkdir -p python-course
+cd python-course
+```
+
+2. 新建 `hello.py` 并编辑：
+
+```bash
+nano hello.py
+```
+
+写入：
+
+```python
+print("Hello, Python!")
+print(1 + 2)
+```
+
+3. 按 `Control + O` 保存，按 `Control + X` 退出，然后运行：
+
+```bash
+python hello.py
+```
+
+预期输出：
+
+```text
+Hello, Python!
+3
+```
+
+三个系统都运行 `hello.py` 后，说明 Python 安装、目录创建、文件保存和命令行运行都正常。
+
+### 1.6 安装课程依赖
 
 进入本仓库根目录，运行：
 
@@ -108,7 +287,7 @@ pip install -r requirements.txt
 
 这里会安装 pandas、numpy、matplotlib、seaborn、scikit-learn、openpyxl、pytest。安装过程中出现黄色提示通常是升级提示，不一定是错误。
 
-### 1.4 安装 Node.js
+### 1.7 安装 Node.js
 
 DeepSeek Harness 是一个 npm 工具，先安装 Node.js：
 
@@ -129,7 +308,7 @@ v20.18.0
 10.8.2
 ```
 
-### 1.5 安装并启动 DeepSeek Harness
+### 1.8 安装并启动 DeepSeek Harness
 
 DSH 的官方仓库在：
 
@@ -164,7 +343,7 @@ URL: http://127.0.0.1:3080
 
 <http://127.0.0.1:3080>
 
-### 1.6 配置 DSH
+### 1.9 配置 DSH
 
 DSH 需要两样配置才能开始工作：**模型 API Key** 和 **工作区**。
 
@@ -320,6 +499,8 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 ## 4. 验证清单
 
+- [ ] 已按自己的系统从 TUNA 镜像下载 Anaconda，并完成安装
+- [ ] `.condarc` 已改成 TUNA 镜像，`pip` 也已指向 TUNA 镜像
 - [ ] `python --version` 和 `conda --version` 能输出版本
 - [ ] 已在 Documents 里创建 `python-course` 专用目录
 - [ ] `python hello.py` 能输出 `Hello, Python!` 和 `3`
@@ -337,6 +518,11 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
+| 官网下载太慢 | 没用国内镜像 | 从 `mirrors.tuna.tsinghua.edu.cn/anaconda/archive/` 下载 |
+| Windows 找不到 `.condarc` | 文件还没生成 | 先运行 `conda config --set show_channel_urls yes` |
+| `pip install` 仍然很慢 | pip 没有配置 TUNA | 运行 `pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple` |
+| macOS 提示 `conda: command not found` | 终端没有初始化 conda | 运行 `conda init zsh`，关闭终端再重开 |
+| Linux 提示 `python: command not found` | conda 环境没生效 | 运行 `source ~/.bashrc`，或使用 `python3` |
 | `python` 不是内部或外部命令 | Anaconda 没加入 PATH | 重装时勾选 `Add Anaconda3 to my PATH`，或使用 Anaconda Prompt |
 | `python hello.py` 提示找不到文件 | 命令行不在文件所在目录 | 先 `cd` 到 `python-course`，再运行 `python hello.py` |
 | `npx` 不是内部或外部命令 | Node.js 没安装或没生效 | 重装 Node.js LTS，重新打开命令行 |
@@ -349,7 +535,7 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 ## 6. 作业
 
-1. 按第 1 节完成 Anaconda、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
+1. 按自己系统对应的小节完成 Anaconda、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
 2. 让 DSH 生成代码，统计这份成绩单，然后写出 3 个“第一版提示词没有回答”的问题。
 
 示例：
