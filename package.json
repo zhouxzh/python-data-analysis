@@ -1,0 +1,16 @@
+{
+  "name": "python-data-analysis-course",
+  "version": "1.0.0",
+  "private": true,
+  "description": "8 周 Vibe Programming × Python 数据分析教程",
+  "scripts": {
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "^2.0.0-rc.30",
+    "@vuepress/theme-default": "2.0.0-rc.132",
+    "sass-embedded": "^1.103.1",
+    "vuepress": "2.0.0-rc.30"
+  }
+}
