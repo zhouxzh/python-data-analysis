@@ -1,0 +1,139 @@
+# Week 7：第一个预测模型
+
+> **本章导读**
+> 时长：3 节课，每节 60 分钟
+> 数据：`report/data/titanic.csv`（主案例）、`data/bank_marketing.zip`（进阶案例）
+> 你将学到：区分特征与标签，运行最小逻辑回归，检查训练/测试得分，并识别目标泄漏
+> 本周产出：`projects/<姓名>/output/model_metrics.csv`
+
+## 1. 跟着老师做
+
+### 1.1 先确定要回答的问题
+
+```text
+在出发前只知道乘客信息，能否预测 TA 是否生还？
+```
+
+关键约束是“出发前”：所以建模时不能使用事后才知道的字段。
+
+### 1.2 发给 DSH 的第一版提示词
+
+```text
+请读取 report/data/titanic.csv，先不要建模。
+输出：
+1. shape、dtypes、缺失数；
+2. survived 分布；
+3. 哪些列适合做特征，哪些不适合；
+4. 是否已经有测试集，还是需要拆分。
+```
+
+### 1.3 老师的第一版模型
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+df = pd.read_csv('report/data/titanic.csv')
+df = df[['survived', 'pclass', 'sex', 'age', 'fare']].copy()
+df['sex'] = df['sex'].map({'male': 0, 'female': 1})
+df['age'] = df['age'].fillna(df['age'].median())
+df['fare'] = df['fare'].fillna(df['fare'].median())
+
+X = df.drop(columns='survived')
+y = df['survived']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+train_acc = accuracy_score(y_train, model.predict(X_train))
+test_acc = accuracy_score(y_test, model.predict(X_test))
+
+print('train accuracy:', round(train_acc, 4))
+print('test accuracy:', round(test_acc, 4))
+print()
+print('confusion matrix:')
+print(confusion_matrix(y_test, model.predict(X_test)))
+```
+
+输出会因样本和缺失处理略有不同，参考结果：
+
+```text
+train accuracy: 0.8155
+test accuracy: 0.8155
+confusion matrix:
+[[85 17]
+ [18 36]]
+```
+
+### 1.4 检查的不只是准确率
+
+```python
+print('测试集生还比例:', round(y_test.mean(), 4))
+```
+
+```text
+测试集生还比例: 0.3627
+```
+
+如果测试集只有 36% 的人生还，只猜“未生还”也能有约 64% 准确率。所以准确率必须配合混淆矩阵、precision、recall 一起看。
+
+## 2. 你自己动手做
+
+1. 新建 `projects/<姓名>/output/model_metrics.csv`。
+2. 让 DSH 输出完整评估表：
+
+```text
+请基于 Titanic 模型输出完整评估表：
+accuracy、precision、recall、f1、混淆矩阵、测试集正类比例。
+并用中文解释每个指标在这个业务问题中的含义。
+```
+
+3. 尝试改变 `random_state` 或删除 `fare`，观察指标变化。
+4. 写一句：模型能支持什么决策、不能支持什么决策。
+
+自己动手时建议用这个提示词：
+
+```text
+请审查我的 Titanic 模型：
+1. 是否在训练前拆分测试集；
+2. 是否只用“出发前”可知字段；
+3. 是否只报告准确率；
+4. 给出修改后的代码和评估表。
+```
+
+## 3. 验证清单
+
+- [ ] 代码可运行，随机种子固定
+- [ ] 训练集和测试集得分都有
+- [ ] 报告混淆矩阵和正类比例
+- [ ] 不使用事后才知道的字段
+- [ ] 结论区分“统计结果”与“业务建议”
+
+## 4. 常见错误与坑
+
+| 现象 | 原因 | 处理 |
+|---|---|---|
+| 训练准确率远高于测试 | 过拟合或泄漏 | 检查特征和验证方式 |
+| 只用准确率 | 正类比例失衡 | 加 precision/recall/f1 |
+| 用 duration 预测订阅 | 通话后才知时长 | 检查字段可得时间 |
+| 全数据训练再拆分 | 数据泄漏 | 先拆分再训练 |
+| 把相关性当因果 | 观察性数据 | 明确只能预测/关联，不能证明因果 |
+
+## 5. 作业
+
+写 100 字：这个模型能支持什么决策、不能支持什么决策。至少提到一个数据风险和一个口径假设。
+
+## 评分要点
+
+| 项目 | 要求 |
+|---|---|
+| 最小模型 | 代码可运行、拆分可复现 |
+| 评估 | 不只报准确率，能解释混淆矩阵 |
+| 风险 | 能识别目标泄漏和不平衡 |
+| 表达 | 结论区分“统计结果”与“业务建议” |

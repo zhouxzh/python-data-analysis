@@ -1,54 +1,105 @@
-# Vibe Programming × Python 数据分析（8 周 / 24 学时）
+# Vibe Programming × Python 数据分析
 
-## 周贤中 zhouxzh@gdut.edu.cn
+> 8 周 · 24 学时 · 每周一个晚上 · 每晚上 3 节课
+>
+> 这是一门“先定义问题，再让 DeepSeek Harness 生成第一版，人负责运行、验证、追问和决策”的 Python 数据分析课。
 
-面向低基础学生的 Python 数据分析课程。新版课程以 **DeepSeek Harness 协作式分析**为核心：先定义问题，再让 DSH 生成第一版代码，学生负责运行、验证、追问、解释和决策。
+本仓库不是一本 pandas 语法手册。它更像一间数据分析工作室：老师先完整做一个案例，学生跟着做一遍，再换成自己的数据动手做一遍，最后用 DSH 审查和迭代。
 
-- 时长：8 周，每周一个晚上，每晚上 3 节课，共 24 学时。
-- 案例：成绩单、城市空气质量、银行营销、Titanic、学生自选项目。
-- 交付：每周 3 节课的完整教案、提示词库、DSH 手册、参考代码、结课项目模板。
+## 你将会学到
 
-## 课程入口
+- 用自然语言把模糊问题变成可执行的数据分析任务
+- 让 DeepSeek Harness 读取数据、写代码、运行命令、搜索资料、拆子任务
+- 不盲信 AI 输出：检查数据、口径、样本量和结论依据
+- 完成“读取 → 清洗 → EDA → 可视化 → 模型 → 报告”的完整闭环
+- 把课堂项目沉淀成可复现的 `.py` 脚本和 GitHub Pages 作品
 
-新版课程全部放在 [`vibe-course/`](vibe-course/README.md)：
+## 为什么现在是 Vibe Programming
 
-| 内容 | 路径 |
-|---|---|
-| 课程总览 | [vibe-course/README.md](vibe-course/README.md) |
-| 8 周课表 | [vibe-course/syllabus.md](vibe-course/syllabus.md) |
-| 每周教案 | [vibe-course/sessions/](vibe-course/sessions/) |
-| DSH 使用手册 | [vibe-course/dsh/harness-playbook.md](vibe-course/dsh/harness-playbook.md) |
-| 核心提示词库 | [vibe-course/prompts/core-prompts.md](vibe-course/prompts/core-prompts.md) |
-| 参考代码 | [vibe-course/examples/](vibe-course/examples/) |
-| 结课项目 | [vibe-course/assignments/final-project.md](vibe-course/assignments/final-project.md) |
+数据分析的真实门槛不再是“记住 pandas 的 API”，而是：
+
+1. 定义问题：到底要回答什么？
+2. 识别口径：哪个字段、什么时间范围、多少样本？
+3. 验证结果：AI 写的代码真的算对了吗？
+4. 表达结论：这个发现能支撑什么、不能支撑什么？
+
+DeepSeek Harness 负责“预测”：快速生成代码、图表、脚本和方案。学生负责“判断”：选择方向、验证输出、解释业务含义。这就是从 Coder 到 Commander 的转变。
 
 ## 8 周课程地图
 
-1. 从 Excel 到第一个数据问题
-2. pandas 数据结构与读取
-3. 数据清洗与审计
-4. EDA 与提出假设
-5. 可视化表达
-6. 合并、分组与迷你项目
-7. 第一个预测模型
-8. 结课项目与展示
+| 周 | 主题 | 主案例 | 本周产出 |
+|---|---|---|---|
+| 1 | 从 Excel 到第一个数据问题 | 成绩单 | 1 个可运行的 `.py` 脚本 |
+| 2 | pandas 数据结构与读取 | 城市空气质量 | 数据概览卡片 |
+| 3 | 数据清洗与审计 | 脏空气质量表 | 清洗报告 |
+| 4 | EDA 与提出假设 | 银行营销数据 | 3 个发现 + 3 个假设 |
+| 5 | 可视化表达 | 空气质量小时数据 | 1 张信息完整的面板 |
+| 6 | 合并、分组与迷你项目 | 城市人口 + 空气数据 | 迷你分析报告 |
+| 7 | 第一个预测模型 | Titanic / 银行营销 | 模型评估摘要 |
+| 8 | 结课项目与展示 | 学生自选 | 完整报告 + 3 分钟展示 |
 
-## 环境
+## 每一课怎么上
+
+所有周次使用同一种课堂结构：
+
+```text
+1. 跟着老师做
+   老师给一个问题 → DSH 生成第一版 → 运行 → 对照输出 → 解释结果
+
+2. 自己动手做
+   换数据、换字段、换问题 → 自己写提示词 → 记录报错和修改
+
+3. 验证与复盘
+   检查清单 → DSH 反方审查 → 写“我验证了什么、还有哪些不确定”
+```
+
+## 目录结构
+
+```text
+python-data-analysis/
+  README.md                课程首页与学习地图
+  syllabus.md              8 周详细课表
+  sessions/                每周 3 节课的实践教程
+  scripts/                 每周可直接运行的 .py 实践脚本
+  prompts/                 可直接复制到 DSH 的提示词库
+  dsh/                     DeepSeek Harness 使用手册与示例工作流
+  examples/                参考代码与数据生成脚本
+  assignments/             结课项目与评分标准
+  tutorials/               旧版 Python 教程（已转成普通 .py）
+  data/                    课程数据
+  report/                  Titanic 完整示例
+```
+
+## 快速开始
 
 ```bash
 pip install -r requirements.txt
 ```
 
-然后打开 DeepSeek Harness Web GUI，把本仓库作为 workspace。
+然后打开 DeepSeek Harness Web GUI，把本仓库作为 workspace：
 
-## 旧版材料
+```text
+http://127.0.0.1:3080
+```
 
-旧版 notebook 仍保留在 [`notebooks/`](notebooks/)，Titanic 完整示例仍保留在 [`report/`](report/)。新课程会复用其中的数据与案例，但教学主线已改为 Vibe Programming。
+第一节课从 [sessions/week01-vibe-and-first-data.md](sessions/week01-vibe-and-first-data.md) 开始，先运行：
 
-## 学习迁移提示
+```bash
+python scripts/week01_practice.py
+```
 
-1. 把数据分析看成循环：问题 → 数据 → 清洗 → 探索 → 表达 → 复盘。
-2. AI 生成第一版，人负责验证和决策。
-3. 报错和追问记录是学习资产，不要只保留最终答案。
-4. 结论必须能指出依据：哪个字段、什么计算、多少样本。
-5. 可复现 > 炫技，注释解释“为什么”而不是“做什么”。
+## 参考写法
+
+本课程参考了 GitHub 上两个成熟的 Vibe Programming 开源教程：
+
+- [datawhalechina/easy-vibe](https://github.com/datawhalechina/easy-vibe)：从零开始学 AI 编程，用“跟着老师做 + 自己动手做”组织课程
+- [datawhalechina/vibe-vibe](https://github.com/datawhalechina/vibe-vibe)：系统化的 Vibe Coding 教程，强调从“写代码”转向“对话式创作”
+
+本仓库保留 Python 数据分析的专业内容，但教学主线改为与它们一致：**先讲问题，再做项目，最后沉淀技能。**
+
+## 教师上课建议
+
+1. 每节课前 10 分钟演示一个“提示词 → DSH 运行 → 结果检查”的最小循环。
+2. 学生练习时不允许只复制最终代码，必须保留报错、修改和追问记录。
+3. 每周作业包含两个层次：完成分析 + 写一句“我验证了什么、还有哪些不确定”。
+4. 第 8 周分成 3 人小组：问题与口径、代码与验证、结论与展示，展示时轮换角色。
