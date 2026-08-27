@@ -7,12 +7,12 @@
 - 所有案例数据都在本仓库 `data/` 中，学生不需要联网下载也能完成主体练习。
 - DSH 不是答案机。凡是 AI 生成的代码，学生必须运行并用自己的话解释 1 个关键步骤。
 
-## Week 1：从 Excel 到第一个数据问题
+## Week 1：环境安装与第一个数据问题
 
-- 第 1 节：数据分析是什么；AI 时代为什么还要学 Python；认识 DSH Web GUI、workspace 和数据文件。
-- 第 2 节：Python 最基础类型与结构；让 DSH 读取 `data/成绩单.xlsx` 并做首次汇总。
-- 第 3 节：Mini case：统计 5 名同学的平均分、最高分、最低分；保存第一个 `.py` 脚本。
-- 作业：用 DSH 生成代码，统计 `data/成绩单.xlsx` 并写出 3 个“从这份成绩能回答的问题”。
+- 第 1 节：安装 Anaconda、Node.js、DeepSeek Harness；验证 `python` / `node` / DSH；配置 API Key 和工作区。
+- 第 2 节：认识 DSH Web GUI、workspace 和数据文件；让 DSH 读取 `data/成绩单.xlsx` 并做首次汇总。
+- 第 3 节：Mini case：发现 `59..5` 数据格式问题，修复后计算平均分，保存第一个 `.py` 脚本。
+- 作业：完成安装并保存验证截图；用 DSH 统计 `data/成绩单.xlsx` 并写出 3 个“从这份成绩能回答的问题”。
 
 ## Week 2：pandas 数据结构与读取
 

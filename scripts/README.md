@@ -6,7 +6,7 @@
 
 | 脚本 | 对应周次 | 运行 |
 |---|---|---|
-| `week01_practice.py` | Week 1 成绩单与 Python 基础 | `python scripts/week01_practice.py` |
+| `week01_practice.py` | Week 1 环境安装与成绩单 | `python scripts/week01_practice.py` |
 | `week02_practice.py` | Week 2 pandas 读取与聚合 | `python scripts/week02_practice.py` |
 | `week03_practice.py` | Week 3 数据清洗与审计 | `python scripts/week03_practice.py` |
 | `week04_practice.py` | Week 4 银行营销 EDA | `python scripts/week04_practice.py` |
