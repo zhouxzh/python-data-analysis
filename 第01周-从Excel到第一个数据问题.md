@@ -46,7 +46,59 @@ conda 24.11.3
 
 版本号不一样也没关系，只要两个命令都能打印版本就行。
 
-### 1.2 安装课程依赖
+### 1.2 打开 Documents，创建专用目录，测试 Python
+
+安装完 Python 后，不要急着写数据分析代码，先建一个自己的练习目录，避免文件散落在桌面或下载文件夹里。
+
+Windows 打开“文件资源管理器”，进入 Documents：
+
+```text
+C:\Users\<你的用户名>\Documents
+```
+
+macOS 打开访达，进入：
+
+```text
+~/Documents
+```
+
+在 Documents 里新建一个专用目录，例如：
+
+```text
+python-course
+```
+
+然后打开命令行，进入这个目录：
+
+```bash
+cd Documents
+mkdir python-course
+cd python-course
+```
+
+在目录里新建一个 `hello.py` 文件，写入：
+
+```python
+print("Hello, Python!")
+print(1 + 2)
+```
+
+保存后回到命令行运行：
+
+```bash
+python hello.py
+```
+
+预期输出：
+
+```text
+Hello, Python!
+3
+```
+
+能输出 `Hello, Python!`，说明 Python 安装、目录创建、文件保存和命令行运行都正常。
+
+### 1.3 安装课程依赖
 
 进入本仓库根目录，运行：
 
@@ -56,7 +108,7 @@ pip install -r requirements.txt
 
 这里会安装 pandas、numpy、matplotlib、seaborn、scikit-learn、openpyxl、pytest。安装过程中出现黄色提示通常是升级提示，不一定是错误。
 
-### 1.3 安装 Node.js
+### 1.4 安装 Node.js
 
 DeepSeek Harness 是一个 npm 工具，先安装 Node.js：
 
@@ -77,7 +129,7 @@ v20.18.0
 10.8.2
 ```
 
-### 1.4 安装并启动 DeepSeek Harness
+### 1.5 安装并启动 DeepSeek Harness
 
 DSH 的官方仓库在：
 
@@ -112,7 +164,7 @@ URL: http://127.0.0.1:3080
 
 <http://127.0.0.1:3080>
 
-### 1.5 配置 DSH
+### 1.6 配置 DSH
 
 DSH 需要两样配置才能开始工作：**模型 API Key** 和 **工作区**。
 
@@ -269,6 +321,8 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 ## 4. 验证清单
 
 - [ ] `python --version` 和 `conda --version` 能输出版本
+- [ ] 已在 Documents 里创建 `python-course` 专用目录
+- [ ] `python hello.py` 能输出 `Hello, Python!` 和 `3`
 - [ ] `node --version` 和 `npm --version` 能输出版本
 - [ ] `npx @deepseek-ai/dsh web` 能启动，浏览器打开 `http://127.0.0.1:3080`
 - [ ] 已保存 DeepSeek API Key
@@ -284,6 +338,7 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 | 现象 | 原因 | 处理 |
 |---|---|---|
 | `python` 不是内部或外部命令 | Anaconda 没加入 PATH | 重装时勾选 `Add Anaconda3 to my PATH`，或使用 Anaconda Prompt |
+| `python hello.py` 提示找不到文件 | 命令行不在文件所在目录 | 先 `cd` 到 `python-course`，再运行 `python hello.py` |
 | `npx` 不是内部或外部命令 | Node.js 没安装或没生效 | 重装 Node.js LTS，重新打开命令行 |
 | DSH 页面打不开 | 启动命令还在下载，或端口被占用 | 等命令显示 `URL: http://127.0.0.1:3080` 后再刷新浏览器 |
 | 页面能开但不能输入对话 | 没保存 API Key 或没选工作区 | 完成 `Settings → Models` 和 `Choose workspace` |
@@ -294,7 +349,7 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 ## 6. 作业
 
-1. 按第 1 节完成 Anaconda、Node.js 和 DSH 安装，把验证命令的输出截图保存到 `projects/<姓名>/environment.png`。
+1. 按第 1 节完成 Anaconda、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
 2. 让 DSH 生成代码，统计这份成绩单，然后写出 3 个“第一版提示词没有回答”的问题。
 
 示例：
