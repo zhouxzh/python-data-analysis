@@ -10,12 +10,13 @@ export default {
   pagePatterns: [
     'README.md',
     'syllabus.md',
-    'sessions/**/*.md',
+    '第*.md',
     'scripts/**/*.md',
     'prompts/**/*.md',
     'dsh/**/*.md',
     'examples/**/*.md',
     'assignments/**/*.md',
+    'projects/**/*.md',
     '!**/node_modules/**',
     '!**/.git/**',
     '!**/.vuepress/**'
@@ -27,7 +28,7 @@ export default {
     navbar: [
       { text: '首页', link: '/' },
       { text: '8 周课表', link: '/syllabus.html' },
-      { text: '每周实践', link: '/sessions/week01-vibe-and-first-data.html' },
+      { text: '每周实践', link: '/第01周-从Excel到第一个数据问题.html' },
       { text: 'DSH 手册', link: '/dsh/harness-playbook.html' }
     ],
     sidebar: [
@@ -38,14 +39,14 @@ export default {
       {
         text: '每周实践教程',
         children: [
-          '/sessions/week01-vibe-and-first-data.html',
-          '/sessions/week02-pandas-and-csv.html',
-          '/sessions/week03-cleaning-and-audit.html',
-          '/sessions/week04-eda-and-hypotheses.html',
-          '/sessions/week05-visualization.html',
-          '/sessions/week06-merge-and-group.html',
-          '/sessions/week07-first-model.html',
-          '/sessions/week08-final-project.html'
+          '/第01周-从Excel到第一个数据问题.html',
+          '/第02周-pandas与数据读取.html',
+          '/第03周-数据清洗与审计.html',
+          '/第04周-EDA与提出假设.html',
+          '/第05周-可视化表达.html',
+          '/第06周-合并分组与迷你项目.html',
+          '/第07周-第一个预测模型.html',
+          '/第08周-结课项目与展示.html'
         ]
       },
       {

@@ -79,7 +79,7 @@
 
 ```text
 请检查以下建模方案是否存在数据泄漏或逻辑问题。
-数据：<report/data/titanic.csv>
+数据：<data/titanic.csv>
 目标：<survived>
 方案：<我的特征和代码>
 请检查：

@@ -70,4 +70,4 @@
 - `data/city_info.csv`：城市人口 / 区域信息，适合 Week 6 合并。
 - `data/synthetic_air_quality.csv`：小时级空气数据，适合 Week 5 可视化和 Week 7 回归。
 - `data/bank_marketing.zip`：UCI 银行营销数据，适合 Week 4 EDA 和 Week 7 分类。
-- `report/data/titanic.csv`：Titanic 生存数据，适合 Week 7 分类和结课项目。
+- `data/titanic.csv`：Titanic 生存数据，适合 Week 7 分类和结课项目。

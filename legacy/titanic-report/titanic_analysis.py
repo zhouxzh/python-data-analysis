@@ -19,7 +19,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data"
+REPO_ROOT = BASE_DIR.parents[1]
+DATA_DIR = REPO_ROOT / "data"
 FIGURE_DIR = BASE_DIR / "figures"
 OUTPUT_DIR = BASE_DIR / "output"
 DATA_FILE = DATA_DIR / "titanic.csv"
@@ -48,7 +49,7 @@ def ensure_dataset() -> Path:
             continue
 
     raise RuntimeError(
-        "Unable to download Titanic dataset. Check network access or place titanic.csv in report/data/."
+        "Unable to download Titanic dataset. Check network access or place titanic.csv in data/."
     )
 
 

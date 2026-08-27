@@ -2,6 +2,8 @@
 
 本目录把每周课堂例子整理成普通 Python 文件，不再使用 notebook。
 
+8 周教程正文直接放在仓库根目录：`第01周-*.md` 到 `第08周-*.md`。本目录中的脚本与每周教程一一对应。
+
 | 脚本 | 对应周次 | 运行 |
 |---|---|---|
 | `week01_practice.py` | Week 1 成绩单与 Python 基础 | `python scripts/week01_practice.py` |

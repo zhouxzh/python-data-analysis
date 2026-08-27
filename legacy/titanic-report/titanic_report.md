@@ -19,7 +19,7 @@
 
 ## 3. 数据来源与字段说明
 
-- 数据来源：seaborn Titanic 公开数据集，已缓存到 report/data/titanic.csv。
+- 数据来源：seaborn Titanic 公开数据集，已缓存到 data/titanic.csv。
 - 样本量：511 条乘客记录。
 - 目标变量：survived，1 表示生还，0 表示未生还。
 - 主要特征：
@@ -47,7 +47,7 @@
 - seaborn
 - scikit-learn
 
-完整可运行代码见 report/titanic_analysis.py。
+完整可运行代码见 legacy/titanic-report/titanic_analysis.py。
 
 ## 5. 数据清洗与特征工程
 
@@ -228,20 +228,20 @@ model_specs = {
 在项目根目录执行以下命令即可重新生成图表和模型结果：
 
 ```bash
-/mnt/d/Github/python-data-analysis/.venv/bin/python report/titanic_analysis.py
+/mnt/d/Github/python-data-analysis/.venv/bin/python legacy/titanic-report/titanic_analysis.py
 ```
 
 脚本运行后会自动生成以下内容：
 
-- report/data/titanic.csv
-- report/figures/*.png
-- report/output/*.csv
-- report/output/analysis_summary.md
+- data/titanic.csv
+- legacy/titanic-report/figures/*.png
+- legacy/titanic-report/output/*.csv
+- legacy/titanic-report/output/analysis_summary.md
 
 ## 12. 附录
 
-- 分析脚本：report/titanic_analysis.py
-- 数据文件：report/data/titanic.csv
-- 结果汇总：report/output/analysis_summary.md
+- 分析脚本：legacy/titanic-report/titanic_analysis.py
+- 数据文件：data/titanic.csv
+- 结果汇总：legacy/titanic-report/output/analysis_summary.md
 
 本报告完成了一个完整的 Python 数据分析闭环，体现了从数据获取到模型评估再到结论表达的全过程，满足课程报告对 Markdown 主体与独立 Python 代码文件的要求。

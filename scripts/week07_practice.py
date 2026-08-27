@@ -12,7 +12,7 @@ print("=" * 60)
 print("1. 读取 Titanic 数据")
 print("=" * 60)
 
-df = pd.read_csv("report/data/titanic.csv")
+df = pd.read_csv("data/titanic.csv")
 df = df[["survived", "pclass", "sex", "age", "fare"]].copy()
 df["sex"] = df["sex"].map({"male": 0, "female": 1})
 df["age"] = df["age"].fillna(df["age"].median())

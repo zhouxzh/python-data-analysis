@@ -28,7 +28,7 @@ http://127.0.0.1:3080
 dsh web
 ```
 
-启动后把“当前工作目录”设置为本仓库根目录，例如 `/home/zhong/Documents/python-data-analysis`。这样 DSH 可以直接看到 `data/`、`sessions/`、`scripts/` 和你的项目文件夹。
+启动后把“当前工作目录”设置为本仓库根目录，例如 `/home/zhong/Documents/python-data-analysis`。这样 DSH 可以直接看到 `data/`、`第01周-*.md`、`scripts/` 和你的项目文件夹。
 
 建议每个学生项目单独建一个目录：
 
