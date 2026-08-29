@@ -2,8 +2,8 @@
 
 > **本章导读**
 > 时长：3 节课，每节 60 分钟
-> 数据：`data/bank_marketing.zip`
-> 你将学到：带着明确问题做 EDA，报告样本量，识别目标不平衡和 `duration` 泄漏
+> 数据：`data/nyc_airbnb.csv`
+> 你将学到：带着明确问题做 EDA，报告样本量，识别价格分层、缺失和异常值，并区分“发现”与“假设”
 > 本周产出：`projects/<姓名>/output/eda_findings.md`
 
 ## 1. 跟着老师做
@@ -11,130 +11,117 @@
 ### 1.1 先确定要回答的问题
 
 ```text
-哪些客户更容易订阅定期存款？
+哪些因素看起来和 Airbnb 价格有关？
 ```
 
 先把它拆成可以计算的小问题：
 
-- 不同 `contact` 方式的订阅率差多少？
-- 哪些月份订阅率更高？
-- 之前联系结果 `poutcome` 是否影响订阅率？
+- 不同行政区的价格差多少？
+- 不同房型的价格差多少？
+- 高价房源（price > 200）主要集中在哪里？
+- 没有评论的房源占多少？
 
-### 1.2 读取银行营销数据
+### 1.2 读取数据并做基础检查
 
 ```python
-import io
-import zipfile
 import pandas as pd
 
-with zipfile.ZipFile('data/bank_marketing.zip') as outer:
-    inner_name = next(n for n in outer.namelist() if n.endswith('bank-additional.zip'))
-    with zipfile.ZipFile(io.BytesIO(outer.read(inner_name))) as inner:
-        csv_name = next(n for n in inner.namelist() if n.endswith('bank-additional-full.csv'))
-        with inner.open(csv_name) as f:
-            df = pd.read_csv(f, sep=';')
+df = pd.read_csv('data/nyc_airbnb.csv')
 
 print('shape:', df.shape)
-print(df.head())
+print(df[['neighbourhood_group', 'room_type', 'price',
+          'reviews_per_month']].isna().sum())
 ```
 
 预期输出：
 
 ```text
-shape: (41188, 21)
-   age        job  marital    education  default housing loan    contact  ...
-0   56  housemaid  married     basic.4y       no      no   no  telephone  ...
-...
+shape: (48895, 16)
+neighbourhood_group       0
+room_type                 0
+price                     0
+reviews_per_month     10052
 ```
 
-### 1.3 检查目标变量与伪缺失
+### 1.3 带着问题做 EDA
 
 ```python
-print(df['y'].value_counts(normalize=True).round(4))
+print('按行政区:')
+print(df.groupby('neighbourhood_group')['price']
+      .agg(['mean', 'median', 'count'])
+      .round(2)
+      .sort_values('mean', ascending=False))
 print()
-unknown_cols = ['job', 'marital', 'education', 'default', 'housing', 'loan']
-print(df[unknown_cols].eq('unknown').sum().sort_values(ascending=False))
+print('按房型:')
+print(df.groupby('room_type')['price']
+      .agg(['mean', 'median', 'count'])
+      .round(2)
+      .sort_values('mean', ascending=False))
 ```
 
 预期输出：
 
 ```text
-y
-no     0.8873
-yes    0.1127
-Name: ratio, dtype: float64
+按行政区:
+                  mean  median  count
+neighbourhood_group
+Manhattan        196.88   150.0  21661
+Brooklyn         124.38    90.0  20104
+Staten Island    114.81    75.0    373
+Queens            99.52    75.0   5666
+Bronx             87.50    65.0   1091
 
-default      8597
-education    1731
-housing       990
-loan          990
-job           330
-marital        80
-dtype: int64
+按房型:
+                  mean  median  count
+room_type
+Entire home/apt  211.79   160.0  25409
+Private room      89.78    70.0  22326
+Shared room       70.13    45.0   1160
 ```
 
-这里有两个重要信号：
-
-1. 订阅率只有 11.27%，是不平衡目标。
-2. `unknown` 不是 NaN，但代表缺失或未记录。
-
-### 1.4 带着问题做 EDA
+### 1.4 高价比例与缺失
 
 ```python
-def success_rate_table(df, group_cols):
-    return (
-        df.groupby(group_cols)['y']
-        .agg(customers='size', success_rate=lambda s: (s == 'yes').mean())
-        .round(4)
-        .sort_values('success_rate', ascending=False)
-    )
+df['high_price'] = df['price'] > 200
 
-print('contact:')
-print(success_rate_table(df, 'contact'))
+print('高价房源比例:')
+print(df.groupby('room_type')['high_price']
+      .agg(['mean', 'count'])
+      .round(4))
 print()
-print('month 前 5:')
-print(success_rate_table(df, 'month').head(5))
-print()
-print('poutcome:')
-print(success_rate_table(df, 'poutcome'))
+print('reviews_per_month 缺失数:')
+print(df.groupby('room_type')['reviews_per_month']
+      .apply(lambda s: s.isna().sum()))
 ```
 
 预期输出：
 
 ```text
-contact:
-          customers  success_rate
-contact
-cellular      26144       0.1474
-telephone     15044       0.0523
+高价房源比例:
+                  mean  count
+room_type
+Entire home/apt  0.3006  25409
+Private room     0.0317  22326
+Shared room      0.0345   1160
 
-month 前 5:
-       customers  success_rate
-month
-mar         546       0.5055
-dec         182       0.4890
-sep         570       0.4491
-oct         718       0.4387
-apr        2632       0.2048
-
-poutcome:
-             customers  success_rate
-poutcome
-success           1373       0.6511
-failure           4252       0.1423
-nonexistent      35563       0.0883
+reviews_per_month 缺失数:
+room_type
+Entire home/apt    5077
+Private room       4661
+Shared room         314
+Name: reviews_per_month, dtype: int64
 ```
 
 ### 1.5 解读
 
 ```text
-发现 1：cellular 联系方式的订阅率约 14.74%，高于 telephone 的 5.23%。
-发现 2：3 月订阅率约 50.55%，但样本量只有 546，需要谨慎。
-发现 3：之前联系过且 poutcome=success 的客户订阅率约 65.11%。
+发现 1：Manhattan 平均价格约 196.88，中位数 150，明显高于其他行政区。
+发现 2：Entire home/apt 平均价格约 211.79，30.06% 属于高价房源。
+发现 3：reviews_per_month 缺失 10052 行，说明约五分之一的房源没有评论记录。
 
-假设 1：订阅率差异可能来自客户意向，而不是 contact 本身。
-假设 2：月份效果可能受营销活动节奏影响，需要活动日志验证。
-假设 3：如果预测目标是“事前筛选客户”，duration 不能作为特征。
+假设 1：行政区价差可能来自房源位置和房型结构，而不只是“Manhattan 这个名字”。
+假设 2：高价房源集中在 Manhattan + Entire home/apt，需要交叉表验证。
+假设 3：没有评论的房源可能是新上架或较少被预订，不能直接当成“价格低”。
 ```
 
 ## 2. 你自己动手做
@@ -142,19 +129,22 @@ nonexistent      35563       0.0883
 1. 新建 `projects/<姓名>/output/eda_findings.md`。
 2. 写自己的 3 个发现 + 3 个假设，每条注明字段、计算方式、样本量。
 3. 让 DSH 扮演反方，尝试推翻你的每个结论。
-4. 检查 `duration` 与订阅率的关系，解释为什么它是泄漏字段。
+4. 检查价格与 `minimum_nights`、`number_of_reviews`、`availability_365` 的相关性：
 
 ```python
-print(df.groupby('y')['duration'].mean().round(1))
+print(df[['price', 'minimum_nights', 'number_of_reviews', 'availability_365']]
+      .corr()['price']
+      .round(3))
 ```
 
 预期输出：
 
 ```text
-y
-no     220.8
-yes    553.2
-Name: duration, dtype: float64
+price               1.000
+minimum_nights      0.043
+number_of_reviews  -0.048
+availability_365    0.082
+Name: price, dtype: float64
 ```
 
 自己动手时建议用这个提示词：
@@ -163,28 +153,28 @@ Name: duration, dtype: float64
 请审查我的 EDA 报告：
 1. 每个发现是否有数据依据；
 2. 是否缺少样本量；
-3. 是否误用 duration 做前置判断；
+3. 是否把 0 和缺失混为一谈；
 4. 是否把相关性写成因果；
 5. 给出反方意见。
 ```
 
 ## 3. 验证清单
 
-- [ ] 每个分组表包含 `customers` 和 `success_rate`
+- [ ] 每个分组表包含 `count`
 - [ ] 结论区分“发现”和“假设”
 - [ ] 样本量被写进结论
-- [ ] 提到 `unknown` 和 `duration` 的风险
+- [ ] 提到缺失、价格异常和“相关不等于因果”
 - [ ] 脚本可用 `python scripts/week04_practice.py` 运行
 
 ## 4. 常见错误与坑
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
-| 只看比例不看样本量 | 小样本被高估 | 分组表加 `size` |
+| 只看均值不看中位数和样本量 | 小样本或异常值被高估 | 分组表加 `median` 和 `count` |
 | 把相关说成因果 | 没有对照组 | 写“发现/假设”而非“原因” |
-| 用 duration 做预测特征 | 事后才知道 | 建模前检查字段可得时间 |
-| 忽略不平衡 | 准确率被多数类主导 | 报告正类比例和 precision/recall |
-| `unknown` 当成普通值 | 伪缺失 | 先统计再决定处理 |
+| 用均价直接比较行政区 | 房型结构不同 | 交叉表或先控制房型 |
+| 忽略缺失 | 无评论房源被排除 | 报告缺失数量 |
+| `price == 0` 当成正常值 | 业务上不可能 | 标记异常并说明处理 |
 
 ## 5. 作业
 
@@ -196,5 +186,5 @@ Name: duration, dtype: float64
 |---|---|
 | 问题 | 每个分析都对应一个明确问题 |
 | 统计 | 分组表包含样本量和比例 |
-| 风险 | 能识别 unknown、不平衡、duration 泄漏 |
+| 风险 | 能识别缺失、异常值、相关不等于因果 |
 | 表达 | 区分已验证发现与待验证假设 |

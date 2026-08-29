@@ -107,7 +107,7 @@ projects/
    → 让 DSH 输出 shape、dtypes、缺失、重复、唯一值、可疑字段。
 
 3. 定义问题与验收标准
-   → 例如：PM2.5 最高城市、订阅率差异、模型准确率要如何评价。
+   → 例如：平均价格最高的房型、行政区价格差异、价格预测误差要如何评价。
 
 4. 要求最小可运行版本
    → “先给我能运行的 10 行代码，不要完整报告。”
@@ -130,11 +130,11 @@ projects/
 复制下面的内容到 DSH：
 
 ```text
-请把 `data/air_quality_dirty.csv` 作为本次任务的数据，不要修改原文件。
+请把 `data/nyc_airbnb.csv` 作为本次任务的数据，不要修改原文件。
 任务：
 1. 先读取文件，输出行数、列名、每列缺失数、重复行数、dtypes；
 2. 列出你认为最需要优先处理的 3 个数据质量问题，每个问题给出判断依据；
-3. 写一段 pandas 清洗代码，保存在 `projects/example/scripts/clean_air.py`；
+3. 写一段 pandas 清洗代码，保存在 `projects/example/scripts/clean_airbnb.py`；
 4. 运行清洗代码，输出清洗前后行数和缺失数对比。
 约束：只用 pandas；代码要可读；每个结论都要能从我给你的数据中找到证据。
 ```
@@ -144,7 +144,7 @@ projects/
 当任务超过“读一个文件”时，先让 DSH 进入 plan mode：
 
 ```text
-/plan 我要做一个城市空气质量迷你报告，先不要改文件，只做调查和方案。
+/plan 我要做一个纽约 Airbnb 价格迷你报告，先不要改文件，只做调查和方案。
 ```
 
 DSH 会先探索数据、列出方案，并用 `exit_plan_mode` 请求确认。确认后再开始写代码。适合 Week 6 的迷你项目和 Week 8 的结课项目。
@@ -155,9 +155,9 @@ DSH 会先探索数据、列出方案，并用 `exit_plan_mode` 请求确认。�
 
 ```text
 请创建一个目标：
-“完成《城市空气质量迷你报告》”
+“完成《纽约 Airbnb 价格迷你报告》”
 验收标准：
-1. output/clean_air.csv 存在；
+1. output/clean_airbnb.csv 存在；
 2. output/dashboard.png 存在；
 3. report.md 里有 3 个有数据依据的结论；
 4. 每步都写明数据来源和局限。
@@ -172,8 +172,8 @@ DSH 会记录目标状态，完成一轮后自动继续。暂停、恢复、标�
 
 ```text
 请同时启动两个后台子代理：
-子代理 A：审计 `data/air_quality_dirty.csv`，输出 `projects/example/audit.md`；
-子代理 B：审查 `projects/example/scripts/clean_air.py`，找出潜在 bug 和数据风险；
+子代理 A：审计 `data/nyc_airbnb.csv`，输出 `projects/example/audit.md`；
+子代理 B：审查 `projects/example/scripts/clean_airbnb.py`，找出潜在 bug 和数据风险；
 两个子代理都不要修改原始数据，完成后把结论汇总给我。
 ```
 

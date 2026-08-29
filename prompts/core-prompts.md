@@ -12,7 +12,7 @@
 
 ```text
 请作为数据分析审计员。
-任务：审计 `<data/air_quality_dirty.csv>`，不要修改原文件。
+任务：审计 `<data/nyc_airbnb.csv>`，不要修改原文件。
 请输出：
 1. shape、列名、dtypes、每列缺失数、重复行数；
 2. 每个数据质量问题的判断依据；
@@ -25,8 +25,8 @@
 
 ```text
 请为以下任务生成最小可运行代码：
-任务：<找出 PM2.5 平均最高的 3 个城市>
-数据：`data/air_quality_simple.csv`
+任务：<找出平均价格最高的房型>
+数据：`data/nyc_airbnb.csv`
 约束：
 - 只使用 pandas；
 - 不超过 15 行；
@@ -37,11 +37,11 @@
 ## 3. 带问题做 EDA
 
 ```text
-请基于 `<data/bank_marketing.zip>` 中的数据做 EDA。
+请基于 `<data/nyc_airbnb.csv>` 中的数据做 EDA。
 我要回答 3 个明确问题：
-1. <不同 contact 方式的订阅率是否不同？>
-2. <哪几个月的订阅率更高？>
-3. <哪类客户的订阅率更高？>
+1. <不同行政区的价格差异是否明显？>
+2. <不同房型的价格差异是否明显？>
+3. <没有评论的房源占多少？>
 请为每个问题输出：
 - 对应的 pandas 代码；
 - 一张直接回答该问题的图；
@@ -53,13 +53,13 @@
 
 ```text
 请写一个 pandas 清洗函数。
-数据：`data/air_quality_dirty.csv`
+数据：`data/nyc_airbnb.csv`
 要求：
-1. 去重；
-2. 把数值列转成正确类型；
+1. 检查重复行和 id 重复；
+2. 把价格转成正确类型并标记异常值；
 3. 处理缺失值并说明策略；
-4. 日期列转 datetime；
-5. 保存清洗结果到 `<projects/example/output/clean_air.csv>`；
+4. last_review 转 datetime；
+5. 保存清洗结果到 `<projects/example/output/clean_airbnb.csv>`；
 6. 最后输出清洗前后对比表。
 约束：不修改原始文件；每个策略都要有理由。
 ```
@@ -72,21 +72,22 @@
 1. 每张图是否对应一个明确问题；
 2. 标题、轴标签、图例、单位、数据来源是否完整；
 3. 是否存在误导：只画比例不写样本量、坐标轴截断、相关当因果；
-4. 给出修改后的代码。
+4. 是否写明 price > 1000 被过滤的规则；
+5. 给出修改后的代码。
 ```
 
 ## 6. 建模前的风险检查
 
 ```text
 请检查以下建模方案是否存在数据泄漏或逻辑问题。
-数据：<data/titanic.csv>
-目标：<survived>
+数据：<data/nyc_airbnb.csv>
+目标：<price>
 方案：<我的特征和代码>
 请检查：
-1. 哪些字段在预测时是事后才知道的；
-2. 缺失值和样本不平衡是否处理合理；
+1. 哪些字段在挂牌定价时是事后才知道的；
+2. 缺失值和价格异常是否处理合理；
 3. 训练集和测试集是否可能重叠；
-4. 报告哪些指标、为什么。
+4. 报告 R2、MAE 和简单基准，为什么。
 ```
 
 ## 7. 调试报错
@@ -103,7 +104,7 @@
 ## 8. 让 DSH 运行并反馈
 
 ```text
-请运行 `<projects/example/scripts/clean_air.py>`。
+请运行 `<projects/example/scripts/clean_airbnb.py>`。
 然后把真实输出贴给我，并检查：
 1. 输出文件是否生成；
 2. 清洗前后行数和缺失数是否与预期一致；
@@ -115,7 +116,7 @@
 ```text
 请根据以下文件写 `<report.md>`：
 - `<projects/example/audit.md>`
-- `<projects/example/output/clean_air.csv>`
+- `<projects/example/output/clean_airbnb.csv>`
 - `<projects/example/output/dashboard.png>`
 要求：
 1. 分成：问题、数据来源、方法、发现、局限、下一步；
@@ -128,9 +129,9 @@
 
 ```text
 请创建一个目标：
-“完成《<城市空气质量迷你报告>》”
+“完成《<纽约 Airbnb 价格迷你报告>》”
 验收标准：
-1. `output/clean_air.csv` 存在；
+1. `output/clean_airbnb.csv` 存在；
 2. `output/dashboard.png` 存在；
 3. `report.md` 中有 3 个有数据依据的结论；
 4. 每个结论都注明局限。
@@ -141,8 +142,8 @@
 
 ```text
 请同时启动两个后台子代理：
-子代理 A：审计 `<data/air_quality_dirty.csv>`，输出 `<projects/example/audit.md>`；
-子代理 B：审查 `<projects/example/scripts/clean_air.py>`，输出代码审查意见；
+子代理 A：审计 `<data/nyc_airbnb.csv>`，输出 `<projects/example/audit.md>`；
+子代理 B：审查 `<projects/example/scripts/clean_airbnb.py>`，输出代码审查意见；
 两个子代理都要独立验证，不共享结论；完成后汇总给我。
 ```
 
@@ -160,7 +161,7 @@
 
 | 差提示词 | 为什么差 | 更好 |
 |---|---|---|
-| “帮我分析这个数据集” | 没有任务、没有验收标准 | “回答 PM2.5 是否和湿度相关，输出相关系数和一张散点图” |
+| “帮我分析这个数据集” | 没有任务、没有验收标准 | “回答平均价格最高的房型是什么，输出分组表和样本量” |
 | “帮我写完整报告” | 跳过最小版本和验证 | “先给我可运行的清洗函数，再逐步做 EDA 和报告” |
-| “这个结果对不对” | 没有给代码、数据、口径 | “我用 30 天数据算均值，样本量 30，结果是 42，请检查我的口径” |
+| “这个结果对不对” | 没有给代码、数据、口径 | “我用 48895 行数据按房型算均价，样本量 25409，结果 211.79，请检查我的口径” |
 | “AI 说这是原因” | 把相关当因果 | “请列出支持因果的证据和替代解释” |

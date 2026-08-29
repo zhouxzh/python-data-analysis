@@ -1,14 +1,14 @@
-# Week 1：先安全使用 Agent，再做第一个数据问题
+# Week 1：认识 Agent、安全使用 DSH，并完成第一个数据问题
 
 > **本章导读**
 > 时长：3 节课，每节 60 分钟
-> 数据：`data/成绩单.xlsx`
-> 你将学到：认识 Agent 和 DSH 界面、遵守安全使用规则，然后用自然语言让 DSH 读 Excel、写第一版 Python、发现数据格式问题，并自己验证结果
+> 数据：`data/nyc_airbnb.csv`
+> 你将学到：认识 AI Agent、常见 Agent 与大模型，理解 DeepSeek + DSH 的特点和安全使用规则，安装本课程环境，再分别体验传统 Python 编程和 Vibe Coding
 > 本周产出：`projects/<姓名>/first_analysis.py`
 
-## 1. 第 1 节课：认识 Agent 与安全规则
+## 1. 第 1 节课：认识 Agent、大模型与 DSH
 
-第一节不急着安装软件，先把三件事讲明白：**Agent 是什么、DSH 界面长什么样、为什么不能盲目让它执行命令**。后面的所有操作都建立在这些规则之上。
+第一节不急着安装软件，先把五件事讲明白：**Agent 是什么、常见 Agent 有哪些、常见大模型各有什么特点、本课程为什么选 DeepSeek + DSH、为什么不能盲目让 Agent 执行命令**。后面的所有操作都建立在这些认知之上。
 
 ### 1.1 什么是 AI Agent
 
@@ -23,7 +23,7 @@ AI Agent（智能体）不是普通的聊天机器人。聊天机器人只能“
 | 记忆 | 工作记录，负责记住上下文和目标 | 当前会话、长期目标 |
 | 工作区 | 活动范围，Agent 主要只能动这里 | 本课程仓库目录 |
 
-DSH 的工作方式是一个循环：**理解目标 → 制定计划 → 调用工具 → 看到结果 → 调整计划**。例如你让它“读成绩单”，它先找到文件，再运行 Python 读取，然后把结果贴给你。
+DSH 的工作方式是一个循环：**理解目标 → 制定计划 → 调用工具 → 看到结果 → 调整计划**。例如你让它“读取 Airbnb 数据”，它先找到文件，再运行 Python 读取，然后把结果贴给你。
 
 ```mermaid
 flowchart LR
@@ -38,7 +38,69 @@ flowchart LR
 
 **最重要的观念：Agent 是执行者，不是负责人；你是负责人。** Agent 会做的事，是它的工具允许它做的事；它能做到哪一步，取决于你在界面上确认了什么。
 
-### 1.2 DSH 界面介绍
+### 1.2 常见的 AI Agent
+
+常见的 Agent 可以分成四类，权限从小到大的顺序是：网页助手 → 代码补全 → AI IDE → 本地 Agent。
+
+| Agent | 类型 | 特点 | 会不会直接动本地文件 |
+|---|---|---|---|
+| ChatGPT | 网页/App 助手 | 通用问答、写作、编程；生态成熟 | 通常不会 |
+| Claude | 网页/App + Claude Code | 长文本与代码能力强；Claude Code 可操作本地项目 | Claude Code 会 |
+| Gemini | 网页/App 助手 | 多模态、长上下文、与 Google 服务整合 | 通常不会 |
+| DeepSeek | 网页/App 助手 | 中文与推理能力强、API 成本低 | 通常不会 |
+| GitHub Copilot | VS Code 补全 | 写代码时补全、解释、生成小段代码 | 只读取当前代码 |
+| Cursor / Trae / Qoder | AI IDE | 边看代码边让 AI 修改，集成终端和文件管理 | 会 |
+| Claude Code / Codex CLI / DSH | 本地 Agent | 能读写文件、运行命令、联网搜索，适合完整任务 | 会，权限最大 |
+
+**记住这条规律：Agent 能做的事情越多，风险越大。** 网页助手帮你写答案，出了问题你可以不看；本地 Agent 帮你删文件、改配置、装软件，出了问题会真实发生在你的电脑上。
+
+### 1.3 常见大模型
+
+大模型是 Agent 的“大脑”。同一个 Agent 环境可以配置不同的大模型，但不同大模型的擅长方向不同。
+
+| 大模型 | 厂商 | 特点 | 成本 | 开源 |
+|---|---|---|---|---|
+| GPT-4o / GPT-5 系列 | OpenAI | 综合能力强，多模态，生态和插件丰富 | 较高 | 闭源 |
+| Claude 系列 | Anthropic | 长文本、代码、Agent 工具调用能力强 | 较高 | 闭源 |
+| Gemini | Google | 多模态、超长上下文，与 Google 搜索和文档整合好 | 有免费额度 | 闭源 |
+| DeepSeek | 深度求索 | 中文理解好，推理和代码能力强，API 成本低 | 低 | 部分开源 |
+| Qwen（通义千问） | 阿里 | 中文强，开源生态好，适合中文场景 | 低/开源部署 | 开源 |
+| Llama | Meta | 开源权重，可本地部署，适合学习开源生态 | 需要硬件 | 开源 |
+
+对数据分析课来说，我们看重三件事：**中文提问能不能听懂、代码和推理准不准、学生自己用起来贵不贵**。DeepSeek 在这三点上比较均衡，所以本课程选它作为默认大模型。
+
+### 1.4 本课程为什么用 DeepSeek + DSH
+
+DeepSeek 提供“大脑”，DSH 提供“手脚”。
+
+DeepSeek 的特点：
+
+- 中文自然语言理解好，适合用中文描述分析任务；
+- 推理和代码能力适合写 pandas、跑统计、画图；
+- API 成本低，适合学生反复尝试；
+- 支持长任务和工具调用，适合配合 Agent 使用。
+
+DSH 的特点：
+
+- 有本地工作区：Agent 主要只操作你选定的目录；
+- 有真实工具：能读文件、写文件、运行 Python 命令、搜索网页；
+- 有任务机制：`plan mode`、长期目标、后台子代理、workflow；
+- 有安全边界：执行命令前可能请求确认，学生可以打断；
+- 有 Web 界面：浏览器打开 `http://127.0.0.1:3080` 即可使用。
+
+```mermaid
+flowchart LR
+    A[DeepSeek 大模型<br/>负责理解和生成方案] --> B[DSH Agent 环境<br/>负责规划和调用工具]
+    B --> C[读文件 / 写文件]
+    B --> D[运行 Python 命令]
+    B --> E[搜索网页]
+    C --> F[工具返回真实结果]
+    D --> F
+    E --> F
+    F --> G[你审查并验证]
+```
+
+### 1.5 DSH 界面介绍
 
 启动 DSH 后，浏览器打开 <http://127.0.0.1:3080>，界面主要分成几块：
 
@@ -55,7 +117,15 @@ flowchart LR
 
 在设置里选择工作区时，必须选中本课程仓库根目录，例如 Windows 的 `D:\python-data-analysis`，macOS/Linux 的 `/home/<用户名>/Documents/python-data-analysis`。**Agent 主要只在这个目录里活动，选错目录等于把钥匙交给了不认识的人。**
 
-### 1.3 为什么必须先讲安全
+配置完成后，第一件事不是发任务，而是先问一句：
+
+```text
+请告诉我当前工作区路径。
+```
+
+如果 DSH 回答的路径不是本课程仓库，先改回本仓库再继续。
+
+### 1.6 安全使用 Agent
 
 Agent 能做的事情和真人操作电脑一样有后果：删除文件、覆盖文件、安装软件、下载数据、执行命令。如果学生看不懂命令就点击“允许”，一个不小心就可能把课程项目、原数据甚至系统环境弄坏。
 
@@ -67,7 +137,7 @@ Agent 能做的事情和真人操作电脑一样有后果：删除文件、覆�
 4. **每步都有验证。** Agent 说“完成”不等于完成；必须运行、看输出、检查结果。
 5. **发现异常立即喊停。** 看到删除、格式化、上传、安装系统级软件等命令，先停下来。
 
-### 1.4 风险点与应对规则
+#### 风险点与应对规则
 
 | 风险 | 为什么会发生 | 课堂规则 |
 |---|---|---|
@@ -79,7 +149,7 @@ Agent 能做的事情和真人操作电脑一样有后果：删除文件、覆�
 | 长任务失控 | 让 Agent 连续跑很久，跑偏了还在继续 | 每个里程碑停下来审查；发现跑偏立即打断 |
 | 环境污染 | 全局安装软件或修改系统配置 | 课程使用 Anaconda 环境和 `python-course` 目录，不直接动系统 |
 
-### 1.5 安全使用流程
+#### 安全使用流程
 
 每次使用 DSH 完成任务，都按这个流程走：
 
@@ -104,7 +174,7 @@ flowchart TD
 
 本课程要求学生在第 1 节课结束前完成一次自测：写出 3 个“绝对不执行”的命令，以及 3 个“执行前必须确认”的操作。写不出来就不开始安装。
 
-## 2. 环境安装（第 2 节课）
+## 2. 第 2 节课：安装环境
 
 第二节课把环境装好。本课程需要四样东西：**Anaconda（Python 环境）**、**VS Code（编辑器）**、**Node.js（DSH 的运行环境）**、**DeepSeek Harness（DSH）**。
 
@@ -341,11 +411,7 @@ VS Code 打开目录后，在窗口顶部菜单栏点击：
 
 如果窗口下方没有看到终端，就重新执行一次“顶部菜单 → 终端 → 新建终端”，或按上面的快捷键。
 
-新建 `.py` 文件时，可以用“资源管理器”里的“新建文件”图标，也可以按 `Ctrl+N`（macOS 为 `Cmd+N`）新建文件，再按 `Ctrl+S` / `Cmd+S` 命名为 `hello.py`。只要 VS Code 打开了 `python-course`，文件就会保存到这个目录里。
-
-### 2.4 创建专用目录并测试 Python（Windows）
-
-安装完 Python 和 VS Code 后，不要急着写数据分析代码，先建一个自己的练习目录。
+### 2.4 创建专用目录并打开 VS Code（Windows）
 
 1. 打开“文件资源管理器”，进入 Documents：
 
@@ -354,53 +420,36 @@ C:\Users\<你的用户名>\Documents
 ```
 
 2. 新建目录 `python-course`。
-3. 再用 VS Code 打开这个已创建的 `python-course` 文件夹，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。终端会自动定位到这个文件夹。
-4. 在 VS Code 里新建 `hello.py`：点击左侧资源管理器中的“新建文件”图标，输入文件名 `hello.py`，然后写入：
-
-```python
-print("Hello, Python!")
-print(1 + 2)
-```
-
-5. 按 `Ctrl+S` 保存后，在 VS Code 内置终端运行：
+3. 在文件夹上右键，选择 `Open with Code`。
+4. 在 VS Code 里打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。终端会自动定位到这个文件夹。
+5. 验证 Python：
 
 ```bat
-python hello.py
+python --version
+conda --version
 ```
 
-预期输出：
+能输出版本号即可，例如：
 
 ```text
-Hello, Python!
-3
+Python 3.12.8
+conda 24.11.3
 ```
 
-### 2.5 创建专用目录并测试 Python（macOS）
+### 2.5 创建专用目录并打开 VS Code（macOS）
 
 1. 打开“访达”，进入 `~/Documents`。
 2. 新建目录 `python-course`。
-3. 再用 VS Code 打开这个已创建的 `python-course` 文件夹，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Control+` ``。终端会自动定位到这个文件夹。
-4. 在 VS Code 里新建 `hello.py`，写入：
-
-```python
-print("Hello, Python!")
-print(1 + 2)
-```
-
-5. 按 `Command+S` 保存后，在 VS Code 内置终端运行：
+3. 打开 VS Code，按 `Cmd+O` 选择 `~/Documents/python-course`。
+4. 打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Control+` ``。终端会自动定位到这个文件夹。
+5. 验证 Python：
 
 ```bash
-python hello.py
+python --version
+conda --version
 ```
 
-预期输出：
-
-```text
-Hello, Python!
-3
-```
-
-### 2.6 创建专用目录并测试 Python（Linux）
+### 2.6 创建专用目录并打开 VS Code（Linux）
 
 1. 先用文件管理器进入 `~/Documents`，新建目录 `python-course`；也可以用终端创建：
 
@@ -408,28 +457,15 @@ Hello, Python!
 mkdir -p ~/Documents/python-course
 ```
 
-2. 再打开 VS Code，按 `Ctrl+O` 选择 `~/Documents/python-course`，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。终端会自动定位到这个文件夹。
-3. 在 VS Code 里新建 `hello.py`，写入：
-
-```python
-print("Hello, Python!")
-print(1 + 2)
-```
-
-4. 按 `Ctrl+S` 保存后，在 VS Code 内置终端运行：
+2. 打开 VS Code，按 `Ctrl+O` 选择 `~/Documents/python-course`，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。
+3. 验证 Python：
 
 ```bash
-python hello.py
+python --version
+conda --version
 ```
 
-预期输出：
-
-```text
-Hello, Python!
-3
-```
-
-三个系统都运行 `hello.py` 后，说明 Python 安装、目录创建、文件保存和命令行运行都正常。
+三个系统都完成目录创建和 VS Code 打开后，说明 Python 环境、目录管理和编辑器使用都正常。
 
 ### 2.7 安装课程依赖
 
@@ -537,39 +573,125 @@ D:\python-data-analysis
 
 配置完成后，先做一个安全检查：在 DSH 里发送一句话，例如“请告诉我当前工作区路径”，确认它看到的路径是本课程仓库。如果显示的是其他目录，先改回本仓库再继续。本课程的课堂规则是：**DSH 只能修改 `projects/` 和老师明确指定的文件，原始 `data/` 目录只读。**
 
-## 3. 第 3 节课：跟着老师做第一个数据问题
+## 3. 第 3 节课：编程测试
 
-### 3.1 先确定要回答的问题
+第三节开始写代码。先理解两种编程方式的区别，再各完成一次测试。
 
-我们拿到一份 3 人成绩单，先不急着背 pandas，先问一句：
+### 3.1 传统 Python 编程的特点
+
+传统 Python 编程是“人写代码、人运行、人调试”：
+
+- 每一行代码都由你亲手输入；
+- 运行报错后，由你读报错、改代码；
+- 代码的结构、命名、逻辑都由你控制；
+- 学得慢，但每一步都更容易理解。
+
+优点：
+
+- 基本功扎实，能看懂别人的代码；
+- 对“代码为什么这么写”有完整理解；
+- 出错时更容易定位。
+
+缺点：
+
+- 从“想清楚”到“能运行”比较慢；
+- 新手容易在安装、语法、报错上消耗大量时间。
+
+### 3.2 Vibe Coding 的特点
+
+Vibe Coding 是“用自然语言描述目标，由 AI Agent 写代码并运行，人负责审查和验证”：
+
+- 你只描述：要读什么数据、回答什么问题、保存到哪里；
+- Agent 负责读文件、写代码、运行、看报错、继续修改；
+- 你负责审查：命令是否安全、代码是否正确、结论是否来自数据。
+
+优点：
+
+- 从“想法”到“可运行版本”很快；
+- 适合探索数据、生成初稿、解释报错；
+- 能把精力放在“问题定义”和“结果验证”上。
+
+缺点：
+
+- 可能生成你看不懂的代码；
+- 可能把结论编造得像真的；
+- 如果不审查，它可能删除文件、安装无关软件、泄露 Key。
+
+### 3.3 两种方式对比
+
+| 维度 | 传统 Python | Vibe Coding |
+|---|---|---|
+| 代码主体 | 自己逐行写 | Agent 生成，你审查 |
+| 运行调试 | 自己运行、自己改 | Agent 运行并迭代 |
+| 学习重点 | 语法、逻辑、调试 | 目标、口径、审查、验证 |
+| 速度 | 慢但可控 | 快但必须验证 |
+| 风险 | 风险低，出错是自己改的 | 风险高，可能执行危险命令 |
+| 本课程用法 | 先写 `hello.py` 建立基础 | 用 DSH 生成分析初稿，学生验证 |
+
+本课程的固定协作循环：
 
 ```text
-这份成绩单里，哪个科目最需要补课？
+定义问题 → 要求最小版本 → 运行 → 反馈真实结果 → 追问 → 验证
 ```
 
-“需要补课”可以先定义为：**科目平均分最低，或者存在明显低于及格线的成绩**。
+不管是传统方式还是 Vibe Coding，结论都必须能在数据或代码里被指出：**哪张表、哪个字段、什么计算、样本量多少**。
 
-### 3.2 把这个任务发给 DSH
+### 3.4 第一次传统编程测试：hello.py
+
+1. 在 VS Code 中确认已打开 `python-course` 目录。
+2. 点击左侧资源管理器中的“新建文件”图标，输入文件名 `hello.py`，然后写入：
+
+```python
+print("Hello, Python!")
+print(1 + 2)
+```
+
+3. 按 `Ctrl+S`（macOS 为 `Command+S`）保存。
+4. 打开 VS Code 内置终端，运行：
+
+Windows：
+
+```bat
+python hello.py
+```
+
+macOS / Linux：
+
+```bash
+python hello.py
+```
+
+预期输出：
+
+```text
+Hello, Python!
+3
+```
+
+这一步是“传统方式”：每一行都是你写的，命令是你自己敲的，输出也是你亲眼看到的。请记住这种“我能解释每一行代码”的感觉。
+
+### 3.5 第一次 Vibe Coding 测试：DSH 读 Airbnb
+
+这次换一种方式：让 DSH 读取课程主数据集 `data/nyc_airbnb.csv`，完成第一次数据分析。
 
 发送任务前，先按第 1 节课的流程确认三件事：**当前工作区是课程仓库、只读不修改 `data/`、代码只写入 `projects/<姓名>/`**。在 DSH 里输入：
 
 ```text
 请先告诉我当前工作区路径，确认后开始。
-请读取 data/成绩单.xlsx，不要修改原文件。
-任务：先输出 shape、dtypes、缺失值、完整表格；
-然后计算语文、数学、英语的平均分；
-最后用一句话回答“哪个科目最需要补课”。
+请读取 data/nyc_airbnb.csv，不要修改原文件。
+任务：
+1. 输出 shape、dtypes、缺失值、前 5 行；
+2. 按 room_type 分组，计算 price 的平均值和样本量；
+3. 用一句话回答“哪种房型平均价格最高”。
 代码保存为 projects/<姓名>/first_analysis.py。
 ```
-
-### 3.3 老师的第一版代码
 
 DSH 通常会生成类似代码：
 
 ```python
 import pandas as pd
 
-df = pd.read_excel('data/成绩单.xlsx')
+df = pd.read_csv('data/nyc_airbnb.csv')
 
 print('shape:', df.shape)
 print()
@@ -578,101 +700,114 @@ print()
 print('缺失值:')
 print(df.isna().sum())
 print()
-print(df)
+print(df.head())
 ```
 
-预期输出：
+预期输出（省略长文本列）：
 
 ```text
-shape: (3, 5)
-学号      int64
-姓名     object
-语文      int64
-数学     object
-英语    float64
+shape: (48895, 16)
+id                                  int64
+name                               object
+host_id                             int64
+host_name                          object
+neighbourhood_group                object
+neighbourhood                      object
+latitude                          float64
+longitude                         float64
+room_type                          object
+price                               int64
+minimum_nights                      int64
+number_of_reviews                   int64
+last_review                        object
+reviews_per_month                 float64
+calculated_host_listings_count      int64
+availability_365                    int64
+
 缺失值:
- 学号    0
-姓名    0
-语文    0
-数学    0
-英语    0
-  学号  姓名  语文     数学    英语
-0  2401  张三  59  59..5  60.5
-1  2402  李四  90     95  100.0
-2  2403  王五  95    100   90.0
+id                                    0
+name                                 16
+host_id                               0
+host_name                            21
+neighbourhood_group                   0
+neighbourhood                         0
+latitude                              0
+longitude                             0
+room_type                             0
+price                                 0
+minimum_nights                        0
+number_of_reviews                     0
+last_review                       10052
+reviews_per_month                 10052
+calculated_host_listings_count        0
+availability_365                      0
 ```
 
-### 3.4 发现第一个数据问题
-
-`数学` 列是 `object`，因为 `张三` 的分数写成了 `59..5`。直接求平均会报错：
-
-```text
-TypeError: can only concatenate str (not "int") to str
-```
-
-这不是代码写错了，而是数据格式有问题。让 DSH 修复这一列：
-
-```text
-数学列里有一个值是 59..5，导致它被读成文本。
-请把 59..5 修复成 59.5，再转成 float。
-不要修改原 Excel，只修复读入后的 DataFrame。
-```
-
-### 3.5 修复并完成第一个结论
+再运行分组统计：
 
 ```python
-df['数学'] = df['数学'].astype(str).str.replace('..', '.', regex=False)
-df['数学'] = pd.to_numeric(df['数学'], errors='coerce')
+summary = (
+    df.groupby('room_type')['price']
+    .agg(['mean', 'count'])
+    .round(2)
+)
 
-print(df)
-print()
-print('平均分:')
-print(df[['语文', '数学', '英语']].mean().round(2))
+print(summary)
 ```
 
 预期输出：
 
 ```text
-  学号  姓名  语文    数学    英语
-0  2401  张三  59  59.5  60.5
-1  2402  李四  90  95.0 100.0
-2  2403  王五  95 100.0  90.0
-
-平均分:
-语文    81.33
-数学    84.83
-英语    83.50
+                 mean  count
+room_type
+Entire home/apt  211.79  25409
+Private room      89.78  22326
+Shared room       70.13   1160
 ```
 
-对“哪个科目最需要补课”这个问题，可以这样回答：
+结论：
 
 ```text
-按平均分看，语文 81.33 最低，最需要优先关注；
-同时张三的数学、英语都低于 70，还需要看单科不合格情况。
+按平均值看，Entire home/apt 的平均价格最高，为 211.79 美元/晚；
+它同时有 25409 个样本，结论比只有几十条数据的表更可靠。
 ```
 
-## 4. 你自己动手做
+**这次请特别注意三件事：**
+
+- Agent 在工具行里显示它读取了 `data/nyc_airbnb.csv`，没有修改原文件；
+- 它运行了 Python 命令，你要点击工具行看命令内容；
+- 它写的代码你要能看懂：`read_csv` 是读数据，`groupby` 是分组，`mean` 是平均。
+
+如果代码看不懂，继续问：
+
+```text
+请解释 first_analysis.py 里每一行代码在做什么，不要改代码。
+```
+
+### 3.6 自己动手与审查
 
 1. 新建 `projects/<姓名>/first_analysis.py`，把上面的完整流程整理成可运行脚本。
-2. 增加一列 `total = 语文 + 数学 + 英语`，排出总分名次。
-3. 把结论改成“谁的哪一科最需要补课”。
-4. 让 DSH 审查你的脚本，并给出 2 个你没发现的风险。
+2. 增加一个分组：按 `neighbourhood_group` 计算 `price` 的平均值和样本量，找出平均价格最高的行政区。
+3. 让 DSH 审查你的脚本，并给出 2 个你没发现的数据风险。
 
 自己动手时建议用这个提示词：
 
 ```text
 请审查 projects/<姓名>/first_analysis.py：
-1. 是否按“读取 → 清洗 → 计算 → 结论”组织；
-2. 数学列修复是否安全；
-3. 平均分结论是否支持“哪个科目最需要补课”；
-4. 列出 2 个可能的坑。
+1. 是否按“读取 → 审计 → 分组 → 结论”组织；
+2. 是否报告每个分组的样本量；
+3. 是否注意到缺失值、价格为 0 或超过 1000 的异常；
+4. 列出 2 个可能的坑，并给出修改建议。
 ```
 
-## 5. 验证清单
+## 4. 验证清单
 
 - [ ] 能用一句话说明 Agent 和聊天机器人的区别
-- [ ] 能指出 DSH 界面里的会话栏、输入框、工具行、工作区状态
+- [ ] 能说出至少 4 个常见 Agent，并区分“网页助手”和“本地 Agent”
+- [ ] 能说出 DeepSeek 与 GPT/Claude/Gemini 的 2 个区别
+- [ ] 能解释 DSH 界面里的会话栏、输入框、工具行、工作区状态
 - [ ] 能背出 5 条课堂红线
+- [ ] 能解释传统 Python 编程和 Vibe Coding 各自的 1 个优点、1 个风险
 - [ ] 已按自己的系统从 TUNA 镜像下载 Anaconda，并完成安装
 - [ ] `.condarc` 已改成 TUNA 镜像，`pip` 也已指向 TUNA 镜像
 - [ ] `python --version` 和 `conda --version` 能输出版本
@@ -685,13 +820,11 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 - [ ] 已保存 DeepSeek API Key，且 Key 没有出现在任何文档或代码里
 - [ ] 已选择本仓库作为工作区，会话输入框可输入
 - [ ] 每次允许 DSH 执行命令前，都能说出“这条命令在做什么”
-- [ ] 脚本能从仓库根目录用 `python scripts/week01_practice.py` 或你的项目脚本运行
-- [ ] 表格能打印出来
-- [ ] `59..5` 被修复成 `59.5`
-- [ ] 平均分、总分、排名都有输出
+- [ ] DSH 能读取 `data/nyc_airbnb.csv` 并输出 `shape (48895, 16)`
+- [ ] `room_type` 分组表包含 `mean` 和 `count`
 - [ ] 每个结论都能指出“用了哪一列、怎么算的”
 
-## 6. 常见错误与坑
+## 5. 常见错误与坑
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
@@ -707,34 +840,37 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 | `npx` 不是内部或外部命令 | Node.js 没安装或没生效 | 重装 Node.js LTS，重新打开命令行 |
 | DSH 页面打不开 | 启动命令还在下载，或端口被占用 | 等命令显示 `URL: http://127.0.0.1:3080` 后再刷新浏览器 |
 | 页面能开但不能输入对话 | 没保存 API Key 或没选工作区 | 完成 `Settings → Models` 和 `Choose workspace` |
+| DSH 找不到 `data/nyc_airbnb.csv` | 工作区不在课程仓库 | 先问“当前工作区路径”，改回本仓库再执行 |
 | Agent 改错了文件 | 没有先读原文件就重写 | 让 Agent 先 `read`，再修改；执行后用 `git diff` 检查 |
 | Agent 请求执行看不懂的命令 | 学生直接点了“允许” | 让 Agent 逐字解释命令；解释后仍不懂就找老师 |
 | Agent 想删除或覆盖文件 | 提示词没说清楚边界 | 明确写“不要修改原文件”，必要时先复制备份 |
 | Agent 把 API Key 写进文件 | 为了“调试方便”或没意识到风险 | 删除该文件内容，不要提交；以后 Key 只在设置里保存 |
-| 数据列是 object | 数据里有 `59..5` | 先观察，再清洗，不直接强转 |
-| 平均分报字符串拼接错误 | 数值列被读成文本 | `to_numeric` 前先看异常值 |
-| AI 删掉原始数据 | 提示词没说明 | 明确写“不要修改原文件” |
-| 第一版结论太宽泛 | 问题没定义 | 先定义“需要补课”的口径 |
+| 分组结论没有样本量 | 只看平均值 | 分组表必须同时输出 `count` |
+| 价格出现 0 或 10000 | 数据里有异常值 | 先审计再决定是否过滤或报告 |
+| `last_review` 有缺失 | 没有评价的房源没有最近评价日期 | 报告缺失，不强行填充 |
+| 第一版结论太宽泛 | 问题没定义 | 先定义“最高/最低”的指标口径 |
 
-## 7. 作业
+## 6. 作业
 
 1. 用自己的话写 300 字以内的“Agent 使用安全说明”，至少包含：Agent 是什么、5 条课堂红线、3 个绝对不执行的操作、为什么每条结论都要自己验证。保存到 `projects/<姓名>/agent-safety.md`。
-2. 按自己系统对应的小节完成 Anaconda、VS Code、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
-3. 让 DSH 生成代码，统计这份成绩单，然后写出 3 个“第一版提示词没有回答”的问题。
+2. 写一份 150 字以内的“DeepSeek + DSH 选型说明”，解释为什么本课程用 DeepSeek 而不是 GPT 或 Claude。保存到 `projects/<姓名>/stack-notes.md`。
+3. 按自己系统对应的小节完成 Anaconda、VS Code、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
+4. 让 DSH 按 `neighbourhood_group` 统计 `data/nyc_airbnb.csv` 的平均价格和样本量，然后写出 3 个“这份数据能回答、但第一版提示词没有回答”的问题。
 
 示例：
 
-- 哪门课最需要补课？
-- 单科不及格的人有几科不及格？
-- 总分前两名是否说明所有科目都更强？
+- 不同房型在不同行政区的价格差异有多大？
+- 价格最低的 10 个房源有什么共同点？
+- 评论数量越多的房源，价格一定更低吗？
 
 ## 评分要点
 
 | 项目 | 要求 |
 |---|---|
+| 认知 | 能区分 Agent 与聊天机器人，能介绍常见 Agent 和大模型 |
 | 安全 | 能背出红线；看不懂的命令会停下来解释；`agent-safety.md` 完成 |
 | 环境 | `python`、`node`、VS Code、DSH 都能启动，工作区已选择 |
-| 运行 | 每个代码块都能运行 |
-| 清洗 | 能发现 `59..5` 并修复 |
-| 结果 | 平均分、总分、排名都有输出 |
+| 传统编程 | `hello.py` 能运行，并能解释每一行 |
+| Vibe Coding | DSH 能读取 `nyc_airbnb.csv` 并生成可运行脚本 |
+| 结果 | 分组统计包含 `mean` 和 `count`，结论有依据 |
 | AI 协作 | 保留 DSH 修改代码的记录，并说明每处修改为什么安全 |

@@ -20,63 +20,47 @@ OUT_DIR = Path(__file__).resolve().parent / "output"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 print("=" * 60)
-print("1. 读取小时级空气质量数据")
+print("1. 读取 Airbnb 价格数据")
 print("=" * 60)
 
-df = pd.read_csv(REPO_ROOT / "data" / "synthetic_air_quality.csv", parse_dates=["datetime"])
+df = pd.read_csv(REPO_ROOT / "data" / "nyc_airbnb.csv")
+plot_df = df[df["price"] <= 1000].copy()
 print("shape:", df.shape)
-print(df.head())
-print()
-print("城市:", df["city"].unique())
-print("时间范围:", df["datetime"].min(), "->", df["datetime"].max())
+print("price 范围:", df["price"].min(), "->", df["price"].max())
+print("过滤 price > 1000 后:", plot_df.shape)
 
 print()
 print("=" * 60)
-print("2. CityA 每日平均 PM2.5")
+print("2. 生成 2x2 价格面板")
 print("=" * 60)
 
-daily = (
-    df[df["city"] == "CityA"]
-    .set_index("datetime")["pm25"]
-    .resample("D")
-    .mean()
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+sns.boxplot(data=plot_df, x="neighbourhood_group", y="price", ax=axes[0, 0])
+axes[0, 0].set_title("Price distribution by borough")
+axes[0, 0].set_xlabel("Borough")
+axes[0, 0].set_ylabel("Price (USD / night)")
+
+sns.boxplot(data=plot_df, x="room_type", y="price", ax=axes[0, 1])
+axes[0, 1].set_title("Price distribution by room type")
+axes[0, 1].set_xlabel("Room type")
+axes[0, 1].set_ylabel("Price (USD / night)")
+
+sc = axes[1, 0].scatter(
+    df["longitude"], df["latitude"],
+    s=1, c=df["price"], cmap="viridis", alpha=0.3
 )
-print(daily.head())
+axes[1, 0].set_title("Location and price")
+axes[1, 0].set_xlabel("Longitude")
+axes[1, 0].set_ylabel("Latitude")
+fig.colorbar(sc, ax=axes[1, 0], label="Price (USD)")
 
-print()
-print("=" * 60)
-print("3. 生成 2x2 监测面板")
-print("=" * 60)
+axes[1, 1].scatter(plot_df["minimum_nights"], plot_df["price"], s=3, alpha=0.2)
+axes[1, 1].set_title("Minimum nights vs price")
+axes[1, 1].set_xlabel("Minimum nights")
+axes[1, 1].set_ylabel("Price (USD / night)")
 
-daily_all = (
-    df.groupby(["city", df["datetime"].dt.date])["pm25"]
-    .mean()
-    .reset_index()
-)
-daily_all.columns = ["city", "date", "pm25_daily"]
-
-fig, axes = plt.subplots(2, 2, figsize=(14, 9))
-
-for city in df["city"].unique():
-    sub = daily_all[daily_all["city"] == city]
-    axes[0, 0].plot(sub["date"], sub["pm25_daily"], label=city)
-axes[0, 0].set_title("Daily mean PM2.5 by city")
-axes[0, 0].set_ylabel("PM2.5")
-axes[0, 0].legend()
-
-sns.boxplot(data=df, x="city", y="pm25", ax=axes[0, 1])
-axes[0, 1].set_title("PM2.5 distribution by city")
-
-axes[1, 0].scatter(df["humidity"], df["pm25"], s=3, alpha=0.2)
-axes[1, 0].set_title("Humidity vs PM2.5")
-axes[1, 0].set_xlabel("Humidity")
-axes[1, 0].set_ylabel("PM2.5")
-
-axes[1, 1].scatter(df["precipitation"], df["pm25"], s=3, alpha=0.2)
-axes[1, 1].set_title("Precipitation vs PM2.5")
-axes[1, 1].set_xlabel("Precipitation")
-axes[1, 1].set_ylabel("PM2.5")
-
+fig.suptitle("NYC Airbnb price overview (n = 48895)")
 fig.tight_layout()
 output_path = OUT_DIR / "week05_dashboard.png"
 fig.savefig(output_path, dpi=150)

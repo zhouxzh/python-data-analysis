@@ -12,9 +12,9 @@
 //   ]
 // }
 
-const datasetPath = args.datasetPath || "data/air_quality_dirty.csv";
+const datasetPath = args.datasetPath || "data/nyc_airbnb.csv";
 const projectDir = args.projectDir || "projects/example/final";
-const reportTitle = args.reportTitle || "城市空气质量分析";
+const reportTitle = args.reportTitle || "纽约 Airbnb 价格分析";
 
 phase("数据审计");
 log(`开始审计 ${datasetPath}`);

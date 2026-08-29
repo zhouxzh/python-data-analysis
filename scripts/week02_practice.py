@@ -9,50 +9,48 @@ print("=" * 60)
 print("1. 读取 CSV 并检查数据")
 print("=" * 60)
 
-air = pd.read_csv("data/air_quality_simple.csv")
-print("shape:", air.shape)
+df = pd.read_csv("data/nyc_airbnb.csv")
+print("shape:", df.shape)
 print()
-print(air.head())
+print(df.head())
 print()
-print(air.dtypes)
+print(df.dtypes)
 print()
 print("缺失值:")
-print(air.isna().sum())
+print(df.isna().sum())
 
 print()
 print("=" * 60)
 print("2. 选列、过滤和新增列")
 print("=" * 60)
 
-print("PM25 前 5 行:")
-print(air["PM25"].head())
+print("price 前 5 行:")
+print(df["price"].head())
 
 print()
-print("PM25 > 50 的城市:")
-high = air[air["PM25"] > 50]
-print(high[["city", "PM25"]])
+print("Manhattan 房源数:")
+manhattan = df[df["neighbourhood_group"] == "Manhattan"]
+print(len(manhattan))
 
-air2 = air.copy()
-air2["PM25"] = air2["PM25"].fillna(air2["PM25"].median())
-air2["pollution_index"] = air2[["PM25", "PM10", "NO2", "SO2"]].sum(axis=1)
-air2 = air2.sort_values("pollution_index", ascending=False)
+df2 = df.copy()
+df2["high_price"] = df2["price"] > 200
+df2 = df2.sort_values("price", ascending=False)
 
 print()
-print("污染指数最高的城市:")
-print(air2[["city", "pollution_index"]])
+print("价格最高的 5 个房源:")
+print(df2[["name", "room_type", "neighbourhood_group", "price"]].head(5))
 
 print()
 print("=" * 60)
-print("3. Mini case：PM2.5 最高的 3 个城市")
+print("3. Mini case：哪种房型平均价格最高")
 print("=" * 60)
 
 summary = (
-    air.groupby("city")["PM25"]
+    df.groupby("room_type")["price"]
     .agg(["mean", "count"])
     .sort_values("mean", ascending=False)
-    .round(1)
+    .round(2)
 )
 print(summary)
 print()
-print("前 3 名（丢弃缺失后）:")
-print(summary.dropna().head(3))
+print("提醒：mean 是平均值，count 是样本量；只看平均会忽略小样本和异常价格。")
