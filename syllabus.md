@@ -10,9 +10,9 @@
 
 ## Week 1：Agent 认知、环境安装与第一个数据问题
 
-- 第 1 节：认识 AI Agent、常见 Agent、常见大模型、DeepSeek + DSH 的特点；先讲 5 条课堂红线和安全使用流程。
-- 第 2 节：安装 Anaconda、Node.js、DeepSeek Harness；验证 `python` / `node` / DSH；配置 API Key 和工作区。
-- 第 3 节：先体验传统 Python（`hello.py`），再用 DSH 读取 `data/nyc_airbnb.csv` 并做第一次 Vibe Coding 分析。
+- 第 1 节：认识 AI Agent、常见 Agent、常见大模型、DeepSeek + DSH 的特点；先讲 5 条课堂红线和安全使用流程，完成安全自测。
+- 第 2 节：安装 Anaconda、VS Code、Node.js，配置 TUNA 镜像；创建 `python-course` 目录并运行 `hello.py`，完成传统 Python 测试。
+- 第 3 节：安装并启动 DSH，配置 API Key 和工作区；认识 DSH 界面，再让 DSH 读取 `data/nyc_airbnb.csv` 完成第一次 Vibe Coding 分析。
 - 作业：完成安装并保存验证截图；写 Agent 安全说明；用 DSH 统计 `data/nyc_airbnb.csv` 并写出 3 个“这份数据能回答的问题”。
 
 ## Week 2：pandas 数据结构与读取
