@@ -1,5 +1,6 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
+import mermaidPlugin from './plugins/mermaid/index.js'
 
 export default {
   lang: 'zh-CN',
@@ -7,6 +8,9 @@ export default {
   description: '8 周 Vibe Programming × Python 数据分析课程',
   base: '/python-data-analysis/',
   bundler: viteBundler(),
+  plugins: [
+    mermaidPlugin()
+  ],
   pagePatterns: [
     'README.md',
     'syllabus.md',

@@ -8,7 +8,7 @@
 
 ## 1. 环境安装（第 1 节课）
 
-第一节课先把环境装好。本课程需要三样东西：**Anaconda（Python 环境）**、**Node.js（DSH 的运行环境）**、**DeepSeek Harness（DSH）**。
+第一节课先把环境装好。本课程需要四样东西：**Anaconda（Python 环境）**、**VS Code（编辑器）**、**Node.js（DSH 的运行环境）**、**DeepSeek Harness（DSH）**。
 
 ### 1.1 从 TUNA 镜像下载 Anaconda
 
@@ -156,9 +156,98 @@ pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/si
 
 以后 `conda install` 和 `pip install` 都会自动走 TUNA 镜像。
 
-### 1.3 创建专用目录并测试 Python（Windows）
+### 1.3 安装并配置 VS Code
 
-安装完 Python 后，不要急着写数据分析代码，先建一个自己的练习目录。
+本课程统一使用 **VS Code** 作为编辑器，所有 `.py` 文件都用它创建、编辑和运行。
+
+#### 安装 VS Code
+
+1. 打开 VS Code 官方下载页：
+
+   <https://code.visualstudio.com/download>
+
+   ![VS Code 官方下载页](./images/week01/vscode-download.png)
+
+2. 按自己的系统下载并安装：
+
+   | 系统 | 下载项 |
+   |---|---|
+   | Windows | `Windows User Installer x64`（或 ARM64） |
+   | macOS | `macOS Universal`（Apple 芯片和 Intel 都可用） |
+   | Linux | `.deb` 或 `.rpm`，按发行版选择 |
+
+3. Windows 安装时勾选：
+
+   - `Add "Open with Code" action to Windows Explorer file context menu`
+   - `Add "Open with Code" action to Windows Explorer directory context menu`
+
+   其余选项保持默认，一路 `Next` 安装。
+
+4. 打开 VS Code，第一次启动时点左侧“扩展”图标（或按 `Ctrl+Shift+X`），搜索并安装：
+
+   | 扩展名 | 发布者 | 作用 |
+   |---|---|---|
+   | Python | Microsoft | Python 代码提示、运行和调试 |
+   | Pylance | Microsoft | Python 代码补全与类型提示 |
+
+5. 安装后确认 VS Code 左下角状态栏显示 Python 版本，例如 `Python 3.12.8`。如果没有显示，点状态栏中的 Python 版本号（或按 `Ctrl+Shift+P` 执行 `Python: Select Interpreter`），选择 Anaconda 安装的 Python 解释器。
+
+安装与配置流程如下：
+
+```mermaid
+flowchart TD
+    A[打开 VS Code 官方下载页] --> B{你的系统}
+    B -->|Windows| C[下载 Windows User Installer]
+    B -->|macOS| D[下载 macOS Universal]
+    B -->|Linux| E[下载 .deb 或 .rpm]
+    C --> F[安装 VS Code]
+    D --> F
+    E --> F
+    F --> G[Windows 勾选 Open with Code 右键菜单]
+    G --> H[打开 VS Code]
+    H --> I[安装 Python 扩展<br/>自动包含 Pylance]
+    I --> J[选择 Anaconda 的 Python 解释器]
+    J --> K[完成]
+```
+
+#### 用 VS Code 打开工作目录
+
+VS Code 只能打开**已经存在**的文件夹，新建文件也是在已打开的文件夹里创建。先记住固定顺序：
+
+1. 先在文件管理器或终端里创建目录，例如 `python-course`。
+2. 再让 VS Code 打开这个目录。
+3. 最后在打开的目录里新建 `hello.py` 等文件。
+
+各系统的打开方式：
+
+- Windows：在文件夹中右键，选择 `Open with Code`；也可以先打开 VS Code，再用 `文件 → 打开文件夹`。
+- macOS：打开 VS Code，按 `Cmd+O` 或使用 `文件 → 打开文件夹`，选择目录。
+- Linux：打开 VS Code，按 `Ctrl+O` 或使用 `文件 → 打开文件夹`，选择目录。
+
+#### 打开 VS Code 内置终端
+
+VS Code 打开目录后，在窗口顶部菜单栏点击：
+
+```text
+终端（Terminal） → 新建终端（New Terminal）
+```
+
+也可以直接按快捷键：
+
+| 系统 | 快捷键 |
+|---|---|
+| Windows / Linux | `` Ctrl+` `` |
+| macOS | `` Control+` `` |
+
+终端会出现在 VS Code 窗口下方，显示为一行可输入命令的黑色（或深色）面板，并自动定位到当前打开的文件夹。以后命令行操作都在这个终端里进行，不需要另外打开 cmd 或“终端”。
+
+如果窗口下方没有看到终端，就重新执行一次“顶部菜单 → 终端 → 新建终端”，或按上面的快捷键。
+
+新建 `.py` 文件时，可以用“资源管理器”里的“新建文件”图标，也可以按 `Ctrl+N`（macOS 为 `Cmd+N`）新建文件，再按 `Ctrl+S` / `Cmd+S` 命名为 `hello.py`。只要 VS Code 打开了 `python-course`，文件就会保存到这个目录里。
+
+### 1.4 创建专用目录并测试 Python（Windows）
+
+安装完 Python 和 VS Code 后，不要急着写数据分析代码，先建一个自己的练习目录。
 
 1. 打开“文件资源管理器”，进入 Documents：
 
@@ -167,28 +256,15 @@ C:\Users\<你的用户名>\Documents
 ```
 
 2. 新建目录 `python-course`。
-3. 打开 `cmd` 或 PowerShell，进入这个目录：
-
-```bat
-cd %USERPROFILE%\Documents
-mkdir python-course
-cd python-course
-```
-
-4. 在目录里新建 `hello.py`，用记事本打开：
-
-```bat
-notepad hello.py
-```
-
-写入：
+3. 再用 VS Code 打开这个已创建的 `python-course` 文件夹，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。终端会自动定位到这个文件夹。
+4. 在 VS Code 里新建 `hello.py`：点击左侧资源管理器中的“新建文件”图标，输入文件名 `hello.py`，然后写入：
 
 ```python
 print("Hello, Python!")
 print(1 + 2)
 ```
 
-5. 保存后运行：
+5. 按 `Ctrl+S` 保存后，在 VS Code 内置终端运行：
 
 ```bat
 python hello.py
@@ -201,32 +277,19 @@ Hello, Python!
 3
 ```
 
-### 1.4 创建专用目录并测试 Python（macOS）
+### 1.5 创建专用目录并测试 Python（macOS）
 
 1. 打开“访达”，进入 `~/Documents`。
 2. 新建目录 `python-course`。
-3. 打开“终端”，进入这个目录：
-
-```bash
-cd ~/Documents
-mkdir -p python-course
-cd python-course
-```
-
-4. 新建 `hello.py` 并编辑：
-
-```bash
-nano hello.py
-```
-
-写入：
+3. 再用 VS Code 打开这个已创建的 `python-course` 文件夹，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Control+` ``。终端会自动定位到这个文件夹。
+4. 在 VS Code 里新建 `hello.py`，写入：
 
 ```python
 print("Hello, Python!")
 print(1 + 2)
 ```
 
-5. 按 `Control + O` 保存，按 `Control + X` 退出，然后运行：
+5. 按 `Command+S` 保存后，在 VS Code 内置终端运行：
 
 ```bash
 python hello.py
@@ -239,30 +302,23 @@ Hello, Python!
 3
 ```
 
-### 1.5 创建专用目录并测试 Python（Linux）
+### 1.6 创建专用目录并测试 Python（Linux）
 
-1. 打开终端，进入 `~/Documents`：
-
-```bash
-cd ~/Documents
-mkdir -p python-course
-cd python-course
-```
-
-2. 新建 `hello.py` 并编辑：
+1. 先用文件管理器进入 `~/Documents`，新建目录 `python-course`；也可以用终端创建：
 
 ```bash
-nano hello.py
+mkdir -p ~/Documents/python-course
 ```
 
-写入：
+2. 再打开 VS Code，按 `Ctrl+O` 选择 `~/Documents/python-course`，并打开内置终端：点顶部 `终端 → 新建终端`，或按 `` Ctrl+` ``。终端会自动定位到这个文件夹。
+3. 在 VS Code 里新建 `hello.py`，写入：
 
 ```python
 print("Hello, Python!")
 print(1 + 2)
 ```
 
-3. 按 `Control + O` 保存，按 `Control + X` 退出，然后运行：
+4. 按 `Ctrl+S` 保存后，在 VS Code 内置终端运行：
 
 ```bash
 python hello.py
@@ -277,9 +333,23 @@ Hello, Python!
 
 三个系统都运行 `hello.py` 后，说明 Python 安装、目录创建、文件保存和命令行运行都正常。
 
-### 1.6 安装课程依赖
+### 1.7 安装课程依赖
 
-进入本仓库根目录，运行：
+安装依赖前，先确认 pip 已使用国内镜像，否则默认会从国外 PyPI 下载，速度会很慢，甚至卡住。
+
+1. 查看当前 pip 源：
+
+```bash
+pip config list
+```
+
+2. 如果输出里没有 `global.index-url`，或网址不是 TUNA 镜像，先配置：
+
+```bash
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+```
+
+3. 配置完成后，进入本仓库根目录，运行：
 
 ```bash
 pip install -r requirements.txt
@@ -287,7 +357,7 @@ pip install -r requirements.txt
 
 这里会安装 pandas、numpy、matplotlib、seaborn、scikit-learn、openpyxl、pytest。安装过程中出现黄色提示通常是升级提示，不一定是错误。
 
-### 1.7 安装 Node.js
+### 1.8 安装 Node.js
 
 DeepSeek Harness 是一个 npm 工具，先安装 Node.js：
 
@@ -308,7 +378,7 @@ v20.18.0
 10.8.2
 ```
 
-### 1.8 安装并启动 DeepSeek Harness
+### 1.9 安装并启动 DeepSeek Harness
 
 DSH 的官方仓库在：
 
@@ -343,7 +413,7 @@ URL: http://127.0.0.1:3080
 
 <http://127.0.0.1:3080>
 
-### 1.9 配置 DSH
+### 1.10 配置 DSH
 
 DSH 需要两样配置才能开始工作：**模型 API Key** 和 **工作区**。
 
@@ -502,7 +572,9 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 - [ ] 已按自己的系统从 TUNA 镜像下载 Anaconda，并完成安装
 - [ ] `.condarc` 已改成 TUNA 镜像，`pip` 也已指向 TUNA 镜像
 - [ ] `python --version` 和 `conda --version` 能输出版本
-- [ ] 已在 Documents 里创建 `python-course` 专用目录
+- [ ] 已安装 VS Code，并安装 Python、Pylance 两个扩展
+- [ ] VS Code 左下角已选择 Anaconda 的 Python 解释器
+- [ ] 已在 Documents 里创建 `python-course` 专用目录，并用 VS Code 打开
 - [ ] `python hello.py` 能输出 `Hello, Python!` 和 `3`
 - [ ] `node --version` 和 `npm --version` 能输出版本
 - [ ] `npx @deepseek-ai/dsh web` 能启动，浏览器打开 `http://127.0.0.1:3080`
@@ -524,7 +596,9 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 | macOS 提示 `conda: command not found` | 终端没有初始化 conda | 运行 `conda init zsh`，关闭终端再重开 |
 | Linux 提示 `python: command not found` | conda 环境没生效 | 运行 `source ~/.bashrc`，或使用 `python3` |
 | `python` 不是内部或外部命令 | Anaconda 没加入 PATH | 重装时勾选 `Add Anaconda3 to my PATH`，或使用 Anaconda Prompt |
-| `python hello.py` 提示找不到文件 | 命令行不在文件所在目录 | 先 `cd` 到 `python-course`，再运行 `python hello.py` |
+| VS Code 没有代码提示 | 还没安装 Python/Pylance 扩展 | 在扩展面板搜索 `Python` 和 `Pylance`，安装后重启 VS Code |
+| VS Code 内置终端找不到 conda 环境 | 终端没初始化或没选解释器 | 在 VS Code 终端运行 `conda init`，重开窗口，再点状态栏 Python 版本号选择解释器 |
+| `python hello.py` 提示找不到文件 | 命令行不在文件所在目录 | 先确认 VS Code 已打开 `python-course`，再在终端运行 `python hello.py` |
 | `npx` 不是内部或外部命令 | Node.js 没安装或没生效 | 重装 Node.js LTS，重新打开命令行 |
 | DSH 页面打不开 | 启动命令还在下载，或端口被占用 | 等命令显示 `URL: http://127.0.0.1:3080` 后再刷新浏览器 |
 | 页面能开但不能输入对话 | 没保存 API Key 或没选工作区 | 完成 `Settings → Models` 和 `Choose workspace` |
@@ -535,7 +609,7 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 ## 6. 作业
 
-1. 按自己系统对应的小节完成 Anaconda、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
+1. 按自己系统对应的小节完成 Anaconda、VS Code、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
 2. 让 DSH 生成代码，统计这份成绩单，然后写出 3 个“第一版提示词没有回答”的问题。
 
 示例：
@@ -548,7 +622,7 @@ print(df[['语文', '数学', '英语']].mean().round(2))
 
 | 项目 | 要求 |
 |---|---|
-| 环境 | `python`、`node`、DSH 都能启动，工作区已选择 |
+| 环境 | `python`、`node`、VS Code、DSH 都能启动，工作区已选择 |
 | 运行 | 每个代码块都能运行 |
 | 清洗 | 能发现 `59..5` 并修复 |
 | 结果 | 平均分、总分、排名都有输出 |
