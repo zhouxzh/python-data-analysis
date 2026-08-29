@@ -1,7 +1,7 @@
 # Week 2：pandas 数据结构与读取
 
 > **本章导读**
-> 时长：3 节课，每节 60 分钟
+> 时长：3 节课，每节 45 分钟
 > 数据：`data/nyc_airbnb.csv`
 > 你将学到：让 DSH 读取 CSV、检查 shape/dtypes/缺失、做第一版分组统计，并发现“数据够不够回答你的问题”
 > 本周产出：`projects/<姓名>/output/data_card.md`

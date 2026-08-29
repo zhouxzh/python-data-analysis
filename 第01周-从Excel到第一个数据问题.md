@@ -1,7 +1,7 @@
 # Week 1：认识 Agent、安全使用 DSH，并完成第一个数据问题
 
 > **本章导读**
-> 时长：3 节课，每节 60 分钟
+> 时长：3 节课，每节 45 分钟
 > 数据：`data/nyc_airbnb.csv`
 > 你将学到：认识 AI Agent、常见 Agent 与大模型，理解 DeepSeek + DSH 的特点和安全使用规则，安装本课程环境，再分别体验传统 Python 编程和 Vibe Coding
 > 本周产出：`projects/<姓名>/first_analysis.py`
