@@ -4,7 +4,25 @@
 
 来源：HuggingFace 数据集 `gradio/NYC-Airbnb-Open-Data`，原始文件 `AB_NYC_2019.csv`。
 
-下载地址：
+本仓库已经包含该文件，课程中不需要学生联网下载；如果老师或学生需要重新下载，优先使用 HuggingFace 国内镜像：
+
+```text
+https://hf-mirror.com/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv
+```
+
+命令行下载：
+
+```bash
+curl -L -o data/nyc_airbnb.csv "https://hf-mirror.com/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv"
+```
+
+也可以运行课程脚本：
+
+```bash
+python scripts/download_course_data.py
+```
+
+官方原始地址：
 
 ```text
 https://huggingface.co/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv

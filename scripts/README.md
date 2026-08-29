@@ -6,6 +6,7 @@
 
 | 脚本 | 对应周次 | 运行 |
 |---|---|---|
+| `download_course_data.py` | 数据准备 | `python scripts/download_course_data.py` |
 | `week01_practice.py` | Week 1 第一个数据问题 | `python scripts/week01_practice.py` |
 | `week02_practice.py` | Week 2 pandas 读取与聚合 | `python scripts/week02_practice.py` |
 | `week03_practice.py` | Week 3 数据清洗与审计 | `python scripts/week03_practice.py` |
