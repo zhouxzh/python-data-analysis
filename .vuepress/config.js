@@ -14,7 +14,7 @@ export default {
   pagePatterns: [
     'README.md',
     'syllabus.md',
-    '第*.md',
+    '0*.md',
     'scripts/**/*.md',
     'prompts/**/*.md',
     'dsh/**/*.md',
@@ -32,7 +32,7 @@ export default {
     navbar: [
       { text: '首页', link: '/' },
       { text: '8 周课表', link: '/syllabus.html' },
-      { text: '每周实践', link: '/第01周-从Excel到第一个数据问题.html' },
+      { text: '每周实践', link: '/01-认识Agent与第一个数据问题.html' },
       { text: 'DSH 手册', link: '/dsh/harness-playbook.html' }
     ],
     sidebar: [
@@ -43,14 +43,14 @@ export default {
       {
         text: '每周实践教程',
         children: [
-          '/第01周-从Excel到第一个数据问题.html',
-          '/第02周-pandas与数据读取.html',
-          '/第03周-数据清洗与审计.html',
-          '/第04周-EDA与提出假设.html',
-          '/第05周-可视化表达.html',
-          '/第06周-合并分组与迷你项目.html',
-          '/第07周-第一个预测模型.html',
-          '/第08周-结课项目与展示.html'
+          '/01-认识Agent与第一个数据问题.html',
+          '/02-pandas与数据读取.html',
+          '/03-数据清洗与审计.html',
+          '/04-EDA与提出假设.html',
+          '/05-可视化表达.html',
+          '/06-合并分组与迷你项目.html',
+          '/07-第一个预测模型.html',
+          '/08-结课项目与展示.html'
         ]
       },
       {

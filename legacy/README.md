@@ -16,4 +16,4 @@
 python legacy/Day01_intro.py
 ```
 
-新版 8 周课程以根目录的 `第01周-*.md` 到 `第08周-*.md` 为主，配套内容在 `scripts/`、`prompts/`、`dsh/`、`examples/` 和 `assignments/`。
+新版 8 周课程以根目录的 `01-*.md` 到 `08-*.md` 为主，配套内容在 `scripts/`、`prompts/`、`dsh/`、`examples/` 和 `assignments/`。
