@@ -1,67 +1,74 @@
-"""Week 5 实践：可视化表达。
+"""Week 5 实践：EDA 与可视化。
 
 运行：
     python scripts/week05_practice.py
-
-输出：
-    scripts/output/week05_dashboard.png
 """
-from pathlib import Path
-
 import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
-import seaborn as sns
+from pathlib import Path
 
-matplotlib.use("Agg")
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = Path(__file__).resolve().parent / "output"
-OUT_DIR.mkdir(parents=True, exist_ok=True)
+OUT = Path("projects/demo/week05")
+OUT.mkdir(parents=True, exist_ok=True)
 
 print("=" * 60)
-print("1. 读取 Airbnb 价格数据")
+print("1. 钻石价格分布：diamonds.csv")
 print("=" * 60)
 
-df = pd.read_csv(REPO_ROOT / "data" / "nyc_airbnb.csv")
-plot_df = df[df["price"] <= 1000].copy()
-print("shape:", df.shape)
-print("price 范围:", df["price"].min(), "->", df["price"].max())
-print("过滤 price > 1000 后:", plot_df.shape)
+diamonds = pd.read_csv("data/05-eda-viz/diamonds.csv")
+print(diamonds["price"].describe())
+plt.figure(figsize=(8, 4))
+plt.hist(diamonds["price"], bins=50, color="#4c72b0", edgecolor="white")
+plt.title("Diamond price distribution")
+plt.xlabel("price")
+plt.ylabel("count")
+plt.tight_layout()
+plt.savefig(OUT / "diamonds_price.png", dpi=110)
+plt.close()
 
 print()
 print("=" * 60)
-print("2. 生成 2x2 价格面板")
+print("2. 人口统计：midwest.csv")
 print("=" * 60)
 
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+midwest = pd.read_csv("data/05-eda-viz/midwest.csv")
+state_pop = midwest.groupby("state")["poptotal"].sum().sort_values(ascending=False)
+print("各州总人口前 5:")
+print(state_pop.head())
+plt.figure(figsize=(8, 4))
+state_pop.plot.bar(color="#55a868")
+plt.title("Total population by state")
+plt.xlabel("state")
+plt.ylabel("population")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(OUT / "midwest_population.png", dpi=110)
+plt.close()
 
-sns.boxplot(data=plot_df, x="neighbourhood_group", y="price", ax=axes[0, 0])
-axes[0, 0].set_title("Price distribution by borough")
-axes[0, 0].set_xlabel("Borough")
-axes[0, 0].set_ylabel("Price (USD / night)")
+print()
+print("=" * 60)
+print("3. 能源时间序列：energy_dataset.csv")
+print("=" * 60)
 
-sns.boxplot(data=plot_df, x="room_type", y="price", ax=axes[0, 1])
-axes[0, 1].set_title("Price distribution by room type")
-axes[0, 1].set_xlabel("Room type")
-axes[0, 1].set_ylabel("Price (USD / night)")
-
-sc = axes[1, 0].scatter(
-    df["longitude"], df["latitude"],
-    s=1, c=df["price"], cmap="viridis", alpha=0.3
+energy = pd.read_csv("data/05-eda-viz/energy_dataset.csv")
+energy["time"] = pd.to_datetime(energy["time"], errors="coerce", utc=True)
+energy["total load actual"] = pd.to_numeric(
+    energy["total load actual"], errors="coerce"
 )
-axes[1, 0].set_title("Location and price")
-axes[1, 0].set_xlabel("Longitude")
-axes[1, 0].set_ylabel("Latitude")
-fig.colorbar(sc, ax=axes[1, 0], label="Price (USD)")
+energy = energy.dropna(subset=["time", "total load actual"]).sort_values("time")
+energy["date"] = energy["time"].dt.date
+daily = energy.groupby("date")["total load actual"].mean()
+print("日均负荷样本量:", len(daily))
+print(daily.tail())
+plt.figure(figsize=(8, 4))
+daily.tail(120).plot.line(color="#c44e52")
+plt.title("Average daily total load, last 120 days")
+plt.xlabel("date")
+plt.ylabel("total load actual")
+plt.tight_layout()
+plt.savefig(OUT / "energy_load.png", dpi=110)
+plt.close()
 
-axes[1, 1].scatter(plot_df["minimum_nights"], plot_df["price"], s=3, alpha=0.2)
-axes[1, 1].set_title("Minimum nights vs price")
-axes[1, 1].set_xlabel("Minimum nights")
-axes[1, 1].set_ylabel("Price (USD / night)")
-
-fig.suptitle("NYC Airbnb price overview (n = 48895)")
-fig.tight_layout()
-output_path = OUT_DIR / "week05_dashboard.png"
-fig.savefig(output_path, dpi=150)
-print("saved:", output_path)
+print()
+print("图表已保存到:", OUT)

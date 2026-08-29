@@ -3,57 +3,90 @@
 运行：
     python scripts/week07_practice.py
 """
+import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score,
+)
 from sklearn.model_selection import train_test_split
 
 print("=" * 60)
-print("1. 读取并准备 Airbnb 数据")
+print("1. 信贷风险分类：GermanCredit.csv")
 print("=" * 60)
 
-df = pd.read_csv("data/nyc_airbnb.csv")
-df = df[(df["price"] > 0) & (df["price"] <= 1000)].copy()
-
-features = [
-    "room_type",
-    "neighbourhood_group",
-    "minimum_nights",
-    "number_of_reviews",
-    "availability_365",
-    "calculated_host_listings_count",
-    "latitude",
-    "longitude",
+german = pd.read_csv("data/07-modeling/GermanCredit.csv")
+german_features = [
+    "duration",
+    "amount",
+    "installment_rate",
+    "present_residence",
+    "age",
+    "number_credits",
+    "people_liable",
 ]
-
-print("样本数:", len(df))
-print("缺失值:")
-print(df[features].isna().sum())
-
-print()
-print("=" * 60)
-print("2. 拆分并训练线性回归")
-print("=" * 60)
-
-X = pd.get_dummies(df[features], drop_first=True)
-y = df["price"]
-
+X = german[german_features]
+y = german["credit_risk"]
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.3, random_state=42
 )
+clf = LogisticRegression(max_iter=1000)
+clf.fit(X_train, y_train)
+pred = clf.predict(X_test)
+print("accuracy:", round(accuracy_score(y_test, pred), 4))
+print("confusion matrix:")
+print(confusion_matrix(y_test, pred))
+print(classification_report(y_test, pred, zero_division=0))
 
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-train_pred = model.predict(X_train)
-test_pred = model.predict(X_test)
-
-print("train R2:", round(r2_score(y_train, train_pred), 4))
-print("test R2:", round(r2_score(y_test, test_pred), 4))
-print("test MAE:", round(mean_absolute_error(y_test, test_pred), 2))
-print("测试集平均价格:", round(y_test.mean(), 2))
-
-baseline = [y_test.mean()] * len(y_test)
-print("baseline MAE（猜平均价）:", round(mean_absolute_error(y_test, baseline), 2))
 print()
-print("检查：是否先拆分再训练？是否报告 MAE 和基准？")
+print("=" * 60)
+print("2. 波士顿房价回归：BostonHousing.csv")
+print("=" * 60)
+
+boston = pd.read_csv("data/07-modeling/BostonHousing.csv")
+X = boston.drop(columns=["medv"])
+y = boston["medv"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+reg = LinearRegression()
+reg.fit(X_train, y_train)
+pred = reg.predict(X_test)
+print("baseline MAE:", round(mean_absolute_error(y_test, [y_train.mean()] * len(y_test)), 2))
+print("model MAE:", round(mean_absolute_error(y_test, pred), 2))
+print("RMSE:", round(np.sqrt(mean_squared_error(y_test, pred)), 2))
+print("R2:", round(r2_score(y_test, pred), 4))
+
+print()
+print("=" * 60)
+print("3. 银行客户流失分类：Churn_Modelling.csv")
+print("=" * 60)
+
+churn = pd.read_csv("data/07-modeling/Churn_Modelling.csv")
+churn_features = [
+    "CreditScore",
+    "Age",
+    "Tenure",
+    "Balance",
+    "NumOfProducts",
+    "HasCrCard",
+    "IsActiveMember",
+    "EstimatedSalary",
+]
+X = churn[churn_features]
+y = churn["Exited"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+clf = LogisticRegression(max_iter=1000)
+clf.fit(X_train, y_train)
+pred = clf.predict(X_test)
+print("accuracy:", round(accuracy_score(y_test, pred), 4))
+print("confusion matrix:")
+print(confusion_matrix(y_test, pred))
+print(classification_report(y_test, pred))

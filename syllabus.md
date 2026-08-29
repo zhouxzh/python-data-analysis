@@ -4,70 +4,73 @@
 
 - 每节 45 分钟按 `8 分钟演示 → 30 分钟练习 → 7 分钟复盘` 组织。
 - 每节必须出现一次完整的 vibe loop：`定义问题 → 要求最小版本 → 运行 → 反馈 → 追问 → 验证`。
-- 所有案例数据都在本仓库 `data/` 中，学生不需要联网下载也能完成主体练习。
+- 所有案例数据都在本仓库 `data/` 中，按周目录组织，学生不需要联网下载也能完成主体练习。
 - DSH 不是答案机。凡是 AI 生成的代码，学生必须运行并用自己的话解释 1 个关键步骤。
-- 主数据集统一使用 `data/nyc_airbnb.csv`，旧数据文件保留为可选/进阶案例。
+- 每周使用不同领域数据；每周 3 节课尽量各用一类数据，覆盖金融、零售、电商、医疗、教育、汽车、电信、能源、营销、公共健康、房地产等场景。
+- 旧数据统一放在 `data/legacy/`，不再作为主流程依赖。
 
 ## Week 1：Agent 认知、环境安装与第一个数据问题
 
 - 第 1 节：认识 AI Agent、常见 Agent、常见大模型、DeepSeek + DSH 的特点；先讲 5 条课堂红线和安全使用流程，完成安全自测。
-- 第 2 节：安装 Anaconda、VS Code、Node.js，配置 TUNA 镜像；创建 `python-course` 目录并运行 `hello.py`，完成传统 Python 测试。
-- 第 3 节：安装并启动 DSH，配置 API Key 和工作区；认识 DSH 界面，再让 DSH 读取 `data/nyc_airbnb.csv` 完成第一次 Vibe Coding 分析。
-- 作业：完成安装并保存验证截图；写 Agent 安全说明；用 DSH 统计 `data/nyc_airbnb.csv` 并写出 3 个“这份数据能回答的问题”。
+- 第 2 节：安装 Anaconda、VS Code、Node.js，配置 TUNA 镜像；创建课程目录并运行 `hello.py`，完成传统 Python 测试。
+- 第 3 节：安装并启动 DSH，配置 API Key 和工作区；让 DSH 读取 `data/01-agent/nyc_airbnb.csv` 完成第一次 Vibe Coding 分析。
+- 作业：完成安装并保存验证截图；写 Agent 安全说明；用 DSH 统计 `data/01-agent/nyc_airbnb.csv` 并写出 3 个“这份数据能回答的问题”。
 
-## Week 2：pandas 数据结构与读取
+## Week 2：Python 编程基础
 
-- 第 1 节：Series / DataFrame、`read_csv` / `read_excel`、`head` / `info` / `dtypes`。
-- 第 2 节：列选择、行过滤、新增列；单位换算和简单算术。
-- 第 3 节：Mini case：读取 `data/nyc_airbnb.csv`，按 `room_type` 找出平均价格最高的房型。
-- 作业：让 DSH 生成一份“数据概览卡片”，包含行数、列数、每列类型、缺失值和前 5 行。
+- 第 1 节：变量、数字、字符串、布尔、list/tuple/dict/set；用 `statistics` 处理 `data/02-python/stock_price.csv`。
+- 第 2 节：条件、循环、函数；用 `csv` 模块处理 `data/02-python/supermarket_sales.csv`。
+- 第 3 节：文件读写、异常处理、调试；处理 `data/02-python/breast_cancer.csv` 中的异常值和基础统计。
+- 作业：让 DSH 生成一个读取并汇总零售数据的 Python 脚本，学生必须解释每一步并手工验证结果。
 
-## Week 3：数据清洗与审计
+## Week 3：pandas 基础
 
-- 第 1 节：识别缺失、重复、类型不一致、语义问题（0 与缺失的区别）；把审计写成清单。
-- 第 2 节：`dropna` / `fillna` / `astype` / `to_datetime` / `drop_duplicates`；保存清洗函数。
-- 第 3 节：Mini case：审计 `data/nyc_airbnb.csv` 的缺失、价格异常和日期列，输出清洗前后对比。
-- 作业：让 DSH 对同一份数据做“双人审查”：一组用 AI 自动审计，一组人工核对，找出 AI 遗漏的质量问题。
+- 第 1 节：DataFrame、`read_csv`、`shape`、`columns`、`dtypes`、`info`、`describe`；读取 `data/03-pandas/olist_orders_45d.csv`。
+- 第 2 节：`loc` / `iloc`、条件筛选、排序、新增列；分析 `data/03-pandas/College.csv`。
+- 第 3 节：`groupby`、`agg`、`value_counts`、简单缺失检查；分析 `data/03-pandas/Cars93.csv`。
+- 作业：让 DSH 对三份数据分别生成“数据概览卡片”，学生写清每份数据的关键字段和潜在问题。
 
-## Week 4：EDA 与提出假设
+## Week 4：数据清洗与审计
 
-- 第 1 节：`describe`、`value_counts`、`sort_values`、相关性；区分“描述”和“解释”。
-- 第 2 节：带着问题做 EDA：行政区/房型分组、高价比例、缺失与异常值。
-- 第 3 节：Mini case：分析 `data/nyc_airbnb.csv` 的价格分布，输出 3 个发现 + 3 个待验证假设。
-- 作业：把“帮我做 EDA”改成“我要回答 3 个明确问题，请给我每张图对应的代码和结论”。
+- 第 1 节：缺失、重复、类型错误；审计 `data/04-cleaning/Cars93_miss.csv`。
+- 第 2 节：字符串、日期、异常值、业务一致性；清洗 `data/04-cleaning/telco_customer_churn.csv`。
+- 第 3 节：清洗函数、决策记录、审计报告；整理 `data/04-cleaning/Life_Expectancy_Data.csv`。
+- 作业：让 DSH 做“AI 审计 + 人工核对”，找出 AI 遗漏的质量问题，并写清洗前后对比。
 
-## Week 5：可视化表达
+## Week 5：EDA 与可视化
 
-- 第 1 节：折线、柱状、直方、散点；一张图对应一个问题。
-- 第 2 节：标题、轴标签、图例、颜色、子图；用 seaborn 快速做分组比较。
-- 第 3 节：Mini case：用 `data/nyc_airbnb.csv` 做 2×2 价格面板，并让 DSH 审查图表信息是否完整。
-- 作业：制作一张“数据来源、口径、样本量、结论”四要素齐全的图，写 2 句解读。
+- 第 1 节：单变量分布、异常值、直方图、箱线图；探索 `data/05-eda-viz/diamonds.csv`。
+- 第 2 节：分类对比、条形图、散点图；探索 `data/05-eda-viz/midwest.csv`。
+- 第 3 节：时间序列、重采样、折线图；探索 `data/05-eda-viz/energy_dataset.csv`。
+- 作业：每张图都要有标题、轴标签和结论；让 DSH 审查图表是否误导、是否缺少信息。
 
 ## Week 6：合并、分组与迷你项目
 
-- 第 1 节：`merge` / `concat`、`on` / `how`、`groupby` / `agg`。
-- 第 2 节：跨表整合：`nyc_airbnb.csv` + `nyc_boroughs.csv`，对比行政区价格、人口和收入。
-- 第 3 节：Mini project：提出 2 个问题 → 清洗 → 分析 → 1 张图 → 120 字结论。
-- 作业：用 DSH 把项目拆成“数据加载、清洗、分析、图表、报告”5 个子任务，分别给出验收标准。
+- 第 1 节：`merge` / `concat`、连接键、连接类型；合并 `data/06-merge/norway_new_car_sales_by_make.csv` 和 `data/06-merge/norway_new_car_sales_by_model.csv`。
+- 第 2 节：`groupby` / `agg` / `pivot_table` / `crosstab`；分析 `data/06-merge/MarketArrivals.csv`。
+- 第 3 节：用 `data/06-merge/email_campaign_funnel.csv` 完成漏斗转化和迷你报告。
+- 作业：把项目拆成“数据加载、合并、分组、图表、结论”5 个子任务，分别写验收标准。
 
 ## Week 7：第一个预测模型
 
-- 第 1 节：特征 / 标签、训练集 / 测试集、为什么不能只报告训练得分。
-- 第 2 节：用 `data/nyc_airbnb.csv` 跑通最小线性回归，预测 `price`，看 R² 和 MAE。
-- 第 3 节：目标泄漏、样本不平衡、相关不等于因果；让 DSH 列出模型局限。
-- 作业：写 100 字：这个模型能支持什么决策、不能支持什么决策。
+- 第 1 节：特征 / 标签、训练集 / 测试集、分类指标；用 `data/07-modeling/GermanCredit.csv` 预测信贷风险。
+- 第 2 节：线性回归、MAE / RMSE / R²；用 `data/07-modeling/BostonHousing.csv` 预测房价。
+- 第 3 节：类别不平衡、特征选择、业务解释；用 `data/07-modeling/Churn_Modelling.csv` 预测银行客户流失。
+- 作业：写 100 字说明所选模型能支持什么决策、不能支持什么决策。
 
 ## Week 8：结课项目与展示
 
-- 第 1 节：选题、数据来源、问题与验收标准；用 plan mode 写出项目计划。
-- 第 2 节：分小组并行执行：审计、EDA、可视化、报告；用 goal 追踪进度。
+- 第 1 节：从第 01-07 周数据中选题，写出问题、数据和验收标准。
+- 第 2 节：分小组并行执行：清洗、EDA、可视化或建模，输出写入 `projects/<姓名>/`。
 - 第 3 节：3 分钟展示 + 互评；完成“我验证了什么 / 我不确定什么 / 下一步做什么”。
 
-## 推荐案例数据（已在仓库中）
+## 推荐案例数据
 
-- `data/nyc_airbnb.csv`：纽约 Airbnb 2019 挂牌数据，48,895 行 × 16 列，约 7MB，全课程主数据集。
-- `data/nyc_boroughs.csv`：纽约市行政区小表，适合 Week 6 合并练习。
-- `data/成绩单.xlsx`：成绩表，可选 Excel 读取热身案例。
-- `data/air_quality_simple.csv`、`data/air_quality_dirty.csv`、`data/city_info.csv`、`data/synthetic_air_quality.csv`：旧空气质量案例，可选练习。
-- `data/bank_marketing.zip`：UCI 银行营销数据，可选 Week 4 EDA 和 Week 7 分类。
-- `data/titanic.csv`：Titanic 生存数据，可选 Week 7 分类和结课项目。
+- `data/01-agent/nyc_airbnb.csv`：纽约 Airbnb 2019 挂牌数据，48,895 行 × 16 列。
+- `data/02-python/`：股票价格、超市销售、乳腺癌细胞特征。
+- `data/03-pandas/`：巴西电商订单、美国大学、汽车规格。
+- `data/04-cleaning/`：电信客户流失、缺失汽车数据、各国预期寿命。
+- `data/05-eda-viz/`：钻石价格、美国中西部人口、西班牙能源时间序列。
+- `data/06-merge/`：挪威汽车销量、市场到货量、邮件营销漏斗。
+- `data/07-modeling/`：德国信贷、波士顿房价、银行客户流失。
+- `data/legacy/`：旧空气质量、Titanic、银行营销、成绩单等可选案例。

@@ -27,7 +27,7 @@ print("=" * 60)
 print("2. 读取课程主数据集 nyc_airbnb.csv")
 print("=" * 60)
 
-df = pd.read_csv("data/nyc_airbnb.csv")
+df = pd.read_csv("data/01-agent/nyc_airbnb.csv")
 print("shape:", df.shape)
 print()
 print(df.dtypes)

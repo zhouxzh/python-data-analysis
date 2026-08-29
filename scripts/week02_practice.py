@@ -1,56 +1,68 @@
-"""Week 2 实践：pandas 数据结构与读取。
+"""Week 2 实践：Python 编程基础，使用 csv 与 statistics。
 
 运行：
     python scripts/week02_practice.py
 """
-import pandas as pd
+import csv
+import statistics
+from pathlib import Path
+
+BASE = Path("data/02-python")
 
 print("=" * 60)
-print("1. 读取 CSV 并检查数据")
+print("1. 金融时间序列：stock_price.csv")
 print("=" * 60)
 
-df = pd.read_csv("data/nyc_airbnb.csv")
-print("shape:", df.shape)
-print()
-print(df.head())
-print()
-print(df.dtypes)
-print()
-print("缺失值:")
-print(df.isna().sum())
+with open(BASE / "stock_price.csv", encoding="utf-8", newline="") as f:
+    stock_rows = list(csv.DictReader(f))
 
-print()
-print("=" * 60)
-print("2. 选列、过滤和新增列")
-print("=" * 60)
+prices = [float(row["Price"]) for row in stock_rows]
+up_days = sum(1 for i in range(1, len(prices)) if prices[i] > prices[i - 1])
 
-print("price 前 5 行:")
-print(df["price"].head())
-
-print()
-print("Manhattan 房源数:")
-manhattan = df[df["neighbourhood_group"] == "Manhattan"]
-print(len(manhattan))
-
-df2 = df.copy()
-df2["high_price"] = df2["price"] > 200
-df2 = df2.sort_values("price", ascending=False)
-
-print()
-print("价格最高的 5 个房源:")
-print(df2[["name", "room_type", "neighbourhood_group", "price"]].head(5))
+print("样本量:", len(prices))
+print("平均价格:", round(statistics.mean(prices), 2))
+print("最高价格:", max(prices))
+print("最低价格:", min(prices))
+print("上涨天数:", up_days)
 
 print()
 print("=" * 60)
-print("3. Mini case：哪种房型平均价格最高")
+print("2. 零售数据：supermarket_sales.csv")
 print("=" * 60)
 
-summary = (
-    df.groupby("room_type")["price"]
-    .agg(["mean", "count"])
-    .sort_values("mean", ascending=False)
-    .round(2)
-)
-print(summary)
+with open(BASE / "supermarket_sales.csv", encoding="utf-8", newline="") as f:
+    sales_rows = list(csv.DictReader(f))
+
+branch_totals = {}
+for row in sales_rows:
+    branch = row["Branch"]
+    total = float(row["Total"])
+    branch_totals[branch] = branch_totals.get(branch, 0.0) + total
+
+for branch in sorted(branch_totals):
+    print(f"Branch {branch}: {branch_totals[branch]:.2f}")
+
 print()
-print("提醒：mean 是平均值，count 是样本量；只看平均会忽略小样本和异常价格。")
+print("=" * 60)
+print("3. 医疗数据：breast_cancer.csv")
+print("=" * 60)
+
+with open(BASE / "breast_cancer.csv", encoding="utf-8", newline="") as f:
+    cancer_rows = list(csv.DictReader(f))
+
+bare_values = []
+for row in cancer_rows:
+    value = (row.get("Bare.nuclei") or "").strip()
+    if value in {"", "?", "NA"}:
+        continue
+    try:
+        bare_values.append(float(value))
+    except ValueError:
+        continue
+
+print("总记录数:", len(cancer_rows))
+print("可用 Bare.nuclei 值:", len(bare_values))
+print("缺失/异常值数量:", len(cancer_rows) - len(bare_values))
+if bare_values:
+    print("Bare.nuclei 平均值:", round(statistics.mean(bare_values), 2))
+    print("最小值:", min(bare_values), "最大值:", max(bare_values))

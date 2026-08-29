@@ -12,9 +12,9 @@
 //   ]
 // }
 
-const datasetPath = args.datasetPath || "data/nyc_airbnb.csv";
+const datasetPath = args.datasetPath || "data/04-cleaning/telco_customer_churn.csv";
 const projectDir = args.projectDir || "projects/example/final";
-const reportTitle = args.reportTitle || "纽约 Airbnb 价格分析";
+const reportTitle = args.reportTitle || "电信客户流失分析";
 
 phase("数据审计");
 log(`开始审计 ${datasetPath}`);

@@ -1,4 +1,4 @@
-"""Week 4 实践：EDA 与提出假设。
+"""Week 4 实践：数据清洗与审计。
 
 运行：
     python scripts/week04_practice.py
@@ -6,55 +6,45 @@
 import pandas as pd
 
 print("=" * 60)
-print("1. 读取并检查数据")
+print("1. 缺失汽车数据：Cars93_miss.csv")
 print("=" * 60)
 
-df = pd.read_csv("data/nyc_airbnb.csv")
-print("shape:", df.shape)
-print()
-print("缺失值:")
-print(df[["neighbourhood_group", "room_type", "price", "reviews_per_month"]]
-      .isna().sum())
-
-print()
-print("=" * 60)
-print("2. 按行政区和房型做 EDA")
-print("=" * 60)
-
-print("按行政区:")
-print(df.groupby("neighbourhood_group")["price"]
-      .agg(["mean", "median", "count"])
-      .round(2)
-      .sort_values("mean", ascending=False))
-print()
-print("按房型:")
-print(df.groupby("room_type")["price"]
-      .agg(["mean", "median", "count"])
-      .round(2)
-      .sort_values("mean", ascending=False))
+cars_miss = pd.read_csv("data/04-cleaning/Cars93_miss.csv")
+print("shape:", cars_miss.shape)
+print("每列缺失数:")
+print(cars_miss.isna().sum()[cars_miss.isna().sum() > 0])
+print("删除任意缺失值后:", cars_miss.dropna().shape)
 
 print()
 print("=" * 60)
-print("3. 高价比例与缺失")
+print("2. 电信客户流失：telco_customer_churn.csv")
 print("=" * 60)
 
-df["high_price"] = df["price"] > 200
-print("高价房源比例:")
-print(df.groupby("room_type")["high_price"]
-      .agg(["mean", "count"])
-      .round(4))
+telco = pd.read_csv("data/04-cleaning/telco_customer_churn.csv")
+print("shape:", telco.shape)
+print("重复 Customer ID 数:", telco["Customer ID"].duplicated().sum())
+print("总缺失值:", int(telco.isna().sum().sum()))
+telco["Total Charges"] = pd.to_numeric(
+    telco["Total Charges"], errors="coerce"
+)
 print()
-print("reviews_per_month 缺失数:")
-print(df.groupby("room_type")["reviews_per_month"]
-      .apply(lambda s: s.isna().sum()))
+print("按 Contract 的流失率:")
+churn_rate = (
+    telco.groupby("Contract")["Churn"]
+    .mean()
+    .round(4)
+)
+print(churn_rate)
 
 print()
 print("=" * 60)
-print("4. 相关性（相关不等于因果）")
+print("3. 公共健康数据：Life_Expectancy_Data.csv")
 print("=" * 60)
 
-print(df[["price", "minimum_nights", "number_of_reviews", "availability_365"]]
-      .corr()["price"]
-      .round(3))
-print()
-print("发现：行政区与房型价差明显；缺失和无评论状态必须分开报告。")
+life = pd.read_csv("data/04-cleaning/Life_Expectancy_Data.csv")
+life.columns = [col.strip() for col in life.columns]
+print("shape:", life.shape)
+print("字段名已清理，Life expectancy 平均:")
+print(round(life["Life expectancy"].mean(), 2))
+print("按 Status 平均预期寿命:")
+print(life.groupby("Status")["Life expectancy"].mean().round(2))

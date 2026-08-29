@@ -1,63 +1,57 @@
 # 课程数据说明
 
-## 主数据集：`nyc_airbnb.csv`
+本目录按 8 周课程组织数据，每周使用不同领域的数据，尽量让每节课接触一种典型数据分析场景。所有主数据均已提交到仓库，学生不需要联网下载。
 
-来源：HuggingFace 数据集 `gradio/NYC-Airbnb-Open-Data`，原始文件 `AB_NYC_2019.csv`。
-
-本仓库已经包含该文件，课程中不需要学生联网下载；如果老师或学生需要重新下载，优先使用 HuggingFace 国内镜像：
+## 目录结构
 
 ```text
-https://hf-mirror.com/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv
+data/
+  01-agent/         第 01 周：Agent、环境与第一个数据问题
+  02-python/        第 02 周：Python 编程基础
+  03-pandas/        第 03 周：pandas 基础
+  04-cleaning/      第 04 周：数据清洗与审计
+  05-eda-viz/       第 05 周：EDA 与可视化
+  06-merge/         第 06 周：合并、分组与迷你项目
+  07-modeling/      第 07 周：第一个预测模型
+  08-final/         第 08 周：结课项目与展示
+  legacy/           旧数据和历史案例，不再作为主流程
 ```
 
-命令行下载：
+每个周目录内有独立的 `README.md`，说明文件、来源、字段和课堂问题。
 
-```bash
-curl -L -o data/nyc_airbnb.csv "https://hf-mirror.com/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv"
-```
+## 数据来源
 
-也可以运行课程脚本：
+主要来源为两个公开渠道：
+
+- GitHub `selva86/datasets`：用于教学的小型经典数据集，覆盖金融、零售、电商、教育、汽车、医疗、人口、信贷、房价、客户流失等。
+- HuggingFace 国内镜像 `hf-mirror.com`：用于电信客户流失和西班牙能源时间序列。
+
+下载命令统一封装在：
 
 ```bash
 python scripts/download_course_data.py
 ```
 
-官方原始地址：
+HuggingFace 优先使用镜像，避免国内直接访问失败。
 
-```text
-https://huggingface.co/datasets/gradio/NYC-Airbnb-Open-Data/resolve/main/AB_NYC_2019.csv
-```
+## 许可与再分发说明
 
-授权：AFL-3.0（Academic Free License 3.0），可用于教学、研究和再分发，使用时保留来源说明。
+- 本课程仓库保留数据来源和文件出处，用于课堂教学、研究和学习。
+- `data/01-agent/nyc_airbnb.csv` 来源为 HuggingFace `gradio/NYC-Airbnb-Open-Data`，许可为 AFL-3.0。
+- 其余 GitHub 和 HuggingFace 数据集的原始许可以各自来源页面为准；如数据来源缺少明确许可，则只作为教学示例，不做商业再分发。
+- 旧数据统一放在 `data/legacy/`，不删除，避免破坏历史材料。
 
-规模：48,895 行 × 16 列，约 7MB。
+## 每周数据概览
 
-字段说明：
+| 周 | 主题 | 数据领域 |
+|---|---|---|
+| 01 | Agent、环境与第一个数据问题 | 旅行/房地产：纽约 Airbnb |
+| 02 | Python 编程基础 | 金融、零售、医疗 |
+| 03 | pandas 基础 | 电商、教育、汽车 |
+| 04 | 数据清洗与审计 | 电信、汽车缺失、公共健康 |
+| 05 | EDA 与可视化 | 零售/消费、人口统计、能源时间序列 |
+| 06 | 合并、分组与迷你项目 | 汽车销售、零售客流量、营销漏斗 |
+| 07 | 第一个预测模型 | 信贷风险、房价、银行客户流失 |
+| 08 | 结课项目与展示 | 学生从前 7 周数据中选题 |
 
-| 字段 | 含义 |
-|---|---|
-| `id` | 房源 ID |
-| `name` | 房源名称 |
-| `host_id` | 房东 ID |
-| `host_name` | 房东姓名 |
-| `neighbourhood_group` | 纽约市行政区（Bronx/Brooklyn/Manhattan/Queens/Staten Island） |
-| `neighbourhood` | 具体街区 |
-| `latitude` / `longitude` | 房源经纬度 |
-| `room_type` | 房型：Entire home/apt、Private room、Shared room |
-| `price` | 每晚价格（美元） |
-| `minimum_nights` | 最少入住晚数 |
-| `number_of_reviews` | 评论数量 |
-| `last_review` | 最近一次评论日期，无评论时为缺失 |
-| `reviews_per_month` | 每月平均评论数，无评论时为缺失 |
-| `calculated_host_listings_count` | 同一房东在平台上的房源数 |
-| `availability_365` | 一年内可订天数 |
-
-已知数据问题：`name` 缺失 16 行，`host_name` 缺失 21 行，`last_review` 和 `reviews_per_month` 缺失 10052 行；`price` 存在 0 和大于 1000 的异常值。这些真实问题适合第 03 周清洗审计。
-
-## 辅助表：`nyc_boroughs.csv`
-
-第 06 周用于 `merge` 练习的行政区小表，字段来自纽约市公开统计的常见口径，课程中作为教学用近似数据，正式论文或项目应以官方最新统计为准。
-
-## 旧数据
-
-`data/` 中原有的成绩单、空气质量、Titanic、银行营销等文件保留为可选/旧案例，不再是第 01 周和后续各周主流程的依赖。
+更多细节见各周目录下的 `README.md`。

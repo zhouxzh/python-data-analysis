@@ -2,7 +2,7 @@
 
 > **本章导读**
 > 时长：3 节课，每节 45 分钟
-> 数据：`data/nyc_airbnb.csv`
+> 数据：`data/01-agent/nyc_airbnb.csv`
 > 你将学到：认识 AI Agent、常见 Agent 与大模型，理解 DeepSeek + DSH 的特点和安全使用规则，安装本课程环境，再分别体验传统 Python 编程和 Vibe Coding
 > 本周产出：`projects/<姓名>/first_analysis.py`
 
@@ -549,7 +549,7 @@ Hello, Python!
 
 ## 3. 第 3 节课：安装 DSH 并完成第一次 Vibe Coding（45 分钟）
 
-第三节课把 DSH 装好、配置好，然后完成本周最重要的一步：**让 DSH 读取 `data/nyc_airbnb.csv`，生成第一份数据分析脚本**。
+第三节课把 DSH 装好、配置好，然后完成本周最重要的一步：**让 DSH 读取 `data/01-agent/nyc_airbnb.csv`，生成第一份数据分析脚本**。
 
 ### 3.1 安装并启动 DeepSeek Harness
 
@@ -682,7 +682,7 @@ D:\python-data-analysis
 
 ```text
 请先告诉我当前工作区路径，确认后开始。
-请读取 data/nyc_airbnb.csv，不要修改原文件。
+请读取 data/01-agent/nyc_airbnb.csv，不要修改原文件。
 任务：
 1. 输出 shape、dtypes、缺失值、前 5 行；
 2. 按 room_type 分组，计算 price 的平均值和样本量；
@@ -695,7 +695,7 @@ DSH 通常会生成类似代码：
 ```python
 import pandas as pd
 
-df = pd.read_csv('data/nyc_airbnb.csv')
+df = pd.read_csv('data/01-agent/nyc_airbnb.csv')
 
 print('shape:', df.shape)
 print()
@@ -778,7 +778,7 @@ Shared room       70.13   1160
 
 **这次请特别注意三件事：**
 
-- Agent 在工具行里显示它读取了 `data/nyc_airbnb.csv`，没有修改原文件；
+- Agent 在工具行里显示它读取了 `data/01-agent/nyc_airbnb.csv`，没有修改原文件；
 - 它运行了 Python 命令，你要点击工具行看命令内容；
 - 它写的代码你要能看懂：`read_csv` 是读数据，`groupby` 是分组，`mean` 是平均。
 
@@ -811,7 +811,7 @@ Shared room       70.13   1160
 - [ ] 已选择本仓库作为工作区，会话输入框可输入
 - [ ] DSH 能回答当前工作区路径
 - [ ] 每次允许 DSH 执行命令前，都能说出“这条命令在做什么”
-- [ ] DSH 能读取 `data/nyc_airbnb.csv` 并输出 `shape (48895, 16)`
+- [ ] DSH 能读取 `data/01-agent/nyc_airbnb.csv` 并输出 `shape (48895, 16)`
 - [ ] `room_type` 分组表包含 `mean` 和 `count`
 - [ ] `projects/<姓名>/first_analysis.py` 已保存且可运行
 
@@ -842,7 +842,7 @@ Shared room       70.13   1160
 | `npx` 不是内部或外部命令 | Node.js 没安装或没生效 | 重装 Node.js LTS，重新打开命令行 |
 | DSH 页面打不开 | 启动命令还在下载，或端口被占用 | 等命令显示 `URL: http://127.0.0.1:3080` 后再刷新浏览器 |
 | 页面能开但不能输入对话 | 没保存 API Key 或没选工作区 | 完成 `Settings → Models` 和 `Choose workspace` |
-| DSH 找不到 `data/nyc_airbnb.csv` | 工作区不在课程仓库 | 先问“当前工作区路径”，改回本仓库再执行 |
+| DSH 找不到 `data/01-agent/nyc_airbnb.csv` | 工作区不在课程仓库 | 先问“当前工作区路径”，改回本仓库再执行 |
 | Agent 改错了文件 | 没有先读原文件就重写 | 让 Agent 先 `read`，再修改；执行后用 `git diff` 检查 |
 | Agent 请求执行看不懂的命令 | 学生直接点了“允许” | 让 Agent 逐字解释命令；解释后仍不懂就找老师 |
 | Agent 想删除或覆盖文件 | 提示词没说清楚边界 | 明确写“不要修改原文件”，必要时先复制备份 |
@@ -857,7 +857,7 @@ Shared room       70.13   1160
 1. 用自己的话写 300 字以内的“Agent 使用安全说明”，至少包含：Agent 是什么、5 条课堂红线、3 个绝对不执行的操作、为什么每条结论都要自己验证。保存到 `projects/<姓名>/agent-safety.md`。
 2. 写一份 150 字以内的“DeepSeek + DSH 选型说明”，解释为什么本课程用 DeepSeek 而不是 GPT 或 Claude。保存到 `projects/<姓名>/stack-notes.md`。
 3. 按自己系统对应的小节完成 Anaconda、VS Code、Node.js 和 DSH 安装，把 `hello.py` 运行结果和验证命令截图保存到 `projects/<姓名>/environment.png`。
-4. 让 DSH 按 `neighbourhood_group` 统计 `data/nyc_airbnb.csv` 的平均价格和样本量，然后写出 3 个“这份数据能回答、但第一版提示词没有回答”的问题。
+4. 让 DSH 按 `neighbourhood_group` 统计 `data/01-agent/nyc_airbnb.csv` 的平均价格和样本量，然后写出 3 个“这份数据能回答、但第一版提示词没有回答”的问题。
 
 示例：
 
@@ -873,6 +873,6 @@ Shared room       70.13   1160
 | 安全 | 能背出红线；看不懂的命令会停下来解释；`agent-safety.md` 完成 |
 | 环境 | `python`、`node`、VS Code、DSH 都能启动，工作区已选择 |
 | 传统编程 | `hello.py` 能运行，并能解释每一行 |
-| Vibe Coding | DSH 能读取 `nyc_airbnb.csv` 并生成可运行脚本 |
+| Vibe Coding | DSH 能读取 `data/01-agent/nyc_airbnb.csv` 并生成可运行脚本 |
 | 结果 | 分组统计包含 `mean` 和 `count`，结论有依据 |
 | AI 协作 | 保留 DSH 修改代码的记录，并说明每处修改为什么安全 |
