@@ -44,12 +44,12 @@ export default {
         text: '每周实践教程',
         children: [
           '/01-认识Agent与第一个数据问题.html',
-          '/02-pandas与数据读取.html',
-          '/03-数据清洗与审计.html',
-          '/04-EDA与提出假设.html',
-          '/05-可视化表达.html',
-          '/06-合并分组与迷你项目.html',
-          '/07-第一个预测模型.html',
+          '/02-Python编程基础.html',
+          '/03-pandas基础.html',
+          '/04-数据可视化.html',
+          '/05-数据清洗与分组聚合.html',
+          '/06-第一个预测模型.html',
+          '/07-回归模型与业务解释.html',
           '/08-结课项目与展示.html'
         ]
       },

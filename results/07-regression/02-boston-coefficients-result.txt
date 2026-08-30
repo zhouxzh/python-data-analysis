@@ -1,0 +1,7 @@
+绝对值最大的前 5 个系数:
+nox       -15.417
+rm          4.057
+chas        3.120
+dis        -1.386
+ptratio    -0.911
+dtype: float64

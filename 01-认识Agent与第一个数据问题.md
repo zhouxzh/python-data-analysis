@@ -14,9 +14,50 @@
 
 ## 1. 第 1 节课：认识 Agent、大模型与安全规则（45 分钟）
 
-第一节不急着安装软件，先把四件事讲明白：**Agent 是什么、常见 Agent 有哪些、常见大模型各有什么特点、为什么不能盲目让 Agent 执行命令**。后面的所有操作都建立在这些认知之上。
+第一节不急着安装软件，先按这个顺序讲明白：**现在有哪些常见大模型 → 大模型和 Agent 的发展历史 → 什么是 AI Agent → 常见 Agent 有哪些 → 为什么本课程用 DeepSeek + DSH → 怎么安全使用 Agent**。后面的所有操作都建立在这些认知之上。
 
-### 1.1 什么是 AI Agent
+### 1.1 现在常见的大模型
+
+大模型是 Agent 的“大脑”。先认识模型，再理解 Agent，因为同一个 Agent 环境可以替换不同大模型，但模型能力决定它到底能理解什么、生成什么。
+
+| 大模型 | 厂商 | 特点 | 成本口径 | 开源 |
+|---|---|---|---|---|
+| GPT-4o / GPT-5 系列 | OpenAI | 综合能力强，多模态，生态和插件丰富 | 订阅或 API 按量，Plus/Pro 与 API 单价都偏高 | 闭源 |
+| Claude 系列 | Anthropic | 长文本、代码、Agent 工具调用能力强 | 订阅或 API 按量，较高 | 闭源 |
+| Gemini | Google | 多模态、超长上下文，与 Google 搜索和文档整合好 | 有免费额度，付费订阅或 API 按量 | 闭源 |
+| DeepSeek | 深度求索 | 中文理解好，推理和代码能力强，API 成本低 | 网页/App 免费，API 按量且价格低，本课程默认 | 部分开源 |
+| Qwen（通义千问） | 阿里 | 中文强，开源生态好，适合中文场景 | 开源可自部署；API 按量，价格较低 | 开源 |
+| Llama | Meta | 开源权重，可本地部署，适合学习开源生态 | 无统一订阅，自部署需要 GPU 或云服务器 | 开源 |
+
+对数据分析课来说，我们看重三件事：**中文提问能不能听懂、代码和推理准不准、学生自己用起来贵不贵**。DeepSeek 在这三点上比较均衡，所以本课程选它作为默认大模型。
+
+> 价格会随厂商政策变化，上表是课程整理时的参考口径，实际以 ChatGPT、Claude、Gemini、DeepSeek、Qwen、Llama 各自官网为准。课程里不需要背价格，只需要会判断“订阅费、API 费、自部署硬件费”这三类成本。
+
+参考链接：
+
+- [Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM)：持续更新的大语言模型论文、工具和教程清单。
+- [WangRongsheng/awesome-LLM-resources](https://github.com/WangRongsheng/awesome-LLM-resources)：中文友好的 LLM、Agent、多模态与训练推理资料汇总。
+- [luban-agi/Awesome-AIGC-Tutorials](https://github.com/luban-agi/Awesome-AIGC-Tutorials)：面向入门学习的 LLM 和 AIGC 教程合集。
+
+### 1.2 大模型的发展历史
+
+大模型的历史：
+
+| 时间 | 节点 | 意义 |
+|---|---|---|
+| 2017 | Transformer 架构提出 | 成为后续 GPT、BERT 等模型的基础 |
+| 2018 | BERT、GPT-1 | 预训练 + 微调成为主流范式 |
+| 2019-2020 | GPT-2、GPT-3 | 规模扩大，few-shot 和通用生成能力明显提升 |
+| 2022 | ChatGPT 发布 | 大模型从论文走向大众产品，RLHF 让回答更像人 |
+| 2023 | GPT-4、Llama、Qwen 等 | 多模态、开源权重、中文模型和推理能力快速发展 |
+| 2024-2026 | 推理模型、多模态、工具调用 | 模型越来越适合当作 Agent 的“大脑” |
+
+参考链接：
+
+- [Hannibal046/Awesome-LLM](https://github.com/Hannibal046/Awesome-LLM)：持续更新的大语言模型论文、工具和教程清单。
+- [luban-agi/Awesome-AIGC-Tutorials](https://github.com/luban-agi/Awesome-AIGC-Tutorials)：面向入门学习的 LLM 和 AIGC 教程合集。
+
+### 1.3 什么是 AI Agent
 
 AI Agent（智能体）不是普通的聊天机器人。聊天机器人只能“说”，Agent 还能“做”。DeepSeek Harness（DSH）就是一个能读写文件、运行命令、搜索网页、执行长任务的 Agent 工作环境。
 
@@ -44,7 +85,7 @@ flowchart LR
 
 **最重要的观念：Agent 是执行者，不是负责人；你是负责人。** Agent 会做的事，是它的工具允许它做的事；它能做到哪一步，取决于你在界面上确认了什么。
 
-### 1.2 常见的 AI Agent
+### 1.4 常见的 AI Agent
 
 常见的 Agent 可以分成四类，权限从小到大的顺序是：网页助手 → 代码补全 → AI IDE → 本地 Agent。
 
@@ -62,24 +103,25 @@ flowchart LR
 
 收费上有两个容易混的点：**产品订阅费和模型 API 费是两回事**。例如 ChatGPT Plus 是订阅 ChatGPT 这个产品；GitHub Copilot 是订阅编辑器里的补全服务；而 Claude Code、Codex CLI、DSH 这类本地 Agent 往往工具本身免费，真正的费用来自你配置的大模型 API。课程选择 DeepSeek + DSH，就是因为订阅成本为零、API 单价低，同时能控制本地权限。
 
-### 1.3 常见大模型
+### 1.5 Agent 的发展历史
 
-大模型是 Agent 的“大脑”。同一个 Agent 环境可以配置不同的大模型，但不同大模型的擅长方向不同。
+在理解了什么是 Agent、见过常见 Agent 后，再回看 Agent 是怎么发展过来的，会更容易把产品分类和底层能力对上。
 
-| 大模型 | 厂商 | 特点 | 成本口径 | 开源 |
-|---|---|---|---|---|
-| GPT-4o / GPT-5 系列 | OpenAI | 综合能力强，多模态，生态和插件丰富 | 订阅或 API 按量，Plus/Pro 与 API 单价都偏高 | 闭源 |
-| Claude 系列 | Anthropic | 长文本、代码、Agent 工具调用能力强 | 订阅或 API 按量，较高 | 闭源 |
-| Gemini | Google | 多模态、超长上下文，与 Google 搜索和文档整合好 | 有免费额度，付费订阅或 API 按量 | 闭源 |
-| DeepSeek | 深度求索 | 中文理解好，推理和代码能力强，API 成本低 | 网页/App 免费，API 按量且价格低，本课程默认 | 部分开源 |
-| Qwen（通义千问） | 阿里 | 中文强，开源生态好，适合中文场景 | 开源可自部署；API 按量，价格较低 | 开源 |
-| Llama | Meta | 开源权重，可本地部署，适合学习开源生态 | 无统一订阅，自部署需要 GPU 或云服务器 | 开源 |
+| 时间 | 节点 | 意义 |
+|---|---|---|
+| 早期 | 专家系统、规则系统 | 能按规则自动决策，但不够通用 |
+| 2010 年代 | 强化学习和游戏 AI | Agent 能通过环境反馈学习策略 |
+| 2023 | AutoGPT、BabyAGI | 第一次大规模尝试“目标 → 自主规划 → 执行” |
+| 2024 | Cursor、Claude Code、Copilot | 编程 Agent 进入日常开发，直接操作本地文件 |
+| 2025-2026 | DSH 等本地 Agent 环境 | 把工作区、工具、目标和安全确认组合起来，适合课程项目 |
 
-对数据分析课来说，我们看重三件事：**中文提问能不能听懂、代码和推理准不准、学生自己用起来贵不贵**。DeepSeek 在这三点上比较均衡，所以本课程选它作为默认大模型。
+参考链接：
 
-> 价格会随厂商政策变化，上表是课程整理时的参考口径，实际以 ChatGPT、Claude、Gemini、DeepSeek、Qwen、Llama 各自官网为准。课程里不需要背价格，只需要会判断“订阅费、API 费、自部署硬件费”这三类成本。
+- [e2b-dev/awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents)：AI Agent 框架、论文、工具和项目清单。
+- [luo-junyu/Awesome-Agent-Papers](https://github.com/luo-junyu/Awesome-Agent-Papers)：以论文为主的 LLM Agent 综述和进展。
+- [Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)：Agent、RAG 和应用案例合集。
 
-### 1.4 本课程为什么用 DeepSeek + DSH
+### 1.6 本课程为什么用 DeepSeek + DSH
 
 DeepSeek 提供“大脑”，DSH 提供“手脚”。这一节只讲概念，具体的 DSH 安装、界面和工作区配置在第 3 节课完成。
 
@@ -110,7 +152,7 @@ flowchart LR
     F --> G[你审查并验证]
 ```
 
-### 1.5 安全使用 Agent
+### 1.7 安全使用 Agent
 
 Agent 能做的事情和真人操作电脑一样有后果：删除文件、覆盖文件、安装软件、下载数据、执行命令。如果学生看不懂命令就点击“允许”，一个不小心就可能把课程项目、原数据甚至系统环境弄坏。
 
@@ -694,27 +736,44 @@ D:\python-data-analysis
 代码保存为 projects/<姓名>/first_analysis.py。
 ```
 
-DSH 通常会生成类似代码：
+本次整理课程时，我按上面的提示词独立跑了一次真实测试，没有使用预估值。DSH 生成的完整脚本如下：
 
 ```python
 import pandas as pd
 
-df = pd.read_csv('data/01-agent/nyc_airbnb.csv')
+df = pd.read_csv("data/01-agent/nyc_airbnb.csv")
 
-print('shape:', df.shape)
+print("shape:", df.shape)
 print()
 print(df.dtypes)
 print()
-print('缺失值:')
+print("缺失值:")
 print(df.isna().sum())
 print()
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", 140)
 print(df.head())
+print()
+
+summary = (
+    df.groupby("room_type")["price"]
+    .agg(["mean", "count"])
+    .round(2)
+)
+print(summary)
+
+top = summary["mean"].idxmax()
+top_mean = summary.loc[top, "mean"]
+top_count = int(summary.loc[top, "count"])
+print()
+print(f"按平均价格看，{top} 的平均价格最高，为 {top_mean:.2f} 美元/晚，样本量为 {top_count}。")
 ```
 
-预期输出（省略长文本列）：
+实际运行结果（当前 `data/01-agent/nyc_airbnb.csv` 实测）：
 
 ```text
 shape: (48895, 16)
+
 id                                  int64
 name                               object
 host_id                             int64
@@ -731,6 +790,7 @@ last_review                        object
 reviews_per_month                 float64
 calculated_host_listings_count      int64
 availability_365                    int64
+dtype: object
 
 缺失值:
 id                                    0
@@ -749,28 +809,29 @@ last_review                       10052
 reviews_per_month                 10052
 calculated_host_listings_count        0
 availability_365                      0
-```
+dtype: int64
 
-再运行分组统计：
+     id                                              name  host_id    host_name neighbourhood_group neighbourhood  latitude  longitude  \
+0  2539                Clean & quiet apt home by the park     2787         John            Brooklyn    Kensington  40.64749  -73.97237
+1  2595                             Skylit Midtown Castle     2845     Jennifer           Manhattan       Midtown  40.75362  -73.98377
+2  3647               THE VILLAGE OF HARLEM....NEW YORK !     4632    Elisabeth           Manhattan        Harlem  40.80902  -73.94190
+3  3831                   Cozy Entire Floor of Brownstone     4869  LisaRoxanne            Brooklyn  Clinton Hill  40.68514  -73.95976
+4  5022  Entire Apt: Spacious Studio/Loft by central park     7192        Laura           Manhattan   East Harlem  40.79851  -73.94399
 
-```python
-summary = (
-    df.groupby('room_type')['price']
-    .agg(['mean', 'count'])
-    .round(2)
-)
+         room_type  price  minimum_nights  number_of_reviews last_review  reviews_per_month  calculated_host_listings_count  availability_365
+0     Private room    149               1                  9  2018-10-19               0.21                               6               365
+1  Entire home/apt    225               1                 45  2019-05-21               0.38                               2               355
+2     Private room    150               3                  0         NaN                NaN                               1               365
+3  Entire home/apt     89               1                270  2019-07-05               4.64                               1               194
+4  Entire home/apt     80              10                  9  2018-11-19               0.10                               1                 0
 
-print(summary)
-```
-
-预期输出：
-
-```text
-                 mean  count
+                   mean  count
 room_type
 Entire home/apt  211.79  25409
 Private room      89.78  22326
 Shared room       70.13   1160
+
+按平均价格看，Entire home/apt 的平均价格最高，为 211.79 美元/晚，样本量为 25409。
 ```
 
 结论：

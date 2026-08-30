@@ -1,0 +1,7 @@
+                   mean  count
+room_type                     
+Entire home/apt  211.79  25409
+Private room      89.78  22326
+Shared room       70.13   1160
+
+结论：Entire home/apt 平均价格最高；每个分组都要报告样本量 count。

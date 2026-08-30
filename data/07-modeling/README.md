@@ -1,6 +1,6 @@
-# 第 07 周数据：第一个预测模型
+# 第 06/07 周数据：分类与回归模型
 
-第 07 周学习训练集/测试集划分、回归与分类模型，以及模型评估。
+第 06 周用 `GermanCredit.csv` 和 `Churn_Modelling.csv` 练习分类模型，第 07 周用 `BostonHousing.csv` 练习回归模型与业务解释。
 
 ## `GermanCredit.csv`
 

@@ -1,0 +1,4 @@
+Cl.thickness n= 699 mean= 4.42 min= 1 max= 10
+Cell.size n= 699 mean= 3.13 min= 1 max= 10
+Cell.shape n= 699 mean= 3.21 min= 1 max= 10
+Bare.nuclei n= 683 mean= 3.54 min= 1 max= 10

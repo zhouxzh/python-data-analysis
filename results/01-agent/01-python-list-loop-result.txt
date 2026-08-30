@@ -1,0 +1,5 @@
+房型列表: ['Entire home/apt', 'Private room', 'Shared room']
+第一个房型: Entire home/apt
+最高平均价格: 211.79
+最低平均价格: 70.13
+平均价格之和: 371.7

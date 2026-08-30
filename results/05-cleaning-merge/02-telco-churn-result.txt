@@ -1,0 +1,16 @@
+shape: (4225, 52)
+重复 Customer ID 数: 0
+总缺失值: 9418
+Total Charges 转换后新增缺失: 0
+Internet Type 缺失数: 886
+Churn 分布:
+Churn
+0    3104
+1    1121
+Name: count, dtype: int64
+按 Contract 的流失率:
+Contract
+Month-to-Month    0.4546
+One Year          0.1073
+Two Year          0.0239
+Name: Churn, dtype: float64

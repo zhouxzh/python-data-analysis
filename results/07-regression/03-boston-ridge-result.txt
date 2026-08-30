@@ -1,0 +1,3 @@
+ridge MAE: 3.18
+ridge RMSE: 4.7
+ridge R2: 0.7042

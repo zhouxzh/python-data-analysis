@@ -1,0 +1,4 @@
+<class 'float'>
+<class 'int'>
+<class 'str'>
+<class 'bool'>

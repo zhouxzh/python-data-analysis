@@ -1,0 +1,3 @@
+Branch A: 106200.37
+Branch B: 106197.67
+Branch C: 110568.71

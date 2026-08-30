@@ -1,19 +1,40 @@
-# 每周实践脚本
+# scripts
 
-本目录把每周课堂例子整理成普通 Python 文件，不再使用 notebook。
+课堂脚本按 `data/` 同样的主题目录组织。每个目录下“一个例子一个文件”，不要把所有 Python 程序塞进一个文件。
 
-8 周教程正文直接放在仓库根目录：`01-*.md` 到 `08-*.md`。本目录中的脚本与每周教程一一对应，每周数据放在 `data/` 对应的周目录中。
+## 目录结构
 
-| 脚本 | 对应周次 | 运行 |
+```text
+scripts/
+├── download_course_data.py
+├── deploy-github-pages.ps1
+├── 01-agent/
+│   ├── 01-python-list-loop.py
+│   ├── 02-read-airbnb.py
+│   └── 03-room-type-price.py
+├── 02-python/
+├── 03-pandas/
+├── 04-viz/
+├── 05-cleaning-merge/
+├── 06-classification/
+├── 07-regression/
+└── 08-final-project/
+```
+
+每个子目录内还有自己的 `README.md`，说明该周每个文件对应哪个数据和课堂问题。
+
+## 运行方式
+
+所有脚本都从仓库根目录运行，例如：
+
+```bash
+python scripts/01-agent/01-python-list-loop.py
+python scripts/04-viz/01-diamonds-price.py
+```
+
+## 数据准备与部署
+
+| 脚本 | 用途 | 运行 |
 |---|---|---|
-| `download_course_data.py` | 数据准备 | `python scripts/download_course_data.py` |
-| `week01_practice.py` | Week 1 第一个数据问题 | `python scripts/week01_practice.py` |
-| `week02_practice.py` | Week 2 Python 编程基础 | `python scripts/week02_practice.py` |
-| `week03_practice.py` | Week 3 pandas 基础 | `python scripts/week03_practice.py` |
-| `week04_practice.py` | Week 4 数据清洗与审计 | `python scripts/week04_practice.py` |
-| `week05_practice.py` | Week 5 EDA 与可视化 | `python scripts/week05_practice.py` |
-| `week06_practice.py` | Week 6 合并与分组 | `python scripts/week06_practice.py` |
-| `week07_practice.py` | Week 7 第一个模型 | `python scripts/week07_practice.py` |
-| `week08_practice.py` | Week 8 结课项目计划 | `python scripts/week08_practice.py` |
-
-每个脚本都可以直接从仓库根目录运行。
+| `download_course_data.py` | 下载课程数据 | `python scripts/download_course_data.py` |
+| `deploy-github-pages.ps1` | 构建并部署 GitHub Pages | `pwsh -File scripts/deploy-github-pages.ps1 -Message "..."` |

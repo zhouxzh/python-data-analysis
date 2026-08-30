@@ -1,0 +1,10 @@
+model shape: (2694, 6) make shape: (4377, 5)
+merged shape: (2694, 8)
+按品牌汇总对比前 5:
+              by_make  by_model
+Make                           
+Alfa Romeo       1881       NaN
+Aston Martin       48       NaN
+Audi            70475   28691.0
+BMW             73315   22965.0
+Bentley            13       NaN

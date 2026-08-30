@@ -1,0 +1,17 @@
+shape: (506, 14)
+目标列 medv 描述:
+count    506.000000
+mean      22.532806
+std        9.197104
+min        5.000000
+25%       17.025000
+50%       21.200000
+75%       25.000000
+max       50.000000
+Name: medv, dtype: float64
+baseline MAE: 6.53
+baseline RMSE: 8.78
+baseline R2: -0.0347
+linear MAE: 3.16
+linear RMSE: 4.64
+linear R2: 0.7112

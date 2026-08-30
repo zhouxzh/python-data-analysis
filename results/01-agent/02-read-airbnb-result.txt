@@ -1,0 +1,47 @@
+shape: (48895, 16)
+
+id                                  int64
+name                               object
+host_id                             int64
+host_name                          object
+neighbourhood_group                object
+neighbourhood                      object
+latitude                          float64
+longitude                         float64
+room_type                          object
+price                               int64
+minimum_nights                      int64
+number_of_reviews                   int64
+last_review                        object
+reviews_per_month                 float64
+calculated_host_listings_count      int64
+availability_365                    int64
+dtype: object
+
+缺失值:
+id                                    0
+name                                 16
+host_id                               0
+host_name                            21
+neighbourhood_group                   0
+neighbourhood                         0
+latitude                              0
+longitude                             0
+room_type                             0
+price                                 0
+minimum_nights                        0
+number_of_reviews                     0
+last_review                       10052
+reviews_per_month                 10052
+calculated_host_listings_count        0
+availability_365                      0
+dtype: int64
+
+     id  ... availability_365
+0  2539  ...              365
+1  2595  ...              355
+2  3647  ...              365
+3  3831  ...              194
+4  5022  ...                0
+
+[5 rows x 16 columns]

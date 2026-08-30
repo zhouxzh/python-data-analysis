@@ -1,0 +1,32 @@
+shape: (93, 27)
+重复行数: 0
+每列缺失数:
+Manufacturer           4
+Model                  1
+Type                   3
+Min.Price              7
+Price                  2
+Max.Price              5
+MPG.city               9
+MPG.highway            2
+AirBags               38
+DriveTrain             7
+Cylinders              5
+EngineSize             2
+Horsepower             7
+RPM                    3
+Rev.per.mile           6
+Man.trans.avail        5
+Fuel.tank.capacity     8
+Passengers             2
+Length                 4
+Wheelbase              1
+Width                  6
+Turn.circle            5
+Rear.seat.room         4
+Luggage.room          19
+Weight                 7
+Origin                 5
+Make                   3
+dtype: int64
+删除任意缺失值后的 shape: (8, 27)
