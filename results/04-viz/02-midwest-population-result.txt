@@ -1,9 +1,0 @@
-各州总人口前 5:
-state
-IL    11430602
-OH    10847115
-MI     9295297
-IN     5544159
-WI     4891769
-Name: poptotal, dtype: int64
-图表已保存到: projects\demo\04-viz\midwest_population.png

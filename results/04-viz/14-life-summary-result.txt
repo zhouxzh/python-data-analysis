@@ -1,0 +1,20 @@
+年份趋势样本量: 16
+Year
+2011    69.86
+2012    70.24
+2013    70.39
+2014    70.52
+2015    71.40
+
+Status x Year 各分组样本量:
+Status
+Developed     15
+Developing    16
+
+Status  Developed  Developing
+Year                         
+2011        80.72       68.00
+2012        80.27       68.51
+2013        80.30       68.69
+2014        81.03       68.74
+2015          NaN       71.40

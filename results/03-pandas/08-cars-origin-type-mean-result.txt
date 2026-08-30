@@ -1,0 +1,23 @@
+(93, 27)
+
+产地分布:
+Origin
+USA        48
+non-USA    45
+Name: count, dtype: int64
+
+品牌出现次数前 3:
+Manufacturer
+Chevrolet    8
+Ford         8
+Dodge        6
+Name: count, dtype: int64
+
+         Price  MPG.city  MPG.highway
+Type                                 
+Compact   18.2      22.7         29.9
+Large     24.3      18.4         26.7
+Midsize   27.2      19.5         26.7
+Small     10.2      29.9         35.5
+Sporty    19.4      21.8         28.8
+Van       19.1      17.0         21.9

@@ -1,0 +1,17 @@
+Type
+Midsize    22
+Small      21
+Compact    16
+Sporty     14
+Large      11
+Van         9
+Name: count, dtype: int64
+
+         count  mean
+Type                
+Compact     16  18.2
+Large       11  24.3
+Midsize     22  27.2
+Small       21  10.2
+Sporty      14  19.4
+Van          9  19.1

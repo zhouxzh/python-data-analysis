@@ -1,0 +1,13 @@
+purchase_time    datetime64[ns]
+purchase_date    datetime64[ns]
+quantity                  int64
+dtype: object
+
+        purchase_time purchase_date  quantity
+0 2017-05-16 13:10:30    2017-05-16         5
+1 2017-05-16 19:41:10    2017-05-16         3
+2 2017-05-19 18:53:40    2017-05-19         2
+
+purchase_time    0
+purchase_date    0
+dtype: int64

@@ -1,0 +1,5 @@
+有缺失的列:
+AirBags           34
+Rear.seat.room     2
+Luggage.room      11
+dtype: int64

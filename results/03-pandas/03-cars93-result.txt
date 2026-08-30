@@ -1,8 +1,0 @@
-          mean  count
-Type                 
-Midsize  27.22     22
-Large    24.30     11
-Sporty   19.39     14
-Van      19.10      9
-Compact  18.21     16
-Small    10.17     21

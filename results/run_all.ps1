@@ -9,6 +9,8 @@ Set-Location $repoRoot
 
 $env:PYTHONIOENCODING = "utf-8"
 $env:PYTHONUTF8 = "1"
+$env:MPLBACKEND = "Agg"
+$env:PYTHONWARNINGS = "ignore::UserWarning"
 
 $scriptDirs = Get-ChildItem (Join-Path $repoRoot "scripts") -Directory | Sort-Object Name
 

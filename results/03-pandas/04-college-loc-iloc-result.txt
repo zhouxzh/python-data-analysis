@@ -1,0 +1,13 @@
+  Private  Apps  Accept  Enroll
+0     Yes  1660    1232     721
+1     Yes  2186    1924     512
+
+  Private  Apps  Outstate
+0     Yes  1660      7440
+1     Yes  2186     12280
+2     Yes  1428     11250
+
+  Private  Apps  Accept  Enroll  Top10perc
+0     Yes  1660    1232     721         23
+1     Yes  2186    1924     512         16
+2     Yes  1428    1097     336         22

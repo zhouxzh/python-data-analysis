@@ -1,0 +1,6 @@
+(5480, 3)
+['purchase_time', 'purchase_date', 'quantity']
+purchase_time    object
+purchase_date    object
+quantity          int64
+dtype: object

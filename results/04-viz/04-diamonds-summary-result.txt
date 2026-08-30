@@ -1,0 +1,27 @@
+shape: (53940, 10)
+price 五数概括:
+count    53940.00
+mean      3932.80
+std       3989.44
+min        326.00
+25%        950.00
+50%       2401.00
+75%       5324.25
+max      18823.00
+
+cut 计数:
+cut
+Ideal        21551
+Premium      13791
+Very Good    12082
+Good          4906
+Fair          1610
+
+按 cut 分组的 price 均值与中位数:
+           count     mean  median
+cut                              
+Fair        1610  4358.76  3282.0
+Good        4906  3928.86  3050.5
+Ideal      21551  3457.54  1810.0
+Premium    13791  4584.26  3185.0
+Very Good  12082  3981.76  2648.0

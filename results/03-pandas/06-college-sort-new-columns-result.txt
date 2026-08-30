@@ -1,0 +1,12 @@
+申请人数最多的 3 所学校:
+    Private   Apps  Accept  Enroll
+483      No  48094   26330    4520
+461      No  21804   18744    5874
+59      Yes  20192   13007    3810
+
+  Private  Apps  Accept  AcceptRate  Outstate  Room.Board  TotalCost
+0     Yes  1660    1232        74.2      7440        3300      10740
+1     Yes  2186    1924        88.0     12280        6450      18730
+2     Yes  1428    1097        76.8     11250        3750      15000
+3     Yes   417     349        83.7     12960        5450      18410
+4     Yes   193     146        75.6      7560        4120      11680

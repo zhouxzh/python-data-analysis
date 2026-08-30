@@ -1,0 +1,19 @@
+        Price                   MPG.city              
+        count  mean   min   max    count  mean min max
+Type                                                  
+Compact    16  18.2  11.1  31.9       16  22.7  20  26
+Large      11  24.3  18.4  36.1       11  18.4  16  20
+Midsize    22  27.2  13.9  61.9       22  19.5  16  23
+Small      21  10.2   7.4  15.9       21  29.9  22  46
+Sporty     14  19.4  10.0  38.0       14  21.8  17  30
+Van         9  19.1  16.3  22.7        9  17.0  15  18
+
+        Price                   MPG.city              
+        count  mean   min   max    count  mean min max
+Type                                                  
+Midsize    22  27.2  13.9  61.9       22  19.5  16  23
+Large      11  24.3  18.4  36.1       11  18.4  16  20
+Sporty     14  19.4  10.0  38.0       14  21.8  17  30
+Van         9  19.1  16.3  22.7        9  17.0  15  18
+Compact    16  18.2  11.1  31.9       16  22.7  20  26
+Small      21  10.2   7.4  15.9       21  29.9  22  46

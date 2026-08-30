@@ -1,10 +1,10 @@
-# Week 3：pandas 基础
+# Week 3 pandas 基础
 
 > **本章导读**
 > 时长：3 节课，每节 45 分钟。
 > 数据：`data/03-pandas/olist_orders_45d.csv`、`data/03-pandas/College.csv`、`data/03-pandas/Cars93.csv`。
-> 参考脚本：`scripts/03-pandas/01-olist-orders.py`、`scripts/03-pandas/02-college.py`、`scripts/03-pandas/03-cars93.py`。
-> 参考输出：`results/03-pandas/01-olist-orders-result.txt`、`results/03-pandas/02-college-result.txt`、`results/03-pandas/03-cars93-result.txt`。
+> 参考脚本：`scripts/03-pandas/` 下 10 个文件，与正文代码块一一对应。
+> 参考输出：`results/03-pandas/` 下同名 `-result.txt`。
 > 本周产出：`projects/<姓名>/` 下的 3 个脚本和 1 份审查记录。
 
 本周学 pandas 的三件核心事：读懂一张表、按条件挑出需要的行、把表按类别汇总成可比较的小表。课程用三种数据练习：
@@ -26,7 +26,7 @@ flowchart LR
 
 每周都遵守同一条 DSH 边界：先要计划，看懂每一条命令再执行；每次只跑最小一步；每步核对输出；原始 `data/` 目录只读，代码只写入 `projects/<姓名>/`。
 
-## 1. 第 1 节课：认识 DataFrame（45 分钟）
+## 1. 第 1 节课 认识 DataFrame（45 分钟）
 
 ### 1.1 问题
 
@@ -52,6 +52,8 @@ print(df.columns.tolist())
 print(df.dtypes)
 ```
 
+脚本：[01-read-orders-structure.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/01-read-orders-structure.py) ｜ 数据：[olist_orders_45d.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/olist_orders_45d.csv)
+
 ```text
 (5480, 3)
 ['purchase_time', 'purchase_date', 'quantity']
@@ -72,6 +74,10 @@ dtype: object
 结构没问题后，分两次看内容。先看头尾和统计：
 
 ```python
+import pandas as pd
+
+df = pd.read_csv('data/03-pandas/olist_orders_45d.csv')
+
 print(df.head())
 print()
 print(df.tail(3))
@@ -80,6 +86,8 @@ print(df.describe())
 print()
 df.info()
 ```
+
+脚本：[02-orders-head-describe-info.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/02-orders-head-describe-info.py) ｜ 数据：[olist_orders_45d.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/olist_orders_45d.csv)
 
 ```text
          purchase_time purchase_date  quantity
@@ -121,6 +129,9 @@ memory usage: 128.6+ KB
 再把两列日期转成真正的日期：
 
 ```python
+import pandas as pd
+
+df = pd.read_csv('data/03-pandas/olist_orders_45d.csv')
 df['purchase_time'] = pd.to_datetime(df['purchase_time'], errors='coerce')
 df['purchase_date'] = pd.to_datetime(df['purchase_date'], errors='coerce')
 
@@ -130,6 +141,8 @@ print(df[['purchase_time', 'purchase_date', 'quantity']].head(3))
 print()
 print(df[['purchase_time', 'purchase_date']].isna().sum())
 ```
+
+脚本：[03-orders-parse-dates.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/03-orders-parse-dates.py) ｜ 数据：[olist_orders_45d.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/olist_orders_45d.csv)
 
 ```text
 purchase_time    datetime64[ns]
@@ -175,7 +188,7 @@ dtype: int64
 - [ ] 用 DSH 前先看计划，计划里没有修改 `data/` 的命令
 - [ ] `projects/<姓名>/03-orders.py` 可运行
 
-## 2. 第 2 节课：筛选、排序和新增列（45 分钟）
+## 2. 第 2 节课 筛选、排序和新增列（45 分钟）
 
 ### 2.1 问题
 
@@ -198,6 +211,8 @@ print(college.loc[college['Private'] == 'Yes', ['Private', 'Apps', 'Outstate']].
 print()
 print(college.iloc[0:3, 0:5])
 ```
+
+脚本：[04-college-loc-iloc.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/04-college-loc-iloc.py) ｜ 数据：[College.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/College.csv)
 
 ```text
   Private  Apps  Accept  Enroll
@@ -226,6 +241,9 @@ print(college.iloc[0:3, 0:5])
 先做条件筛选：
 
 ```python
+import pandas as pd
+
+college = pd.read_csv('data/03-pandas/College.csv')
 private = college[college['Private'] == 'Yes']
 public = college[college['Private'] == 'No']
 
@@ -241,6 +259,8 @@ print()
 high_accept = college[college['Accept'] / college['Apps'] > 0.7]
 print('录取率高于 0.7 的学校数量:', high_accept.shape[0])
 ```
+
+脚本：[05-college-filter.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/05-college-filter.py) ｜ 数据：[College.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/College.csv)
 
 ```text
 私立学校数量: 565
@@ -262,6 +282,9 @@ print('录取率高于 0.7 的学校数量:', high_accept.shape[0])
 再排序和新增列：
 
 ```python
+import pandas as pd
+
+college = pd.read_csv('data/03-pandas/College.csv')
 top_apps = college.sort_values('Apps', ascending=False)
 print('申请人数最多的 3 所学校:')
 print(top_apps[['Private', 'Apps', 'Accept', 'Enroll']].head(3))
@@ -271,6 +294,8 @@ college['AcceptRate'] = (college['Accept'] / college['Apps'] * 100).round(1)
 college['TotalCost'] = college['Outstate'] + college['Room.Board']
 print(college[['Private', 'Apps', 'Accept', 'AcceptRate', 'Outstate', 'Room.Board', 'TotalCost']].head(5))
 ```
+
+脚本：[06-college-sort-new-columns.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/06-college-sort-new-columns.py) ｜ 数据：[College.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/College.csv)
 
 ```text
 申请人数最多的 3 所学校:
@@ -313,7 +338,7 @@ print(college[['Private', 'Apps', 'Accept', 'AcceptRate', 'Outstate', 'Room.Boar
 - [ ] 用 DSH 前先看计划，脚本写入 `projects/<姓名>/`
 - [ ] `projects/<姓名>/03-college.py` 可运行
 
-## 3. 第 3 节课：分组聚合与缺失检查（45 分钟）
+## 3. 第 3 节课 分组聚合与缺失检查（45 分钟）
 
 ### 3.1 问题
 
@@ -334,6 +359,8 @@ print(cars['Type'].value_counts())
 print()
 print(cars.groupby('Type')['Price'].agg(['count', 'mean']).round(1))
 ```
+
+脚本：[07-cars-value-counts-groupby.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/07-cars-value-counts-groupby.py) ｜ 数据：[Cars93.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/Cars93.csv)
 
 ```text
 Type
@@ -366,6 +393,10 @@ Van          9  19.1
 先看分类分布和分组均值：
 
 ```python
+import pandas as pd
+
+cars = pd.read_csv('data/03-pandas/Cars93.csv')
+
 print(cars.shape)
 print()
 print('产地分布:')
@@ -378,6 +409,8 @@ print()
 type_mean = cars.groupby('Type')[['Price', 'MPG.city', 'MPG.highway']].mean().round(1)
 print(type_mean)
 ```
+
+脚本：[08-cars-origin-type-mean.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/08-cars-origin-type-mean.py) ｜ 数据：[Cars93.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/Cars93.csv)
 
 ```text
 (93, 27)
@@ -410,6 +443,10 @@ Van       19.1      17.0         21.9
 再用 `agg` 同时算多个指标：
 
 ```python
+import pandas as pd
+
+cars = pd.read_csv('data/03-pandas/Cars93.csv')
+
 summary = cars.groupby('Type')[['Price', 'MPG.city']].agg(
     ['count', 'mean', 'min', 'max']
 ).round(1)
@@ -418,6 +455,8 @@ print(summary)
 print()
 print(summary.sort_values(('Price', 'mean'), ascending=False))
 ```
+
+脚本：[09-cars-agg-summary.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/09-cars-agg-summary.py) ｜ 数据：[Cars93.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/Cars93.csv)
 
 ```text
         Price                   MPG.city
@@ -446,10 +485,16 @@ Small      21  10.2   7.4  15.9       21  29.9  22  46
 最后查缺失：
 
 ```python
+import pandas as pd
+
+cars = pd.read_csv('data/03-pandas/Cars93.csv')
+
 missing = cars.isna().sum()
 print('有缺失的列:')
 print(missing[missing > 0])
 ```
+
+脚本：[10-cars-missing.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/03-pandas/10-cars-missing.py) ｜ 数据：[Cars93.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/03-pandas/Cars93.csv)
 
 ```text
 有缺失的列:
