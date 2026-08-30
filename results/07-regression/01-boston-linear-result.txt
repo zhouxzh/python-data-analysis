@@ -1,17 +1,8 @@
-shape: (506, 14)
-目标列 medv 描述:
-count    506.000000
-mean      22.532806
-std        9.197104
-min        5.000000
-25%       17.025000
-50%       21.200000
-75%       25.000000
-max       50.000000
-Name: medv, dtype: float64
-baseline MAE: 6.53
-baseline RMSE: 8.78
-baseline R2: -0.0347
-linear MAE: 3.16
-linear RMSE: 4.64
-linear R2: 0.7112
+样本量：全量 506 ，训练集 404 ，测试集 102
+训练集 R2： 0.6961
+测试集 R2： 0.6226
+测试集 MAE： 3.3659
+测试集 RMSE： 5.2607
+基线(猜均值) MAE： 5.9349
+基线(猜均值) RMSE： 8.5635
+测试集 medv 均值： 21.4882

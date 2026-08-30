@@ -1,8 +1,4 @@
-"""05-cleaning-merge / 02-telco-churn：类型转换、缺失和按合同计算流失率。
-
-运行：
-    python scripts/05-cleaning-merge/02-telco-churn.py
-"""
+"""05-cleaning-merge / 04-telco-churn-audit：完整审计电信客户缺失和流失率。"""
 import pandas as pd
 
 telco = pd.read_csv("data/04-cleaning/telco_customer_churn.csv")

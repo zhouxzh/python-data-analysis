@@ -1,0 +1,4 @@
+n_samples: 10000
+Dummy f1_mean: 0.0 auc_mean: 0.5
+LogisticRegression f1_mean: 0.4954 auc_mean: 0.7691
+DecisionTree f1_mean: 0.4881 auc_mean: 0.8134

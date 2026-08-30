@@ -1,0 +1,6 @@
+X shape: (1000, 48)
+train/test: (700, 48) (300, 48)
+accuracy: 0.7367
+confusion matrix (rows=actual, cols=predicted):
+[[ 44  46]
+ [ 33 177]]

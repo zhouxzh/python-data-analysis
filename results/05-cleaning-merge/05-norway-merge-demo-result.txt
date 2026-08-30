@@ -1,0 +1,8 @@
+不 strip 直接合并行数: 0
+strip 后合并行数: 2694
+state
+MS     411438840
+KNT    104266318
+GUJ     85626739
+Name: quantity, dtype: int64
+(12, 21)

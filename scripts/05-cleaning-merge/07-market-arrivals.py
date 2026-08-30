@@ -1,8 +1,4 @@
-"""05-cleaning-merge / 04-market-arrivals：分组汇总和 pivot_table。
-
-运行：
-    python scripts/05-cleaning-merge/04-market-arrivals.py
-"""
+"""05-cleaning-merge / 07-market-arrivals：groupby 和 pivot_table 汇总到货数据。"""
 import pandas as pd
 
 market = pd.read_csv("data/06-merge/MarketArrivals.csv")

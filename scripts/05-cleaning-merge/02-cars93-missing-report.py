@@ -1,8 +1,4 @@
-"""05-cleaning-merge / 01-cars93-missing：缺失、重复和删除缺失行的影响。
-
-运行：
-    python scripts/05-cleaning-merge/01-cars93-missing.py
-"""
+"""05-cleaning-merge / 02-cars93-missing-report：完整报告 Cars93_miss 的缺失和删除影响。"""
 import pandas as pd
 
 cars = pd.read_csv("data/04-cleaning/Cars93_miss.csv")

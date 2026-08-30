@@ -1,8 +1,4 @@
-"""05-cleaning-merge / 03-norway-merge：清洗品牌名并合并两张汽车销售表。
-
-运行：
-    python scripts/05-cleaning-merge/03-norway-merge.py
-"""
+"""05-cleaning-merge / 06-norway-merge-report：清洗品牌名并对比两张销售表。"""
 import pandas as pd
 
 make = pd.read_csv("data/06-merge/norway_new_car_sales_by_make.csv")

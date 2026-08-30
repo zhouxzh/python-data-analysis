@@ -1,7 +1,20 @@
-绝对值最大的前 5 个系数:
-nox       -15.417
-rm          4.057
-chas        3.120
-dis        -1.386
-ptratio    -0.911
-dtype: float64
+标准化后的系数（按绝对值从大到小）：
+  lstat -3.9774
+  rm 3.4184
+  ptratio -1.8905
+  age 0.9266
+  crim -0.7551
+  nox -0.5523
+各特征与 medv 的相关系数：
+  crim -0.3883
+  rm 0.6954
+  lstat -0.7377
+  ptratio -0.5078
+  nox -0.4273
+  age -0.377
+rm 与 lstat 相关系数： -0.6138
+nox 与 age 相关系数： 0.7315
+线性回归 测试 R2： 0.6226
+Ridge    测试 R2： 0.6228
+线性回归 测试 RMSE： 5.2607
+Ridge    测试 RMSE： 5.2593

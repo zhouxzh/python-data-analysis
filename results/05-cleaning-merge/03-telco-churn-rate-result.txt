@@ -1,0 +1,8 @@
+shape: (4225, 52)
+重复 Customer ID 数: 0
+Internet Type 缺失数: 886
+Contract
+Month-to-Month    0.4546
+One Year          0.1073
+Two Year          0.0239
+Name: Churn, dtype: float64

@@ -12,7 +12,7 @@ $env:PYTHONUTF8 = "1"
 $env:MPLBACKEND = "Agg"
 $env:PYTHONWARNINGS = "ignore::UserWarning"
 
-$scriptDirs = Get-ChildItem (Join-Path $repoRoot "scripts") -Directory | Sort-Object Name
+$scriptDirs = Get-ChildItem (Join-Path $repoRoot "scripts") -Directory | Where-Object { $_.Name -ne "08-final-project" } | Sort-Object Name
 
 foreach ($dir in $scriptDirs) {
     $targetDir = Join-Path $resultsRoot $dir.Name

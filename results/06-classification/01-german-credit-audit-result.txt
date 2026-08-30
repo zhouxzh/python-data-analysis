@@ -1,0 +1,12 @@
+(1000, 21)
+credit_risk
+1    700
+0    300
+Name: count, dtype: int64
+credit_risk                                    0    1
+credit_history                                       
+all credits at this bank paid back duly       28   21
+critical account/other credits existing       50  243
+delay in paying off in the past               28   60
+existing credits paid back duly till now     169  361
+no credits taken/all credits paid back duly   25   15
