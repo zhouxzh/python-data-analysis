@@ -1,0 +1,7 @@
+按 species 的分组汇总:
+           count  mean_body_mass  mean_flipper
+species                                       
+Adelie       151          3700.7         190.0
+Chinstrap     68          3733.1         195.8
+Gentoo       123          5076.0         217.2
+图表已保存到: projects/demo/08-final

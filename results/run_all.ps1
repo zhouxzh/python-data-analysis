@@ -12,7 +12,7 @@ $env:PYTHONUTF8 = "1"
 $env:MPLBACKEND = "Agg"
 $env:PYTHONWARNINGS = "ignore::UserWarning"
 
-$scriptDirs = Get-ChildItem (Join-Path $repoRoot "scripts") -Directory | Where-Object { $_.Name -ne "08-final-project" } | Sort-Object Name
+$scriptDirs = Get-ChildItem (Join-Path $repoRoot "scripts") -Directory | Sort-Object Name
 
 foreach ($dir in $scriptDirs) {
     $targetDir = Join-Path $resultsRoot $dir.Name
@@ -21,6 +21,9 @@ foreach ($dir in $scriptDirs) {
 
     $pyFiles = Get-ChildItem $dir.FullName -Filter "*.py" | Sort-Object Name
     foreach ($py in $pyFiles) {
+        if ($py.Name -eq "01-project-skeleton.py") {
+            continue
+        }
         $resultPath = Join-Path $targetDir "$($py.BaseName)-result.txt"
         python $py.FullName *> $resultPath
         if ($LASTEXITCODE -ne 0) {
@@ -41,7 +44,9 @@ if (Test-Path $demoRoot) {
     Get-ChildItem $demoRoot -Directory | ForEach-Object {
         $target = Join-Path $resultsRoot $_.Name
         New-Item -ItemType Directory -Force -Path $target | Out-Null
-        Copy-Item (Join-Path $_.FullName "*.png") $target -Force
+        Get-ChildItem (Join-Path $_.FullName "*.png") -ErrorAction SilentlyContinue | ForEach-Object {
+            Copy-Item $_.FullName $target -Force
+        }
     }
     Remove-Item -Recurse -Force $demoRoot
 }

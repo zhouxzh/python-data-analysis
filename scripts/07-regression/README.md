@@ -7,3 +7,4 @@ Week 7 回归模型与业务解释，使用 pandas 和 scikit-learn。每个文�
 | `01-boston-linear.py` | 1.4 | 线性回归、均值和 MAE/RMSE/R2 基线 |
 | `02-boston-coefficients.py` | 2.4 | 标准化系数、相关性和 Ridge 对比 |
 | `03-boston-business-error.py` | 3.4 | RMSE、误差分布和两个样本预测 |
+| `04-mpg-regression.py` | 1.9 | mpg 油耗回归练习 |

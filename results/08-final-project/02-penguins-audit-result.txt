@@ -1,0 +1,27 @@
+shape: (344, 8)
+dtypes:
+species               object
+island                object
+bill_length_mm       float64
+bill_depth_mm        float64
+flipper_length_mm    float64
+body_mass_g          float64
+sex                   object
+year                   int64
+dtype: object
+缺失值:
+species               0
+island                0
+bill_length_mm        2
+bill_depth_mm         2
+flipper_length_mm     2
+body_mass_g           2
+sex                  11
+year                  0
+dtype: int64
+species 计数:
+species
+Adelie       152
+Gentoo       124
+Chinstrap     68
+Name: count, dtype: int64

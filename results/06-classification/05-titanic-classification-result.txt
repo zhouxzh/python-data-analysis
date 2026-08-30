@@ -1,0 +1,19 @@
+shape: (891, 15)
+survived 分布:
+survived
+0    549
+1    342
+Name: count, dtype: int64
+dummy accuracy: 0.6157
+logistic accuracy: 0.7985
+[[140  25]
+ [ 29  74]]
+              precision    recall  f1-score   support
+
+           0     0.8284    0.8485    0.8383       165
+           1     0.7475    0.7184    0.7327       103
+
+    accuracy                         0.7985       268
+   macro avg     0.7879    0.7835    0.7855       268
+weighted avg     0.7973    0.7985    0.7977       268
+

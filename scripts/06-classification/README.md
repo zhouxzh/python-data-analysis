@@ -8,3 +8,4 @@ Week 6 第一个分类预测模型，使用 pandas 和 scikit-learn。每个文�
 | `02-german-credit-logistic.py` | 1.4 | GermanCredit LogisticRegression 建模与评估 |
 | `03-churn-classification-compare.py` | 2.4 | 基线、默认模型和 balanced 模型对比 |
 | `04-churn-model-comparison.py` | 3.4 | Dummy、LogisticRegression、DecisionTree 交叉验证比较 |
+| `05-titanic-classification.py` | 3.9 | Titanic 生存二分类练习 |
