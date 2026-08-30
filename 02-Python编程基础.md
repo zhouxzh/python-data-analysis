@@ -1,4 +1,4 @@
-# Week 2：Python 编程基础
+# Week 2 Python 编程基础
 
 > **本章导读**
 > 时长：3 节课，每节 45 分钟
@@ -19,32 +19,7 @@
 
 **本周使用 DSH 的固定顺序：先理解计划，再检查命令，小步执行，验证结果。** DSH 可以生成代码，但你必须能解释每一行。它说“写好了”不等于“做对了”，要看真实输出；它要执行命令时，先读命令本身。本周代码只允许使用标准库，出现 `pandas` 就是红线；原始 `data/` 目录只读，学生代码只写入 `projects/<姓名>/`。
 
-## 0. 程序与数据链接
-
-| 教程位置 | 脚本链接 | 数据链接 |
-|---|---|---|
-| 1.2 | [01-variable-types.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/01-variable-types.py) | — |
-| 1.3 | [02-number-operations.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/02-number-operations.py) | — |
-| 1.4 | [03-list-basics.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/03-list-basics.py) | — |
-| 1.4 | [04-list-for-sum.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/04-list-for-sum.py) | — |
-| 1.5 | [05-statistics-mean-min-max.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/05-statistics-mean-min-max.py) | — |
-| 1.6 | [06-stock-csv.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/06-stock-csv.py) | [stock_price.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/stock_price.csv) |
-| 1.7 | [07-stock-up-days.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/07-stock-up-days.py) | [stock_price.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/stock_price.csv) |
-| 2.2 | [08-rating-if-elif-else.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/08-rating-if-elif-else.py) | — |
-| 2.3 | [09-dict-basics.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/09-dict-basics.py) | — |
-| 2.4 | [10-csv-dictreader-first-row.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/10-csv-dictreader-first-row.py) | [supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv) |
-| 2.5 | [11-supermarket-loop-total.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/11-supermarket-loop-total.py) | [supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv) |
-| 2.6 | [12-supermarket-function.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/12-supermarket-function.py) | [supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv) |
-| 2.7 | [13-tuple-set.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/13-tuple-set.py) | — |
-| 3.2 | [14-breast-cancer-audit.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/14-breast-cancer-audit.py) | [breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv) |
-| 3.3 | [15-breast-cancer-missing.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/15-breast-cancer-missing.py) | [breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv) |
-| 3.4 | [16-to-int-try-except.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/16-to-int-try-except.py) | — |
-| 3.5 | [17-debug-repr.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/17-debug-repr.py) | — |
-| 3.5 | [20-debug-breakpoint.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/20-debug-breakpoint.py) | — |
-| 3.6 | [18-load-column-stats.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/18-load-column-stats.py) | [breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv) |
-| 3.7 | [19-class-counts.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/19-class-counts.py) | [breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv) |
-
-## 1. 第 1 节课：从一个价格列表开始（45 分钟）
+## 1. 第 1 节课 从一个价格列表开始（45 分钟）
 
 建议节奏：`8 分钟演示 → 30 分钟练习 → 7 分钟复盘`。
 
@@ -56,8 +31,13 @@
 
 先看计划：
 
-```text
-读取文件 → 逐行取出 Price → 转成 float → 用 statistics 算平均 → 用 max/min 找极值 → 相邻两日比较，数上涨天数
+```mermaid
+flowchart LR
+    A[读取文件] --> B[逐行取出 Price]
+    B --> C[转成 float]
+    C --> D[用 statistics 算平均]
+    D --> E[用 max/min 找极值]
+    E --> F[相邻两日比较，数上涨天数]
 ```
 
 计划里没有“修改原文件”和“安装 pandas”。这两件事本周都不做。
@@ -79,6 +59,8 @@ print(type(days))
 print(type(stock_name))
 print(type(is_trading_day))
 ```
+
+脚本：[01-variable-types.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/01-variable-types.py)
 
 输出：
 
@@ -119,6 +101,8 @@ print(10 % 3)
 print(round(23.969999, 2))
 ```
 
+脚本：[02-number-operations.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/02-number-operations.py)
+
 输出：
 
 ```text
@@ -146,6 +130,8 @@ print(prices)
 print(len(prices))
 ```
 
+脚本：[03-list-basics.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/03-list-basics.py)
+
 输出：
 
 ```text
@@ -166,6 +152,8 @@ for price in prices:
 
 print(total)
 ```
+
+脚本：[04-list-for-sum.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/04-list-for-sum.py)
 
 输出：
 
@@ -189,6 +177,8 @@ print(statistics.mean(prices))
 print(min(prices))
 print(max(prices))
 ```
+
+脚本：[05-statistics-mean-min-max.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/05-statistics-mean-min-max.py)
 
 输出：
 
@@ -221,6 +211,8 @@ print("平均价格:", round(statistics.mean(prices), 2))
 print("最高价格:", round(max(prices), 2))
 print("最低价格:", round(min(prices), 2))
 ```
+
+脚本：[06-stock-csv.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/06-stock-csv.py) ｜ 数据：[stock_price.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/stock_price.csv)
 
 输出：
 
@@ -262,6 +254,8 @@ for i in range(1, len(prices)):
 print("上涨天数:", up_days)
 ```
 
+脚本：[07-stock-up-days.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/07-stock-up-days.py) ｜ 数据：[stock_price.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/stock_price.csv)
+
 输出：
 
 ```text
@@ -291,7 +285,7 @@ DSH 回答后，你必须用自己的话复述一遍，能复述才继续下一�
 - [ ] 能输出 252 行、平均 19.3、最高 23.97、最低 14.5、上涨天数 122
 - [ ] 能解释“上涨天数比较 251 次，不是 252 次”
 
-## 2. 第 2 节课：从循环到函数和字典（45 分钟）
+## 2. 第 2 节课 从循环到函数和字典（45 分钟）
 
 建议节奏：`8 分钟演示 → 30 分钟练习 → 7 分钟复盘`。
 
@@ -324,6 +318,8 @@ else:
     print("低评分")
 ```
 
+脚本：[08-rating-if-elif-else.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/08-rating-if-elif-else.py)
+
 输出：
 
 ```text
@@ -342,6 +338,8 @@ branch_totals["A"] += 10.0
 print(branch_totals)
 print(branch_totals["B"])
 ```
+
+脚本：[09-dict-basics.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/09-dict-basics.py)
 
 输出：
 
@@ -364,6 +362,8 @@ with open(path, encoding="utf-8-sig", newline="") as f:
         print(row["Branch"], row["Total"])
         break
 ```
+
+脚本：[10-csv-dictreader-first-row.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/10-csv-dictreader-first-row.py) ｜ 数据：[supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv)
 
 输出（只打印第一行，然后停止）：
 
@@ -404,6 +404,8 @@ for branch in sorted(branch_totals):
     print(f"Branch {branch}: {branch_totals[branch]:.2f}")
 ```
 
+脚本：[11-supermarket-loop-total.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/11-supermarket-loop-total.py) ｜ 数据：[supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv)
+
 输出：
 
 ```text
@@ -434,6 +436,8 @@ for branch, total in sorted(result.items()):
     print(branch, round(total, 2))
 ```
 
+脚本：[12-supermarket-function.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/12-supermarket-function.py) ｜ 数据：[supermarket_sales.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/supermarket_sales.csv)
+
 输出：
 
 ```text
@@ -453,6 +457,8 @@ one_day = ("2024-01-02", 23.02)   # tuple：一行固定记录
 branches = {"A", "B", "C"}        # set：不重复的分店名
 ```
 
+脚本：[13-tuple-set.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/13-tuple-set.py)
+
 - `tuple` 适合“日期 + 价格”这种固定组合，创建后不修改
 - `set` 适合“有哪些城市”这种去重问题
 
@@ -468,7 +474,7 @@ branches = {"A", "B", "C"}        # set：不重复的分店名
 - [ ] 能解释 `totals.get(branch, 0.0)` 的作用
 - [ ] 全程没有 pandas，DSH 修改过的代码能解释
 
-## 3. 第 3 节课：把脏数据讲清楚（45 分钟）
+## 3. 第 3 节课 把脏数据讲清楚（45 分钟）
 
 建议节奏：`8 分钟演示 → 30 分钟练习 → 7 分钟复盘`。
 
@@ -502,6 +508,8 @@ print("列数:", len(fieldnames))
 print("列名:", fieldnames)
 ```
 
+脚本：[14-breast-cancer-audit.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/14-breast-cancer-audit.py) ｜ 数据：[breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv)
+
 输出：
 
 ```text
@@ -529,6 +537,8 @@ with open(path, encoding="utf-8-sig", newline="") as f:
 print("Bare.nuclei 缺失/异常标记:", missing)
 ```
 
+脚本：[15-breast-cancer-missing.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/15-breast-cancer-missing.py) ｜ 数据：[breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv)
+
 输出：
 
 ```text
@@ -541,7 +551,7 @@ Bare.nuclei 缺失/异常标记: 16
 - 统计数值时剔除这些行，并在结果里报告样本量
 - 不要悄悄把 `?` 当成 0，那是编造数据
 
-### 3.4 `try` / `except`：转换失败不崩溃
+### 3.4 用 `try` / `except` 处理转换失败
 
 当 `int("?")` 无法转换时，Python 会抛出 `ValueError`。`try` 先尝试正常执行，`except ValueError` 只捕获这一种预期内的错误。
 
@@ -556,6 +566,8 @@ print(to_int("5"))
 print(to_int("?"))
 print(to_int("NA"))
 ```
+
+脚本：[16-to-int-try-except.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/16-to-int-try-except.py)
 
 输出：
 
@@ -582,6 +594,8 @@ def to_int(value):
         return None
 ```
 
+脚本：[17-debug-repr.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/17-debug-repr.py)
+
 如果数据多了，再临时加断点：
 
 ```python
@@ -592,6 +606,8 @@ def to_int(value):
     except ValueError:
         return None
 ```
+
+脚本：[20-debug-breakpoint.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/20-debug-breakpoint.py)
 
 运行后程序会停在 `breakpoint()`，在 `(Pdb)` 提示符后输入 `value` 看当前值，输入 `n` 执行下一行，输入 `q` 退出。VS Code 里也可以点行号左侧加红点断点，用调试按钮运行。
 
@@ -631,6 +647,8 @@ for column in columns:
     )
 ```
 
+脚本：[18-load-column-stats.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/18-load-column-stats.py) ｜ 数据：[breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv)
+
 输出：
 
 ```text
@@ -658,6 +676,8 @@ with open(path, encoding="utf-8-sig", newline="") as f:
 
 print("Class 样本数:", classes)
 ```
+
+脚本：[19-class-counts.py](https://github.com/zhouxzh/python-data-analysis/blob/main/scripts/02-python/19-class-counts.py) ｜ 数据：[breast_cancer.csv](https://github.com/zhouxzh/python-data-analysis/blob/main/data/02-python/breast_cancer.csv)
 
 输出：
 
