@@ -48,5 +48,5 @@ pwsh -File results/run_all.ps1
 ## 课堂验收
 
 - 学生运行 `scripts/` 中对应的单个示例文件。
-- 老师用 `results/` 中同名结果文件快速对照输出。
+- 用 `results/` 中同名结果文件快速对照输出。
 - 修改脚本后重新执行 `pwsh -File results/run_all.ps1` 刷新结果。
