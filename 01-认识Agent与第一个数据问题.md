@@ -48,32 +48,36 @@ flowchart LR
 
 常见的 Agent 可以分成四类，权限从小到大的顺序是：网页助手 → 代码补全 → AI IDE → 本地 Agent。
 
-| Agent | 类型 | 特点 | 会不会直接动本地文件 |
-|---|---|---|---|
-| ChatGPT | 网页/App 助手 | 通用问答、写作、编程；生态成熟 | 通常不会 |
-| Claude | 网页/App + Claude Code | 长文本与代码能力强；Claude Code 可操作本地项目 | Claude Code 会 |
-| Gemini | 网页/App 助手 | 多模态、长上下文、与 Google 服务整合 | 通常不会 |
-| DeepSeek | 网页/App 助手 | 中文与推理能力强、API 成本低 | 通常不会 |
-| GitHub Copilot | VS Code 补全 | 写代码时补全、解释、生成小段代码 | 只读取当前代码 |
-| Cursor / Trae / Qoder | AI IDE | 边看代码边让 AI 修改，集成终端和文件管理 | 会 |
-| Claude Code / Codex CLI / DSH | 本地 Agent | 能读写文件、运行命令、联网搜索，适合完整任务 | 会，权限最大 |
+| Agent | 类型 | 特点 | 会不会直接动本地文件 | 收费参考 |
+|---|---|---|---|---|
+| ChatGPT | 网页/App 助手 | 通用问答、写作、编程；生态成熟 | 通常不会 | 免费版 + Plus $20/月 + Pro $200/月 |
+| Claude | 网页/App + Claude Code | 长文本与代码能力强；Claude Code 可操作本地项目 | Claude Code 会 | 免费版 + Pro $20/月；Claude Code 调用 API 另计 |
+| Gemini | 网页/App 助手 | 多模态、长上下文、与 Google 服务整合 | 通常不会 | 免费额度 + Google AI Pro 约 $19.99/月，API 按量 |
+| DeepSeek | 网页/App 助手 | 中文与推理能力强、API 成本低 | 通常不会 | 网页/App 免费，API 按量且单价明显低于国际主流 |
+| GitHub Copilot | VS Code 补全 | 写代码时补全、解释、生成小段代码 | 只读取当前代码 | Free 有限额度；Pro $10/月；Business $19/用户/月 |
+| Cursor / Trae / Qoder | AI IDE | 边看代码边让 AI 修改，集成终端和文件管理 | 会 | Cursor Pro 约 $20/月；Trae/Qoder 有免费与付费档 |
+| Claude Code / Codex CLI / DSH | 本地 Agent | 能读写文件、运行命令、联网搜索，适合完整任务 | 会，权限最大 | CLI/DSH 本身通常免费，调用的大模型 API 另计 |
 
 **记住这条规律：Agent 能做的事情越多，风险越大。** 网页助手帮你写答案，出了问题你可以不看；本地 Agent 帮你删文件、改配置、装软件，出了问题会真实发生在你的电脑上。
+
+收费上有两个容易混的点：**产品订阅费和模型 API 费是两回事**。例如 ChatGPT Plus 是订阅 ChatGPT 这个产品；GitHub Copilot 是订阅编辑器里的补全服务；而 Claude Code、Codex CLI、DSH 这类本地 Agent 往往工具本身免费，真正的费用来自你配置的大模型 API。课程选择 DeepSeek + DSH，就是因为订阅成本为零、API 单价低，同时能控制本地权限。
 
 ### 1.3 常见大模型
 
 大模型是 Agent 的“大脑”。同一个 Agent 环境可以配置不同的大模型，但不同大模型的擅长方向不同。
 
-| 大模型 | 厂商 | 特点 | 成本 | 开源 |
+| 大模型 | 厂商 | 特点 | 成本口径 | 开源 |
 |---|---|---|---|---|
-| GPT-4o / GPT-5 系列 | OpenAI | 综合能力强，多模态，生态和插件丰富 | 较高 | 闭源 |
-| Claude 系列 | Anthropic | 长文本、代码、Agent 工具调用能力强 | 较高 | 闭源 |
-| Gemini | Google | 多模态、超长上下文，与 Google 搜索和文档整合好 | 有免费额度 | 闭源 |
-| DeepSeek | 深度求索 | 中文理解好，推理和代码能力强，API 成本低 | 低 | 部分开源 |
-| Qwen（通义千问） | 阿里 | 中文强，开源生态好，适合中文场景 | 低/开源部署 | 开源 |
-| Llama | Meta | 开源权重，可本地部署，适合学习开源生态 | 需要硬件 | 开源 |
+| GPT-4o / GPT-5 系列 | OpenAI | 综合能力强，多模态，生态和插件丰富 | 订阅或 API 按量，Plus/Pro 与 API 单价都偏高 | 闭源 |
+| Claude 系列 | Anthropic | 长文本、代码、Agent 工具调用能力强 | 订阅或 API 按量，较高 | 闭源 |
+| Gemini | Google | 多模态、超长上下文，与 Google 搜索和文档整合好 | 有免费额度，付费订阅或 API 按量 | 闭源 |
+| DeepSeek | 深度求索 | 中文理解好，推理和代码能力强，API 成本低 | 网页/App 免费，API 按量且价格低，本课程默认 | 部分开源 |
+| Qwen（通义千问） | 阿里 | 中文强，开源生态好，适合中文场景 | 开源可自部署；API 按量，价格较低 | 开源 |
+| Llama | Meta | 开源权重，可本地部署，适合学习开源生态 | 无统一订阅，自部署需要 GPU 或云服务器 | 开源 |
 
 对数据分析课来说，我们看重三件事：**中文提问能不能听懂、代码和推理准不准、学生自己用起来贵不贵**。DeepSeek 在这三点上比较均衡，所以本课程选它作为默认大模型。
+
+> 价格会随厂商政策变化，上表是课程整理时的参考口径，实际以 ChatGPT、Claude、Gemini、DeepSeek、Qwen、Llama 各自官网为准。课程里不需要背价格，只需要会判断“订阅费、API 费、自部署硬件费”这三类成本。
 
 ### 1.4 本课程为什么用 DeepSeek + DSH
 
