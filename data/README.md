@@ -14,7 +14,6 @@ data/
   06-merge/         第 05 周：合并与分组聚合案例
   07-modeling/      第 06/07 周：分类与回归模型案例
   08-final/         第 08 周：结课项目与展示
-  legacy/           旧数据和历史案例，不再作为主流程
 ```
 
 每个周目录内有独立的 `README.md`，说明文件、来源、字段和课堂问题。
@@ -26,12 +25,6 @@ data/
 - GitHub `selva86/datasets`：用于教学的小型经典数据集，覆盖金融、零售、电商、教育、汽车、医疗、人口、信贷、房价、客户流失等。
 - HuggingFace 国内镜像 `hf-mirror.com`：用于电信客户流失和西班牙能源时间序列。
 
-下载命令统一封装在：
-
-```bash
-python scripts/download_course_data.py
-```
-
 HuggingFace 优先使用镜像，避免国内直接访问失败。
 
 ## 许可与再分发说明
@@ -39,7 +32,6 @@ HuggingFace 优先使用镜像，避免国内直接访问失败。
 - 本课程仓库保留数据来源和文件出处，用于课堂教学、研究和学习。
 - `data/01-agent/nyc_airbnb.csv` 来源为 HuggingFace `gradio/NYC-Airbnb-Open-Data`，许可为 AFL-3.0。
 - 其余 GitHub 和 HuggingFace 数据集的原始许可以各自来源页面为准；如数据来源缺少明确许可，则只作为教学示例，不做商业再分发。
-- 旧数据统一放在 `data/legacy/`，不删除，避免破坏历史材料。
 
 ## 每周数据概览
 

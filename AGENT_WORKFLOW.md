@@ -140,7 +140,6 @@ data/05-eda-viz/
 data/06-merge/
 data/07-modeling/
 data/08-final/
-data/legacy/
 ```
 
 规则：
@@ -149,7 +148,6 @@ data/legacy/
 - 原始数据只读，不修改、不删除。
 - 清洗、分析、图表输出必须写入 `projects/<姓名>/`，不覆盖原始数据。
 - 每个数据周目录写 `README.md`，说明来源、规模、字段、许可和课堂问题。
-- 旧数据放在 `data/legacy/`，不删除。
 - 下载优先使用 HuggingFace 国内镜像 `hf-mirror.com` 或 GitHub `selva86/datasets`。
 - GitHub 资料检索、仓库浏览、`raw` 文件下载统一通过 Clash 代理 `http://127.0.0.1:7890`。
 - HuggingFace 模型、数据集和文件统一走 `hf-mirror.com` 镜像。

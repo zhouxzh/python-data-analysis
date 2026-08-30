@@ -10,5 +10,4 @@
 - 钻石价格 EDA 与可视化：`data/05-eda-viz/diamonds.csv`
 - 汽车销量合并与对比：`data/06-merge/norway_new_car_sales_by_make.csv`、`data/06-merge/norway_new_car_sales_by_model.csv`
 - 信贷、房价或银行流失预测：`data/07-modeling/` 下三个数据集
-
-学生可额外使用 `data/legacy/` 中的旧数据作为补充，但必须以新数据为主。
+- 参考项目：`data/08-final/penguins.csv`，用于演示数据审计、分组汇总和结论复盘。

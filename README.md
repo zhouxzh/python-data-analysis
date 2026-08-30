@@ -66,12 +66,9 @@ python-data-analysis/
   scripts/                 每周可直接运行的 .py 实践脚本
   prompts/                 可直接复制到 DSH 的提示词库
   dsh/                     DeepSeek Harness 使用手册与示例工作流
-  examples/                参考代码与数据生成脚本
   assignments/             结课项目与评分标准
   projects/                学生项目输出目录
   data/                    课程数据，按 01-08 周目录组织
-  data/legacy/             旧数据和历史案例
-  legacy/                  旧版教程、旧报告和旧案例
 ```
 
 ## 快速开始

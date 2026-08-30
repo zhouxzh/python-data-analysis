@@ -6,7 +6,6 @@
 
 ```text
 scripts/
-├── download_course_data.py
 ├── deploy-github-pages.ps1
 ├── 01-agent/
 │   ├── 01-python-list-loop.py
@@ -29,12 +28,11 @@ scripts/
 
 ```bash
 python scripts/01-agent/01-python-list-loop.py
-python scripts/04-viz/01-diamonds-price.py
+python scripts/04-viz/01-diamonds-histogram.py
 ```
 
-## 数据准备与部署
+## 部署
 
 | 脚本 | 用途 | 运行 |
 |---|---|---|
-| `download_course_data.py` | 下载课程数据 | `python scripts/download_course_data.py` |
 | `deploy-github-pages.ps1` | 构建并部署 GitHub Pages | `pwsh -File scripts/deploy-github-pages.ps1 -Message "..."` |
