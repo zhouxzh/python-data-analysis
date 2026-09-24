@@ -14,9 +14,7 @@ ax.set_title(f"Diamond price distribution (n={len(diamonds)})")
 ax.set_xlabel('price (USD)')
 ax.set_ylabel('count')
 fig.tight_layout()
-fig.savefig(os.path.join(out_dir, 'diamonds_price_hist.png'))
-fig.savefig(os.path.join(out_dir, 'diamonds_price_hist_dpi300.png'), dpi=300)
-fig.savefig(os.path.join(out_dir, 'diamonds_price_hist_dpi30.png'), dpi=30)
+fig.savefig(os.path.join(out_dir, 'diamonds_price_hist.png'), dpi=300)
 plt.close(fig)
 
 # 箱线图：按 cut 分类对比
@@ -28,6 +26,7 @@ ax.set_ylabel('price (USD)')
 fig.suptitle('')
 fig.tight_layout()
 fig.savefig(os.path.join(out_dir, 'diamonds_price_by_cut.png'), dpi=300)
+fig.savefig(os.path.join(out_dir, 'diamonds_price_by_cut_dpi300.png'), dpi=30)
 plt.close(fig)
 
 print('图表已保存到:', out_dir)
