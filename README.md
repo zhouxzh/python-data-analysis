@@ -100,6 +100,8 @@ python scripts/01-agent/02-read-airbnb.py
 
 ## 期末报告与评分
 
+报告示例：[葡萄酒品质数据分析报告.pdf](reports/葡萄酒品质数据分析报告.pdf)。
+
 总评成绩 = 平时分 40% + 期末报告 60%。
 
 期末报告要求：
